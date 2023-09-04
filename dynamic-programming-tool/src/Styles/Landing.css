@@ -1,0 +1,75 @@
+.landing-logo{
+    position: relative;
+    top: 5%;
+    z-index: 1;
+    object-fit: cover;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    float: left;
+    text-shadow: #000080;
+    font-size: 200%;
+    font-weight: bold;
+  }
+  
+  .login-page .bc-logo, .home-page .bc-logo{
+    left: 5%;
+  }
+
+  .landing{
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%; 
+    margin: 0;
+    padding: 0;
+  }
+  
+  .landing::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(6, 6, 94, 0.911); 
+    z-index: 1;
+  }
+  
+  .landing-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+  .landing-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .home-heads{
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    text-decoration: none;
+    bottom: 30%;
+    width: 100%;
+    z-index: 2;
+  }
+  
+  .home-head1{
+    font-size: 600%;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .home-head2{
+    text-decoration: none;
+    color: rgb(199, 197, 193);
+    /* color:rgb(31, 29, 153) */
+  }
