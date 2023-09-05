@@ -34,7 +34,7 @@
     flex-direction: column;
     width: 600px;
     height: 100%;
-    background-color: #e4e008;
+    background-color: #23AE9A;
 }
 
 .home-main-container {
@@ -50,7 +50,7 @@
 .home-button{
     width: 20%;
     height: 50px;
-    background-color: #e4e008;
+    background-color: #23AE9A;
     border: 1px solid;
     border-radius: 2px;
     margin-top: 75px;
@@ -59,7 +59,7 @@
 }
 
 .home-button:hover{
-    background-color: #d1d41c;
+    background-color: #1C8878;
 }
 
 .home-side-container p{
@@ -127,12 +127,12 @@
 
 .title{
     font-size: 35px;
-    color: #e4e008;
+    color: #23AE9A;
 }
 
 .subtitle{
     font-size: 20px;
-    color: #e4e008;
+    color: #23AE9A;
 }
 
 .headerTitles{

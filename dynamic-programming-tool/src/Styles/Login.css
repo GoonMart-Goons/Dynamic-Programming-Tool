@@ -34,9 +34,9 @@
 .login-button{
     width: 103.5%;
     height: 30px;
-    background-color: #e4e008;
+    background-color: #23AE9A;
     border: 1px solid;
-    border-color: #a88734 #9c7e31 #846a29;
+    /*border-color: #a88734 #9c7e31 #846a29;*/
     border-radius: 2px;
     margin-top: 10px;
     cursor: pointer;
@@ -44,7 +44,7 @@
 }
 
 .login-button:hover{
-    background-color: #d1d41c;
+    background-color: #1C8878;
 }
 
 .login-container p{
