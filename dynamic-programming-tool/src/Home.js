@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
@@ -6,7 +6,32 @@ import profilePic from './Images/profile.png';
 import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
 
+import { db } from './firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
 function Home(){
+    const [studentData, setStudentData] = useState(null);
+
+    useEffect(() => {
+        const fetchStudentData = async () => {
+        const studentsRef = collection(db, 'Students');
+        const q = query(studentsRef, where('CourseCode', '==', 'TEST101'));
+
+        try {
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+            const firstStudent = querySnapshot.docs[0].data();
+            setStudentData(firstStudent);
+            }
+        } catch (error) {
+            console.error('Error fetching student data: ', error);
+        }
+    };
+
+    fetchStudentData();
+  }, []);
+
+
     return(
         <div className="home">
             <div className="home-logo-container">
@@ -24,8 +49,12 @@ function Home(){
                         <div className="profile-container">
                             <img className="profile-pic" src = {profilePic}/>
                             <div className="profile-details-container">
-                                <h1>Tek Seven</h1>
-                                <h3>detektiv57@gmail.com</h3>
+                            {studentData && (
+                                <>
+                                <h1>{studentData.Name}</h1>
+                                <h3>{studentData.Email}</h3>
+                                </>
+                            )}
                             </div>
                         </div>
                     <b>Achievements:</b>
