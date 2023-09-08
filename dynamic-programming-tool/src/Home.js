@@ -5,8 +5,12 @@ import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
+import { useNavigate } from "react-router-dom";
 
 function Home(){
+
+    const navigate = useNavigate();
+    
     return(
         <div className="home">
             <div className="home-logo-container">
@@ -46,7 +50,7 @@ function Home(){
                 <div className="home-main-container">
                     <h1>Practice</h1>
                     <button type = "submit" className = "home-button">Introduction</button>
-                    <button type = "submit" className = "home-button">Top-down Approach</button>
+                    <button type = "submit" className = "home-button" onClick = {() => navigate('/topdown')}>Top-down Approach</button>
                     <button type = "submit" className = "home-button">Bottom-up Approach</button>
                     <button type = "submit" className = "home-button">Final Test</button>
                 </div>
