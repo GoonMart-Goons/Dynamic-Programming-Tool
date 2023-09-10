@@ -1,0 +1,80 @@
+.register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    height: 100vh;
+    background-color: rgb(240, 241, 235);
+}
+
+.register-logo{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 575px;
+    padding: 25px;
+    margin-bottom: 50px;
+    background-color: rgba(6, 6, 94, 0.911);
+    color: white;
+    border: 1px solid rgb(73, 72, 72);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.register-button{
+    width: 103.5%;
+    height: 30px;
+    background-color: #23AE9A;
+    border: 1px solid;
+    /*border-color: #a88734 #9c7e31 #846a29;*/
+    border-radius: 2px;
+    margin-top: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.register-button:hover{
+    background-color: #1C8878;
+}
+
+.register-container p{
+    font-size: 10px;
+    margin-top: 15px;
+    padding-left:30px ;
+    padding-right:18px ;
+}
+
+.register-container > h1{
+    font-weight: 200;
+    margin-bottom: 40px;
+}
+
+.register-container > form > h5{
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.register-container > form > input{
+    height: 30px;
+    width: 98%;
+    margin-bottom: 15px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    padding-left: 10px;
+    background-color: white;
+}
+
+.register-dropdown{
+    margin-bottom: 10px;
+    font-weight: 400;
+}
