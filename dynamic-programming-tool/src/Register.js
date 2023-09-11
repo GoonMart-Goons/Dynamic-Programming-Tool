@@ -16,8 +16,8 @@ const validationSchema = Yup.object().shape({
         .required("Last name is required")
         .matches(/^[A-Za-z]+$/, "Last name should not contain numbers"),
     studentEmail: Yup.string()
-        .required("Student email is required")
-        .email("Invalid student email address"),
+        .required("Email is required")
+        .email("Invalid email address"),
     password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
@@ -92,13 +92,13 @@ function Register() {
                     />
 
 
-                    <div className="title-error"><h5>STUDENT EMAIL</h5>
+                    <div className="title-error"><h5>EMAIL</h5>
                         {formik.touched.studentEmail && formik.errors.studentEmail ? (
                             <div className="error-message">{formik.errors.studentEmail}</div>
                         ) : null}</div>
                     <input
                         type="text"
-                        placeholder="Enter your student email"
+                        placeholder="Enter your email"
                         name="studentEmail"
                         value={formik.values.studentEmail}
                         onChange={formik.handleChange}
@@ -118,7 +118,7 @@ function Register() {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                     />
-                    
+
 
 
 
