@@ -54,15 +54,15 @@ function Login() {
                     onSubmit={handleSubmit}
                 >
                     <Form>
-                        <label htmlFor="studentNumber">Student Number</label>
+                        <label htmlFor="studentNumber">STUDENT NUMBER</label>
                         <div>
-                            <Field type="text" id="studentNumber" className="login-field" name="studentNumber"/>
+                            <Field type="text" id="studentNumber" className="login-field" name="studentNumber" placeholder="Enter your student number"/>
                             <ErrorMessage name="studentNumber" className="login-errMsg" component="div"/>
                         </div>
 
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">PASSWORD</label>
                         <div>
-                            <Field type="password" className="login-field" name="password" />
+                            <Field type="password" className="login-field" name="password" placeholder="Enter your password"/>
                             <ErrorMessage name="password" className="login-errMsg" component="div"/>
                         </div>
                         
