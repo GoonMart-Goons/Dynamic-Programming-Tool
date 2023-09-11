@@ -15,9 +15,9 @@ const validationSchema = Yup.object().shape({
     lastName: Yup.string()
         .required("Last name is required")
         .matches(/^[A-Za-z]+$/, "Last name should not contain numbers"),
-    studentNumber: Yup.string()
-        .required("Student number is required")
-        .matches(/^[0-9]+$/, "Student number should only contain numbers"),
+    studentEmail: Yup.string()
+        .required("Email is required")
+        .email("Invalid email address"),
     password: Yup.string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
@@ -42,7 +42,7 @@ function Register() {
         initialValues: {
             firstName: "",
             lastName: "",
-            studentNumber: "",
+            studentEmail: "",
             password: "",
             courseCode: "",
             role: "student",
@@ -92,15 +92,15 @@ function Register() {
                     />
 
 
-                    <div className="title-error"><h5>STUDENT NUMBER</h5>
-                        {formik.touched.studentNumber && formik.errors.studentNumber ? (
-                            <div className="error-message">{formik.errors.studentNumber}</div>
+                    <div className="title-error"><h5>EMAIL</h5>
+                        {formik.touched.studentEmail && formik.errors.studentEmail ? (
+                            <div className="error-message">{formik.errors.studentEmail}</div>
                         ) : null}</div>
                     <input
                         type="text"
-                        placeholder="Enter your student number"
-                        name="studentNumber"
-                        value={formik.values.studentNumber}
+                        placeholder="Enter your email"
+                        name="studentEmail"
+                        value={formik.values.studentEmail}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                     />
@@ -120,19 +120,6 @@ function Register() {
                     />
 
 
-                    <div className="title-error"><h5>COURSE CODE</h5>
-                        {formik.touched.courseCode && formik.errors.courseCode ? (
-                            <div className="error-message">{formik.errors.courseCode}</div>
-                        ) : null}</div>
-                    <input
-                        type="text"
-                        placeholder="Enter your course code"
-                        name="courseCode"
-                        value={formik.values.courseCode}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-
 
 
                     {/* Role dropdown */}
@@ -148,8 +135,6 @@ function Register() {
                     >
                         <option value="student">Student</option>
                         <option value="admin">Admin</option>
-                        <option value="tutor">Tutor</option>
-                        <option value="lecturer">Lecturer</option>
                     </select>
                     {formik.touched.role && formik.errors.role ? (
                         <div className="error-message">{formik.errors.role}</div>
