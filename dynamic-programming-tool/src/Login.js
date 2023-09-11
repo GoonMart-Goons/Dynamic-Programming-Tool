@@ -20,7 +20,7 @@ function Login() {
             .length(7, 'Student number must be 7 digits.'),
         password: Yup.string()
             .required('Password is required')
-            .matches(/^\d{8}$/, 'Password number must be at least 8 characters.'),
+            .min(8, 'Password must be at least 8 characters.'),
     })
 
     const handleSubmit = (e) => {
