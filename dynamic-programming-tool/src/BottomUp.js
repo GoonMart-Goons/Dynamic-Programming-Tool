@@ -5,7 +5,7 @@ import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
 
-function TopDown(){
+function BottomUp(){
     return(
         <div className="top-down">
             <div className="top-down-logo-container">
@@ -13,7 +13,7 @@ function TopDown(){
                     <img className="top-down-logo" src = {dpLogo} alt = "logo" />
                 </Link>
                 <div className="headerTitles">
-                    <h1 className="title">Top-Down</h1>
+                    <h1 className="title">Bottom-Up</h1>
                 </div>
             </div>
 
@@ -42,4 +42,4 @@ function TopDown(){
     );
 }
 
-export default TopDown;
+export default BottomUp;
