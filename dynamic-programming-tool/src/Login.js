@@ -14,10 +14,9 @@ function Login() {
     
     //For validation
     const validationSchema = Yup.object().shape({
-        studentNumber: Yup.string()
-            .required('Student number is required')
-            .matches(/^[0-9]+$/, 'Student number must consist of numbers only.')
-            .length(7, 'Student number must be 7 digits.'),
+        email: Yup.string()
+            .required('Email is required.')
+            .email('Invalid email format.'),
         password: Yup.string()
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters.'),
@@ -49,15 +48,15 @@ function Login() {
             <div className = "login-container">
                 <h1>Login to DP World</h1>
                 <Formik
-                    initialValues={{ studentNumber: "", password: "" }}
+                    initialValues={{ email: "", password: "" }}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
                     <Form>
-                        <label htmlFor="studentNumber">STUDENT NUMBER</label>
+                        <label htmlFor="email">EMAIL</label>
                         <div>
-                            <Field type="text" id="studentNumber" className="login-field" name="studentNumber" placeholder="Enter your student number"/>
-                            <ErrorMessage name="studentNumber" className="login-errMsg" component="div"/>
+                            <Field type="text" id="email" className="login-field" name="email" placeholder="Enter your email address"/>
+                            <ErrorMessage name="email" className="login-errMsg" component="div"/>
                         </div>
 
                         <label htmlFor="password">PASSWORD</label>
