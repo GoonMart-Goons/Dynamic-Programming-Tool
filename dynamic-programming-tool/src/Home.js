@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
+import { useNavigate } from "react-router-dom";
+
+import { db } from './firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 function Home(){
+    const [studentData, setStudentData] = useState(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchStudentData = async () => {
+        const studentsRef = collection(db, 'Students');
+        const q = query(studentsRef, where('CourseCode', '==', 'TEST101'));
+
+        try {
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+            const firstStudent = querySnapshot.docs[0].data();
+            setStudentData(firstStudent);
+            }
+        } catch (error) {
+            console.error('Error fetching student data: ', error);
+        }
+    };
+
+    fetchStudentData();
+  }, []);
+
+
     return(
         <div className="home">
             <div className="home-logo-container">
@@ -24,8 +52,12 @@ function Home(){
                         <div className="profile-container">
                             <img className="profile-pic" src = {profilePic}/>
                             <div className="profile-details-container">
-                                <h1>Tek Seven</h1>
-                                <h3>detektiv57@gmail.com</h3>
+                            {studentData && (
+                                <>
+                                <h1>{studentData.Name}</h1>
+                                <h3>{studentData.Email}</h3>
+                                </>
+                            )}
                             </div>
                         </div>
                     <b>Achievements:</b>
@@ -45,9 +77,9 @@ function Home(){
                 </div>
                 <div className="home-main-container">
                     <h1>Practice</h1>
-                    <button type = "submit" className = "home-button">Introduction</button>
-                    <button type = "submit" className = "home-button">Top-down Approach</button>
-                    <button type = "submit" className = "home-button">Bottom-up Approach</button>
+                    <button type = "submit" className = "home-button" onClick= {() => navigate('/introduction')}>Introduction</button>
+                    <button type = "submit" className = "home-button" onClick= {() => navigate('/topdown')}>Top-down Approach</button>
+                    <button type = "submit" className = "home-button" onClick= {() => navigate('/bottomup')}>Bottom-up Approach</button>
                     <button type = "submit" className = "home-button">Final Test</button>
                 </div>
             </div>
