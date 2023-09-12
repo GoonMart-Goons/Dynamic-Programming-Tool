@@ -4,18 +4,20 @@ import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
+import Navbar from "./Navbar";
 
 function BottomUp(){
     return(
         <div className="top-down">
-            <div className="top-down-logo-container">
-                <Link to = "/">
-                    <img className="top-down-logo" src = {dpLogo} alt = "logo" />
-                </Link>
-                <div className="headerTitles">
-                    <h1 className="title">Bottom-Up</h1>
-                </div>
-            </div>
+            {/*<div className="top-down-logo-container">*/}
+            {/*    <Link to = "/">*/}
+            {/*        <img className="top-down-logo" src = {dpLogo} alt = "logo" />*/}
+            {/*    </Link>*/}
+            {/*    <div className="headerTitles">*/}
+            {/*        <h1 className="title">Bottom-Up</h1>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <Navbar placeholder=""></Navbar>
 
             <div className="top-down-container">
                 <div className="top-down-side-container">
