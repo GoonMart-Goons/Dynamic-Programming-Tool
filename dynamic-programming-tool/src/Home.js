@@ -6,9 +6,15 @@ import profilePic from './Images/profile.png';
 import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
 import { useNavigate } from "react-router-dom";
-
+import '@coreui/coreui/dist/css/coreui.min.css'
 import { db } from './firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import {
+    CButton,
+    CContainer, CDropdown, CDropdownDivider, CDropdownItem, CDropdownMenu, CDropdownToggle,
+    CNavbar,
+    CNavbarBrand,
+} from "@coreui/react";
 
 function Home(){
     const [studentData, setStudentData] = useState(null);
@@ -37,15 +43,40 @@ function Home(){
 
     return(
         <div className="home">
-            <div className="home-logo-container">
-                <Link to = "/">
-                    <img className="home-logo" src = {dpLogo} alt = "logo" />
-                </Link>
-                <div className="headerTitles">
-                    <h1 className="title">Dynamic Programming Bootcamp</h1>
-                    <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
-                </div>
-            </div>
+            {/*<div className="home-logo-container">*/}
+            {/*    <Link to = "/">*/}
+            {/*        <img className="home-logo" src = {dpLogo} alt = "logo" />*/}
+            {/*    </Link>*/}
+            {/*    <div className="headerTitles">*/}
+            {/*        <h1 className="title">Dynamic Programming Bootcamp</h1>*/}
+            {/*        <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <>
+                <CNavbar expand="lg" colorScheme="dark" className="home-logo-container">
+                    <CContainer fluid>
+                        <CNavbarBrand href="/home">
+                            <img
+                                src={dpLogo}
+                                alt=""
+                                width="175"
+                                height="98"
+                                className="d-inline-block align-top"
+                            />
+
+                        </CNavbarBrand>
+                        <CContainer className="headerTitles"><h1 className="title">Dynamic Programming Bootcamp</h1>
+                            <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
+                        </CContainer>
+                        <div className="signOut" >
+                            <CButton href="/" type="button" color="light" >
+                                Sign Out
+                            </CButton>
+                        </div>
+
+                    </CContainer>
+                </CNavbar>
+            </>
 
             <div className="home-container">
                 <div className="home-side-container">
