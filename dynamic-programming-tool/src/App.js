@@ -6,7 +6,9 @@ import TopDown from './TopDown';
 import BottomUp from './BottomUp';
 import Register from './Register';
 import Introduction from './Introduction';
+import Navbar from "./Navbar";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
           <Route path="/bottomup" element={<BottomUp />}/>
           <Route path="/register" element={<Register />}/>
           <Route path="/introduction" element={<Introduction />}/>
+          <Route path="/navbar" element={<Navbar/>}/>
         </Routes>
       </div>
     </Router>
