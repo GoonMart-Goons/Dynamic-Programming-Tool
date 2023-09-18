@@ -13,7 +13,7 @@ function Introduction(){
                     <img className="top-down-logo" src = {dpLogo} alt = "logo" />
                 </Link>
                 <div className="headerTitles">
-                    <h1 className="title">Bottom-Up</h1>
+                    <h1 className="title">Introduction</h1>
                 </div>
             </div>
 
