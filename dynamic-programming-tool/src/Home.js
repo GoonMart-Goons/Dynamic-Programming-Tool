@@ -69,7 +69,7 @@ function Home(){
                             <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
                         </CContainer>
                         <div className="signOut" >
-                            <CButton href="/" type="button" color="light" >
+                            <CButton className="navLink" href="/" type="button" color="success" variant="ghost">
                                 Sign Out
                             </CButton>
                         </div>
