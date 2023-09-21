@@ -14,14 +14,14 @@ function Navbar({placeholder}){
 
     return (
         <>
-            <CNavbar className="nav" expand="lg" colorScheme="light" >
+            <CNavbar className="nav" expand="lg" colorScheme="dark" >
                 <CContainer fluid>
-                    <CNavbarBrand href="/home">
+                    <CNavbarBrand className="navLogo" href="/home">
                         <img
                             src={dpLogo}
                             alt=""
-                            width="175"
-                            height="98"
+                            width="199.5"
+                            height="111.72"
                             className="d-inline-block align-top"
                         />
                         <h1>{placeholder}</h1>
@@ -32,27 +32,28 @@ function Navbar({placeholder}){
                         aria-expanded={visible}
                         onClick={() => setVisible(!visible)}
                     />
-                    <CCollapse className="navbar-collapse" visible={visible}>
+                    <CCollapse  className="navbar-collapse" visible={visible} fluid>
                         <CNavbarNav>
                             <CNavItem>
                                 <CNavLink className="navLink" href="/home" active={isActive(["/home"])}>
-                                    Home
+                                    HOME
                                 </CNavLink>
                             </CNavItem>
                             <CNavItem>
-                                <CNavLink className="navLink" href="/introduction" active={isActive(["/introduction"])}>Introduction</CNavLink>
+                                <CNavLink className="navLink" href="/introduction"  active={isActive(["/introduction"])}>INTRODUCTION</CNavLink>
                             </CNavItem>
-                            <CDropdown variant="nav-item" popper={false} active={isActive(["/topdown","/bottomup"])}>
-                                <CDropdownToggle className="navLink" >Exercise List</CDropdownToggle>
-                                <CDropdownMenu>
-                                    <CDropdownItem href="/topdown" active={isActive(["/topdown"])}>Top-down Approach</CDropdownItem>
-                                    <CDropdownItem href="bottomup" active={isActive(["/bottomup"])}>Bottom-up Approach</CDropdownItem>
-                                    <CDropdownDivider />
-                                    <CDropdownItem href="#" active={isActive(["/finaltest"])}>Final Test</CDropdownItem>
-                                </CDropdownMenu>
-                            </CDropdown>
+                            <CNavItem>
+                                <CNavLink className="navLink" href="/topdown"  active={isActive(["/topdown"])}>TOP-DOWN APPROACH</CNavLink>
+                            </CNavItem>
+                            <CNavItem>
+                                <CNavLink className="navLink" href="/bottomup"  active={isActive(["/bottomup"])}>BOTTOM-UP APPROACH</CNavLink>
+                            </CNavItem>
+                            <CNavItem>
+                                <CNavLink className="navLink" href="#"  active={isActive(["/finaltest"])}>FINAL TEST</CNavLink>
+                            </CNavItem>
+
                             <CButton className="navLink" href="/" type="button" color="success" variant="ghost">
-                                Sign Out
+                                SIGN UP
                             </CButton>
                         </CNavbarNav>
                     </CCollapse>

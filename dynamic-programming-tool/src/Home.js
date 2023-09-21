@@ -53,14 +53,14 @@ function Home(){
             {/*    </div>*/}
             {/*</div>*/}
             <>
-                <CNavbar expand="lg" colorScheme="dark" className="home-logo-container">
+                <CNavbar expand="lg" colorScheme="dark" className="nav">
                     <CContainer fluid>
-                        <CNavbarBrand href="/home">
+                        <CNavbarBrand className="navLogo" href="/home">
                             <img
                                 src={dpLogo}
                                 alt=""
-                                width="175"
-                                height="98"
+                                width="199.5"
+                                height="111.72"
                                 className="d-inline-block align-top"
                             />
 
