@@ -53,7 +53,7 @@ function Navbar({placeholder}){
                             </CNavItem>
 
                             <CButton className="navLink" href="/" type="button" color="success" variant="ghost">
-                                SIGN UP
+                                SIGN OUT
                             </CButton>
                         </CNavbarNav>
                     </CCollapse>
