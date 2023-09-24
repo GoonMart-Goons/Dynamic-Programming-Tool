@@ -22,7 +22,6 @@ function App() {
           <Route path="/bottomup" element={<BottomUp />}/>
           <Route path="/register" element={<Register />}/>
           <Route path="/introduction" element={<Introduction />}/>
-          <Route path="/navbar" element={<Navbar/>}/>
         </Routes>
       </div>
     </Router>

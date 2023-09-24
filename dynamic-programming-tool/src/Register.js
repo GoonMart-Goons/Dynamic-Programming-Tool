@@ -25,13 +25,7 @@ const validationSchema = Yup.object().shape({
         .matches(/[a-z]/, "Password must contain at least one lowercase letter")
         .matches(/\d/, "Password must contain at least one digit")
         .matches(/[!@#$%^&*()_+]/, "Password must contain at least one special character"),
-    courseCode: Yup.string()
-        .required("Course code is required")
-        .matches(/^[A-Z]{4}\d{4}$/, "Course code should be in the format: COMS3007"),
     role: Yup.string().required("Role is required"),
-    email: Yup.string()
-        .required("Email is required")
-        .email("Invalid email address"),
 });
 
 
@@ -44,11 +38,10 @@ function Register() {
             lastName: "",
             studentEmail: "",
             password: "",
-            courseCode: "",
             role: "student",
         },
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: values => {
             // Handle form submission
             console.log(values); //log the form values
             navigate("/login");
@@ -69,6 +62,7 @@ function Register() {
                         <div className="error-message">{formik.errors.firstName}</div>
                     ) : null} </div>
                     <input
+                        id="firstName"
                         type="text"
                         placeholder="Enter your firstname"
                         name="firstName"
@@ -83,6 +77,7 @@ function Register() {
                            <div className="error-message">{formik.errors.lastName}</div>
                        ) : null} </div>
                     <input
+                        id="lastName"
                         type="text"
                         placeholder="Enter your lastname"
                         name="lastName"
@@ -97,6 +92,7 @@ function Register() {
                             <div className="error-message">{formik.errors.studentEmail}</div>
                         ) : null}</div>
                     <input
+                        id="studentEmail"
                         type="text"
                         placeholder="Enter your email"
                         name="studentEmail"
@@ -111,6 +107,7 @@ function Register() {
                             <div className="error-message">{formik.errors.password}</div>
                         ) : null} </div>
                     <input
+                        id="password"
                         type="password"
                         placeholder="Enter your password"
                         name="password"
@@ -127,7 +124,7 @@ function Register() {
                         Select your role:
                     </label>
                     <select
-                        id="dropdown"
+                        id="role"
                         name="role"
                         value={formik.values.role}
                         onChange={formik.handleChange}
