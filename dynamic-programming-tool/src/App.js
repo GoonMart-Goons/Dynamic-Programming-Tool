@@ -7,24 +7,27 @@ import BottomUp from './BottomUp';
 import Register from './Register';
 import Introduction from './Introduction';
 import Navbar from "./Navbar";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from "./Auth";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/topdown" element={<TopDown />} />
-          <Route path="/bottomup" element={<BottomUp />}/>
-          <Route path="/register" element={<Register />}/>
-          <Route path="/introduction" element={<Introduction />}/>
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<PrivateRoute element={Home} />} />
+            <Route path="/topdown" element={<PrivateRoute element={TopDown} />} />
+            <Route path="/bottomup" element={<PrivateRoute element={BottomUp} />} />
+            <Route path="/introduction" element={<PrivateRoute element={Introduction} />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

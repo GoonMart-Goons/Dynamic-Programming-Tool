@@ -6,7 +6,10 @@ import "./Styles/Register.css";
 import dpLogo from './Images/dp2.png';
 import { useNavigate } from "react-router-dom";
 
-
+//Database
+import { auth, db } from './firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore'
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -44,9 +47,36 @@ function Register() {
         onSubmit: values => {
             // Handle form submission
             console.log(values); //log the form values
-            navigate("/login");
+            createUserWithEmailAndPassword(auth, values.studentEmail, values.password)
+            //navigate('/login');
+            .then((userCredential) => {
+                addToDB(userCredential, values.firstName, values.lastName, values.studentEmail, values.role);
+                alert('Registered successfully! Please sign in');
+                //setTimeout(() => {
+                    navigate('/login'); // navigate to the HOME page
+                    //}, 4000);
+            }).catch((error) => {
+                alert("Failed to register: " + error.messsage);
+            })
         },
     });
+
+    //adds user's data to db for lookup purposes
+    async function addToDB(userCredential, firstName, lastName, studentEmail, role){
+        setDoc(doc(db, 'Students', userCredential.user.uid), {
+          Name: firstName,
+          Surname: lastName,
+          Email: studentEmail,
+          Role: role
+        })
+        .then((docRef) => {
+          //console.log("Doc written with ID: ", docRef.id)
+        })
+        .catch((error) => {
+          //console.error("Error adding doc: ", error)
+        })
+      }
+
     return (
         <div className="register">
             <Link to="/">

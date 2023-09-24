@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
@@ -7,38 +7,53 @@ import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import '@coreui/coreui/dist/css/coreui.min.css'
-import { db } from './firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db, auth } from './firebase';
+import { doc,  getDoc } from 'firebase/firestore';
 import {
     CButton,
     CContainer, CDropdown, CDropdownDivider, CDropdownItem, CDropdownMenu, CDropdownToggle,
     CNavbar,
     CNavbarBrand,
 } from "@coreui/react";
+import { AuthContext } from "./Auth";
 
 function Home(){
     const [studentData, setStudentData] = useState(null);
 
+    //const loggedInUserID = sessionStorage.getItem('loggedInUserID');
+
     const navigate = useNavigate();
+
+    const {currentUser} = useContext(AuthContext);
+    //console.log("current User Home: ", currentUser);
+    //console.log("Home UID: ", currentUser.uid);
 
     useEffect(() => {
         const fetchStudentData = async () => {
-        const studentsRef = collection(db, 'Students');
-        const q = query(studentsRef, where('CourseCode', '==', 'TEST101'));
+        const studentRef = doc(db, 'Students',  currentUser.uid);
+        //const q = query(studentsRef, where('id', '==', loggedInUserID));
 
-        try {
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
-            const firstStudent = querySnapshot.docs[0].data();
-            setStudentData(firstStudent);
+        getDoc(studentRef)
+        .then((docSnapshot) => {
+            if (docSnapshot.exists()) {
+            // Document exists, access its data using docSnapshot.data()
+            setStudentData(docSnapshot.data());
+            console.log('Doc Snapshot:', docSnapshot.data());
+            //console.log('Student Data:', studentData);
+            } else {
+            // Document does not exist
+            console.log('Student not found.');
             }
-        } catch (error) {
-            console.error('Error fetching student data: ', error);
-        }
+        })
+        .catch((error) => {
+            console.error('Error accessing Firestore document:', error);
+        });
     };
 
     fetchStudentData();
   }, []);
+
+  //console.log('Student Data2:', studentData);
 
 
     return(
@@ -69,7 +84,7 @@ function Home(){
                             <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
                         </CContainer>
                         <div className="signOut" >
-                            <CButton className="navLink" href="/" type="button" color="success" variant="ghost">
+                            <CButton className="navLink" href="/" onClick={() => auth.signOut()} type="button" color="success" variant="ghost">
                                 Sign Out
                             </CButton>
                         </div>
@@ -85,7 +100,7 @@ function Home(){
                             <div className="profile-details-container">
                             {studentData && (
                                 <>
-                                <h1>{studentData.Name}</h1>
+                                <h1>{studentData.Name} {studentData.Surname}</h1>
                                 <h3>{studentData.Email}</h3>
                                 </>
                             )}

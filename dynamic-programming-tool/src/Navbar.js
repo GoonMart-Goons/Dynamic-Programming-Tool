@@ -5,6 +5,7 @@ import '@coreui/coreui/dist/css/coreui.min.css'
 import dpLogo from './Images/dp2.png';
 import { Link, useLocation } from "react-router-dom";
 import "./Styles/TopDown.css";
+import {app, auth} from "./firebase";
 
 
 function Navbar({placeholder}){
@@ -52,7 +53,7 @@ function Navbar({placeholder}){
                                 <CNavLink className="navLink" href="#"  active={isActive(["/finaltest"])}>FINAL TEST</CNavLink>
                             </CNavItem>
 
-                            <CButton className="navLink" href="/" type="button" color="success" variant="ghost">
+                            <CButton className="navLink" onClick={() => auth.signOut()} href="/" type="button" color="success" variant="ghost">
                                 SIGN OUT
                             </CButton>
                         </CNavbarNav>
