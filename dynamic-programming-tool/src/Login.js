@@ -13,29 +13,6 @@ import * as Yup from 'yup'
 import { auth, db } from './firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from "./Auth";
-import { collection, query, where, getDocs } from 'firebase/firestore';
-
-// Allows us to access the logged in user's ID from any page 
-export let loggedInUserID
-
-//Gets the user's ID by querying with their email
-async function getUserIdByEmail(email){
-    try{
-      const usersRef = collection(db, "Students")
-      const q = await getDocs(query(usersRef, where("Email", "==", email)))
-  
-      if(q.empty){
-        loggedInUserID = null
-        return
-      }
-      loggedInUserID = q.docs[0].id
-      sessionStorage.setItem("loggedInUserID", q.docs[0].id)
-      console.log("User's ID:", loggedInUserID)
-    } catch(error){
-      console.error("Error trying to get User ID:", error)
-      loggedInUserID = null
-    }
-  }
 
 function Login() {
     const navigate = useNavigate();
@@ -69,32 +46,15 @@ function Login() {
             
             .then((userCredential) => {
                 console.log("UserCredential: ", userCredential.user.uid)
-                //getUserIdByEmail(e.email)
-                //.then(() => {
-                //if(loggedInUserID){
-                    //console.log("User ID:", loggedInUserID)
-                    //console.log("UserCredential ", userCredential.user)
-                    alert('Signed in successfully')
-                    navigate('/home'); // navigate to the HOME pag
-                //} 
-                //})
-                //.catch(error => {
-                //console.log("Error:", error)
-                //})
-                 //delay for 2 seconds (2000 milliseconds)
+                alert('Signed in successfully')
+                navigate('/home'); 
+
             }).catch((error) => {
-                //console.log("Failed to login: ", error)
                 alert('Failed to login: ' + error.message);
-                
             })
             
         }
     }
-
-    //const {currentUser} = useContext(AuthContext);
-    //if(currentUser){
-    //    return <Link to="/home"/>;
-   // }
 
     return (
         <div className = "login">

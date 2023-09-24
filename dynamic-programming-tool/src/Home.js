@@ -20,40 +20,33 @@ import { AuthContext } from "./Auth";
 function Home(){
     const [studentData, setStudentData] = useState(null);
 
-    //const loggedInUserID = sessionStorage.getItem('loggedInUserID');
-
     const navigate = useNavigate();
 
     const {currentUser} = useContext(AuthContext);
-    //console.log("current User Home: ", currentUser);
-    //console.log("Home UID: ", currentUser.uid);
-
+    
     useEffect(() => {
         const fetchStudentData = async () => {
-        const studentRef = doc(db, 'Students',  currentUser.uid);
-        //const q = query(studentsRef, where('id', '==', loggedInUserID));
+            const studentRef = doc(db, 'Students',  currentUser.uid);
 
-        getDoc(studentRef)
-        .then((docSnapshot) => {
-            if (docSnapshot.exists()) {
-            // Document exists, access its data using docSnapshot.data()
-            setStudentData(docSnapshot.data());
-            console.log('Doc Snapshot:', docSnapshot.data());
-            //console.log('Student Data:', studentData);
-            } else {
-            // Document does not exist
-            console.log('Student not found.');
-            }
-        })
-        .catch((error) => {
-            console.error('Error accessing Firestore document:', error);
-        });
-    };
+            getDoc(studentRef)
+            .then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                // Document exists, access its data using docSnapshot.data()
+                setStudentData(docSnapshot.data());
+                //console.log('Doc Snapshot:', docSnapshot.data());
+                //console.log('Student Data:', studentData);
+                } else {
+                // Document does not exist
+                console.log('Student not found.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error accessing Firestore document:', error);
+            });
+        };
 
-    fetchStudentData();
-  }, []);
-
-  //console.log('Student Data2:', studentData);
+        fetchStudentData();
+    }, []);
 
 
     return(
