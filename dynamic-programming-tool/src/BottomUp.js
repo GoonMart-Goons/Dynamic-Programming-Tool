@@ -4,7 +4,7 @@ import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
 
 function BottomUp(){
     return(

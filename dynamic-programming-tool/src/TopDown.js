@@ -4,9 +4,13 @@ import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
+import GraphView from "./Components/graph";
+import { useNavigate } from "react-router-dom";
 
 function TopDown(){
+
+    const navigate = useNavigate();
     return(
         <div className="top-down">
             {/*<div className="top-down-logo-container">*/}
@@ -28,10 +32,10 @@ function TopDown(){
                                 <h3>detektiv57@gmail.com</h3>
                             </div>
                         </div>
-                    <button type = "submit" className = "top-down-button">Easy</button>
-                    <button type = "submit" className = "top-down-button">Medium</button>
-                    <button type = "submit" className = "top-down-button">Hard</button>
-                    <button type = "submit" className = "top-down-button">Final Test</button>
+                    <button type = "submit" className = "top-down-button" onClick= {() => navigate('/topdowntest')}>Easy</button>
+                    <button type = "submit" className = "top-down-button" onClick= {() => navigate('/topdowntest')}>Medium</button>
+                    <button type = "submit" className = "top-down-button" onClick= {() => navigate('/topdowntest')}>Hard</button>
+                    <button type = "submit" className = "top-down-button" onClick= {() => navigate('/topdowntest')}>Final Test</button>
                 </div>
                 <div className="top-down-main-container">
                     <h1>General Theory</h1>

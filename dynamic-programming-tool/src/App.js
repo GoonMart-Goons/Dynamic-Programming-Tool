@@ -6,7 +6,8 @@ import TopDown from './TopDown';
 import BottomUp from './BottomUp';
 import Register from './Register';
 import Introduction from './Introduction';
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
+import TopDownTest from './TopDownTest';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" element={<Register />}/>
           <Route path="/introduction" element={<Introduction />}/>
           <Route path="/navbar" element={<Navbar/>}/>
+          <Route path="/topdowntest" element={<TopDownTest/>}/>
         </Routes>
       </div>
     </Router>

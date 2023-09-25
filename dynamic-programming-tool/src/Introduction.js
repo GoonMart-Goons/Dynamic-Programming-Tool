@@ -4,7 +4,7 @@ import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
 
 function Introduction(){
     return(
@@ -15,7 +15,7 @@ function Introduction(){
             {/*    </Link>*/}
             {/*    <div className="headerTitles">*/}
             {/*        <h1 className="title">Bottom-Up</h1>*/}
-            {/*    </div>*/}
+            {/*    </div>*/} 
             {/*</div>*/}
             <Navbar placeholder=""></Navbar>
 

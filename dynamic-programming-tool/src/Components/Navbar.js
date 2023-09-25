@@ -2,7 +2,7 @@ import { CNavbar, CNavItem, CNavLink, CNavbarToggler, CCollapse, CNavbarNav, CDr
     CDropdownToggle, CDropdownItem, CDropdownMenu, CDropdownDivider, CButton} from '@coreui/react';
 import {useState} from "react";
 import '@coreui/coreui/dist/css/coreui.min.css'
-import dpLogo from './Images/dp2.png';
+import dpLogo from '../Images/dp2.png';
 function Navbar({placeholder}){
     const [visible, setVisible] = useState(false)
 
