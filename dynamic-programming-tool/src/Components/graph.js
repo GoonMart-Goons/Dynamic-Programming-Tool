@@ -29,16 +29,17 @@ function GraphView(){
 
     const addNode = (e) => {
         identity+=1;
+        var newLabel = "id: " + identity + "\nlabel: " + e.nodeToAdd;
         const newNode = {
           id: identity,
-          label: e.nodeToAdd,
+          label: newLabel,
         };
 
         console.log(e.edgeToAdd);
 
         var newEdge;
         if(nodeContainer.length > 0){
-            const foundObject = nodeContainer.find((item) => item.label === e.edgeToAdd);
+            const foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
             newEdge = {
                 from: foundObject.id,
                 to: newNode.id,
@@ -119,7 +120,7 @@ function GraphView(){
                                 <Field type="text" id="node" name="nodeToAdd" placeholder="eg. 57"/>
                                 <ErrorMessage name="nodeToAdd" className="addNode-errMsg" component="div"/>
                             </div>
-                            <label htmlFor="edge">Node Parent:</label>
+                            <label htmlFor="edge">Node Parent ID:</label>
                             <div>
                                 <Field type="text" id="edge" name="edgeToAdd" placeholder="eg. 0"/>
                                 <ErrorMessage name="edgeToAdd" className="addNode-errMsg" component="div"/>
