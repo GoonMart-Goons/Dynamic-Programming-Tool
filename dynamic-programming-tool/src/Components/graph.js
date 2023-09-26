@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Graph from "react-vis-network-graph";
 import VisGraph, {
     GraphData,
     GraphEvents,
