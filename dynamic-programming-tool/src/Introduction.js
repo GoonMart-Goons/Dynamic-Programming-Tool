@@ -17,7 +17,7 @@ function Introduction(){
             {/*        <h1 className="title">Bottom-Up</h1>*/}
             {/*    </div>*/} 
             {/*</div>*/}
-            <Navbar placeholder=""></Navbar>
+            <Navbar placeholder="" ></Navbar>
 
             <div className="top-down-container">
                 <div className="top-down-main-container">

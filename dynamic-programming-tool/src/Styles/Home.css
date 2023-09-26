@@ -1,3 +1,24 @@
+.nav{
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(6, 6, 94, 0.911);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+}
+.navLink{
+    font-size: 17.5px;
+    color: #23AE9A;
+    margin-right: 15px;
+}
+.navbar-collapse{
+    margin-left: 20px;
+}
+
+.navLink:hover {
+    color: whitesmoke;
+}
+.navLogo{
+    margin-left: 95px;
+}
 .home{
     display: flex;
     flex-direction: column;

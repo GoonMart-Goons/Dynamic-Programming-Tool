@@ -48,7 +48,7 @@
 }
 
 .register-container p{
-    font-size: 10px;
+    font-size: 8px;
     margin-top: 15px;
     padding-left:30px ;
     padding-right:18px ;
@@ -56,18 +56,18 @@
 
 .register-container > h1{
     font-weight: 200;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .register-container > form > h5{
-    margin-bottom: 10px;
-    font-weight: 400;
+    margin-bottom: 2px;
+    font-weight: 375;
 }
 
 .register-container > form > input{
     height: 30px;
     width: 98%;
-    margin-bottom: 6px;
+    margin-bottom: 9.5px;
     border: 1px solid lightgray;
     border-radius: 3px;
     padding-left: 10px;
@@ -89,4 +89,5 @@
 .title-error>h5{
     font-weight: 400;
     margin-bottom: 5px;
+    font-size: 15px;
 }
