@@ -5,8 +5,11 @@ import VisGraph, {
     GraphEvents,
     Options,
   } from 'react-vis-graph-wrapper';
+import "../Styles/graph.css";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-import { Formik, Field, Form, ErrorMessage } from 'formik'
+let identity = 0;
 
 function GraphView(){
 
@@ -14,13 +17,20 @@ function GraphView(){
     const [edgeToAdd, edgeNodeToAdd] = useState();
     const [nodeContainer, setNodes] = useState([]);
     const [edgeContainer, setEdges] = useState([]);
-
-
     
+    const validationSchema = Yup.object().shape({
+        nodeToAdd: Yup.number()
+            .required('Node must have a label.')
+            .typeError('Node label must be a number'),
+        edgeToAdd: Yup.number()
+            .required('Node must have parent.')
+            .typeError('Node parent must have a label that is a number')
+    });
 
     const addNode = (e) => {
+        identity+=1;
         const newNode = {
-          id: nodeContainer.length + 1,
+          id: identity,
           label: e.nodeToAdd,
         };
 
@@ -41,19 +51,34 @@ function GraphView(){
             };
         }
         
-       
-        
         setNodes([...nodeContainer, newNode]);
         setEdges([...edgeContainer, newEdge]);
     };
+
+    /*const removeNode = (e) => {
+        var newEdge;
+        if(nodeContainer.length > 0){
+            const foundObject = nodeContainer.find((item) => item.label === e.edgeToAdd);
+            newEdge = {
+                from: foundObject.id,
+                to: newNode.id,
+            };
+        }
+        else{
+            newEdge = {
+                from: newNode.id,
+                to: newNode.id,
+            };
+        }
+        
+        setNodes([...nodeContainer, newNode]);
+        setEdges([...edgeContainer, newEdge]);
+    };*/
     
 
     const graph = {
         nodes: nodeContainer,
-        edges: edgeContainer/*[
-            {from:1, to:1},
-            {from:1, to:7},
-        ]*/
+        edges: edgeContainer
     }
 
     var option = {
@@ -66,11 +91,12 @@ function GraphView(){
         height: "500px"
     }
 
-    const handleSubmit = (e) => {
-        console.log("Hi");
+    const handleAdd = (e) => {
         addNode(e);
-        console.log(graph.edges);
-        console.log(graph.nodes);
+    }
+
+    const handleRemove = (e) => {
+        //removeNode(e);
     }
 
     return(
@@ -79,23 +105,52 @@ function GraphView(){
                 graph={graph}
                 options={option}
             />
-            <Formik
-                initialValues={{nodeToAdd: "", edgeToAdd: "" }}
-                /*validationSchema={validationSchema}*/
-                onSubmit={handleSubmit}
-                >
-                <Form>
-                    <label htmlFor="node">Node Name:</label>
-                    <div>
-                        <Field type="text" id="node" name="nodeToAdd" placeholder="eg. Node 57"/>
-                    </div>
-                    <label htmlFor="edge">Child Of:</label>
-                    <div>
-                        <Field type="text" id="edge" name="edgeToAdd" placeholder="0"/>
-                    </div>
-                    <button type = "submit" className = "add-node-button">Add Node</button>
-                </Form>
-            </Formik>
+            <div className="node-editor-container">
+                <div className="formik-container">
+                    <h3>Add Node</h3>
+                    <Formik
+                        initialValues={{nodeToAdd: "", edgeToAdd: "" }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleAdd}
+                        >
+                        <Form>
+                            <label htmlFor="node">Node Name:</label>
+                            <div>
+                                <Field type="text" id="node" name="nodeToAdd" placeholder="eg. 57"/>
+                                <ErrorMessage name="nodeToAdd" className="addNode-errMsg" component="div"/>
+                            </div>
+                            <label htmlFor="edge">Node Parent:</label>
+                            <div>
+                                <Field type="text" id="edge" name="edgeToAdd" placeholder="eg. 0"/>
+                                <ErrorMessage name="edgeToAdd" className="addNode-errMsg" component="div"/>
+                            </div>
+                            <button type = "submit" className = "formik-button">Add Node</button>
+                        </Form>
+                    </Formik>
+                </div>
+                {/*<div className="formik-container">
+                    <h3>Remove Node</h3>
+                    <Formik
+                        initialValues={{nodeToRemove: "", edgeToRemove: "" }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleRemove}
+                        >
+                        <Form>
+                            <label htmlFor="node">Node Name:</label>
+                            <div>
+                                <Field type="text" id="node" name="nodeToRemove" placeholder="eg. 57"/>
+                                <ErrorMessage name="nodeToRemove" className="removeNode-errMsg" component="div"/>
+                            </div>
+                            <label htmlFor="edge">Node Parent:</label>
+                            <div>
+                                <Field type="text" id="edge" name="edgeToRemove" placeholder="eg. 0"/>
+                                <ErrorMessage name="edgeToRemove" className="removeNode-errMsg" component="div"/>
+                            </div>
+                            <button type = "submit" className = "formik-button">Remove Node</button>
+                        </Form>
+                    </Formik>
+    </div>*/}
+            </div>
         </div>
     );
 }
