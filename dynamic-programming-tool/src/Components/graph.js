@@ -8,7 +8,7 @@ import "../Styles/graph.css";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-let identity = 0;
+var identity = -1;
 
 function GraphView(){
 
@@ -26,31 +26,44 @@ function GraphView(){
             .typeError('Node parent must have a label that is a number')
     });
 
-    const addNode = (e) => {
-        identity+=1;
+    const createNode = (e) => {
+        identity += 1;
         var newLabel = "id: " + identity + "\nlabel: " + e.nodeToAdd;
         const newNode = {
           id: identity,
           label: newLabel,
         };
+        return newNode;
+    }
 
-        console.log(e.edgeToAdd);
-
+    const addNode = (e) => {
+        var foundObject;
         var newEdge;
-        if(nodeContainer.length > 0){
-            const foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
+        var newNode;
+        foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
+
+        //only creates node if the parent ID exists or if the graph is empty
+        if(foundObject != null){
+            newNode = createNode(e);
             newEdge = {
                 from: foundObject.id,
                 to: newNode.id,
             };
         }
         else{
-            newEdge = {
-                from: newNode.id,
-                to: newNode.id,
-            };
+            if(nodeContainer.length == 0){
+                newNode = createNode(e);
+                newEdge = {
+                    from: newNode.id,
+                    to: newNode.id,
+                };
+            }
+            else{
+                alert("Node not in the tree");
+                return;
+            }
+            
         }
-        
         setNodes([...nodeContainer, newNode]);
         setEdges([...edgeContainer, newEdge]);
     };
@@ -156,6 +169,7 @@ function GraphView(){
                     </Formik>
     </div>*/}
             </div>
+            <button className = "formik-button"onClick={removeAllNodes}>Remove All</button>
         </div>
     );
 }
