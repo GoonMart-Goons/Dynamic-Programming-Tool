@@ -14,8 +14,8 @@ function Landing() {
             </div>
 
 
-            <div class="home-heads">
-                <h1 class="home-head1" id="home-h1"><img src = {dpLogo} alt = "logo" /></h1>
+            <div className="home-heads">
+                <h1 className="home-head1" id="home-h1"><img src = {dpLogo} alt = "logo" /></h1>
                 <Link to = "/login" className="home-head2"><h5>LOGIN</h5></Link>
                 <Link to = "/Register" className="home-head2"><h5>REGISTER</h5></Link>
             </div>

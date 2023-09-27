@@ -17,18 +17,31 @@ function GraphView(){
     const [nodeContainer, setNodes] = useState([]);
     const [edgeContainer, setEdges] = useState([]);
     
-    const validationSchema = Yup.object().shape({
+    const editValidationSchema = Yup.object().shape({
+        nodeToEdit: Yup.number()
+            .required('You must enter the ID of a node to edit.')
+            .typeError('Node ID must be a number'),
+        newLabel: Yup.number()
+            .required('You must enter a label.')
+            .typeError('Node label must be a number')
+    });
+
+    const addValidationSchema = Yup.object().shape({
         nodeToAdd: Yup.number()
             .required('Node must have a label.')
             .typeError('Node label must be a number'),
         edgeToAdd: Yup.number()
             .required('Node must have parent.')
-            .typeError('Node parent must have a label that is a number')
+            .typeError('Node parent must have a label that is a number'),
     });
+
+    const createLabel = (identity, label) => {
+        return "id: " + identity + "\nlabel: " + label;;
+    }
 
     const createNode = (e) => {
         identity += 1;
-        var newLabel = "id: " + identity + "\nlabel: " + e.nodeToAdd;
+        var newLabel = createLabel(identity, e.nodeToAdd);
         const newNode = {
           id: identity,
           label: newLabel,
@@ -51,7 +64,7 @@ function GraphView(){
             };
         }
         else{
-            if(nodeContainer.length == 0){
+            if(nodeContainer.length === 0){
                 newNode = createNode(e);
                 newEdge = {
                     from: newNode.id,
@@ -59,18 +72,35 @@ function GraphView(){
                 };
             }
             else{
-                alert("Node not in the tree");
+                alert("Node not in the tree.");
                 return;
             }
             
         }
         setNodes([...nodeContainer, newNode]);
         setEdges([...edgeContainer, newEdge]);
+        console.log(nodeContainer);
     };
 
-    const removeAllNodes = () =>{
+    const removeAllNodes = () => {
         setEdges([]);
         setNodes([]);
+    }
+
+    const editNodeLabel = (props) => {
+        console.log(nodeContainer);
+        var foundObject;
+        foundObject = nodeContainer.findIndex((item) => item.id == props.nodeToEdit);
+
+        //only creates node if the parent ID exists or if the graph is empty
+        if(foundObject != null){
+            nodeContainer[foundObject].label = createLabel(nodeContainer[foundObject].id, props.newLabel);
+        }
+        else{
+            alert("Node not in the tree");
+            return;
+        }
+        //setNodes([...nodeContainer]);
     }
 
     /*const removeNode = (e) => {
@@ -113,6 +143,10 @@ function GraphView(){
         addNode(e);
     }
 
+    const handleEdit = (e) => {
+        editNodeLabel(e);
+    }
+
     const handleRemove = (e) => {
         //removeNode(e);
     }
@@ -126,13 +160,13 @@ function GraphView(){
             <div className="node-editor-container">
                 <div className="formik-container">
                     <h3>Add Node</h3>
-                    <Formik
+                    <Formik id="addNodeFormik"
                         initialValues={{nodeToAdd: "", edgeToAdd: "" }}
-                        validationSchema={validationSchema}
+                        validationSchema={addValidationSchema}
                         onSubmit={handleAdd}
                         >
                         <Form>
-                            <label htmlFor="node">Node Name:</label>
+                            <label htmlFor="node">Node Label:</label>
                             <div>
                                 <Field type="text" id="node" name="nodeToAdd" placeholder="eg. 57"/>
                                 <ErrorMessage name="nodeToAdd" className="addNode-errMsg" component="div"/>
@@ -143,6 +177,28 @@ function GraphView(){
                                 <ErrorMessage name="edgeToAdd" className="addNode-errMsg" component="div"/>
                             </div>
                             <button type = "submit" className = "formik-button">Add Node</button>
+                        </Form>
+                    </Formik>
+                </div>
+                <div className="formik-container">
+                    <h3>Edit Node Label</h3>
+                    <Formik
+                        initialValues={{nodeToEdit: "", newLabel: "" }}
+                        validationSchema={editValidationSchema}
+                        onSubmit={handleEdit}
+                        >
+                        <Form>
+                            <label htmlFor="node">Node ID :</label>
+                            <div>
+                                <Field type="text" id="node" name="nodeToEdit" placeholder="eg. 57"/>
+                                <ErrorMessage name="nodeToEdit" className="addNode-errMsg" component="div"/>
+                            </div>
+                            <label htmlFor="edge">New Label:</label>
+                            <div>
+                                <Field type="text" id="edge" name="newLabel" placeholder="eg. 0"/>
+                                <ErrorMessage name="newLabel" className="addNode-errMsg" component="div"/>
+                            </div>
+                            <button type = "submit" className = "formik-button">Edit Node</button>
                         </Form>
                     </Formik>
                 </div>
@@ -169,7 +225,7 @@ function GraphView(){
                     </Formik>
     </div>*/}
             </div>
-            <button className = "formik-button"onClick={removeAllNodes}>Remove All</button>
+            <button className = "formik-button" onClick={removeAllNodes}>Remove All</button>
         </div>
     );
 }
