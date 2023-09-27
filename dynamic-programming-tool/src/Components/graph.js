@@ -55,6 +55,11 @@ function GraphView(){
         setEdges([...edgeContainer, newEdge]);
     };
 
+    const removeAllNodes = () =>{
+        setEdges([]);
+        setNodes([]);
+    }
+
     /*const removeNode = (e) => {
         var newEdge;
         if(nodeContainer.length > 0){
@@ -86,7 +91,7 @@ function GraphView(){
             enabled: false
         },
         edges: {
-            color:"green"
+            color:"black"
         },
         height: "500px"
     }
