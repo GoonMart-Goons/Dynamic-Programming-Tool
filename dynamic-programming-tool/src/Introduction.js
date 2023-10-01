@@ -7,6 +7,7 @@ import "./Styles/TopDown.css";
 import Navbar from "./Navbar";
 
 function Introduction(){
+    const randomN = Math.floor(Math.random() * 10) + 1;
     return(
         <div className="top-down">
             {/*<div className="top-down-logo-container">*/}
@@ -52,27 +53,50 @@ function Introduction(){
                     F(n) = F(n-1) + F(n-2), for n {">"} 1 <br/>
                     F(n) = n, for n = 0 or 1
                     <br/><br/>
-                    The first few numbers of the series are 0, 1, 1, 2, 3, 5, 8, 13, 21, 34,….
+                    The first few numbers of the series are 1, 1, 2, 3, 5, 8, 13, 21, 34,….
                     </p>
             
-                    <p> The recursive tree diagram of the above function is shown below:</p>
+                    <p> The recursive version of the above function is shown below:</p>
                     <p>
-                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20200219161428/Untitled-Diagram-3.png" alt="Recursive Tree Diagram" />
+                        def fib(n):<br/>
+                        ----if n = 0 or n = 1:<br/>
+                        --------return 1<br/>
+                        ----else:<br/>
+                        --------return fib(n-1) + fib(n-2)<br/>
+
                     </p>
                     <p>
                     As we can see, the function is called multiple times for the same value of n. So, we can optimize the above function by storing the results of the already solved subproblems. This technique of storing the results of already solved subproblems is called Memoization. Let’s see how we can optimize the above function using Memoization.
+                    We improve the algorithm as shown below:
                     </p>
                     <p>
-                    The above function will take O(n) time to find the nth Fibonacci number. The recursive tree diagram of the above function is shown below:
-                    </p>
-                    <p>
-                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20200219161428/Untitled-Diagram-3.png" alt="Recursive Tree Diagram" />
+                        def fib(n): //assume n{">"}2<br/>
+                        ----seq = zeros(n)<br/>
+                        ----seq[0] =seq[1] = 1<br/>
+                        ----for i = 2 to n-1:<br/>
+                        --------seq[i] = seq[i-1] + seq[i-2]<br/>
+                        ----return seq[n-1]<br/>
                     </p>
                     <p>
                     As we can see, the function is not called multiple times for the same value of n. So, we have optimized the above function using Memoization.
                     The above approach is called the Top-Down approach because we started solving the problem from the top and reached the base case by dividing the problem into smaller subproblems.
                     </p>
                     <br/><br/>
+
+                    <h2>Question</h2>
+                    <p>
+                        Illustrate the tree diagram to find Fibonacci number {randomN}.
+                    </p>
+
+                    <p>
+                    Answer:<br/>
+                    <br/>
+                    //link to graphing page
+                    <br/>
+                    </p>
+
+                    
+
 
                 </div>
             </div>
