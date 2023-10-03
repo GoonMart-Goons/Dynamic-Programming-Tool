@@ -10,14 +10,6 @@ function Introduction(){
     const randomN = Math.floor(Math.random() * 10) + 1;
     return(
         <div className="top-down">
-            {/*<div className="top-down-logo-container">*/}
-            {/*    <Link to = "/">*/}
-            {/*        <img className="top-down-logo" src = {dpLogo} alt = "logo" />*/}
-            {/*    </Link>*/}
-            {/*    <div className="headerTitles">*/}
-            {/*        <h1 className="title">Bottom-Up</h1>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <Navbar placeholder="" ></Navbar>
 
             <div className="top-down-container">
@@ -57,26 +49,33 @@ function Introduction(){
                     </p>
             
                     <p> The recursive version of the above function is shown below:</p>
-                    <p>
-                        def fib(n):<br/>
-                        ----if n = 0 or n = 1:<br/>
-                        --------return 1<br/>
-                        ----else:<br/>
-                        --------return fib(n-1) + fib(n-2)<br/>
+                    
+                        <code>
+                            def fib(n):
+                                if n = 0 or n = 1:
+                                    return 1
+                                else:
+                                    return fib(n-1) + fib(n-2)
+                        </code>
+                    
 
-                    </p>
                     <p>
                     As we can see, the function is called multiple times for the same value of n. So, we can optimize the above function by storing the results of the already solved subproblems. This technique of storing the results of already solved subproblems is called Memoization. Let’s see how we can optimize the above function using Memoization.
                     We improve the algorithm as shown below:
                     </p>
-                    <p>
-                        def fib(n): //assume n{">"}2<br/>
-                        ----seq = zeros(n)<br/>
-                        ----seq[0] =seq[1] = 1<br/>
-                        ----for i = 2 to n-1:<br/>
-                        --------seq[i] = seq[i-1] + seq[i-2]<br/>
-                        ----return seq[n-1]<br/>
-                    </p>
+                    <code>
+                    def fib(n, memo={}):
+                        if n in memo:
+                            return memo[n]
+                        
+                        if n {'<'}= 2:
+                            result = 1
+                        else:
+                            result = fib(n - 1, memo) + fib(n - 2, memo)
+                        
+                        memo[n] = result
+                        return result
+                    </code>
                     <p>
                     As we can see, the function is not called multiple times for the same value of n. So, we have optimized the above function using Memoization.
                     The above approach is called the Top-Down approach because we started solving the problem from the top and reached the base case by dividing the problem into smaller subproblems.
@@ -93,7 +92,9 @@ function Introduction(){
                     <br/>
                     //link to graphing page
                     <br/>
+                    <Link to = "/fibchecker" className="home-head2"><h5>Checker</h5></Link>
                     </p>
+                    <br/><br/>
 
                     
 
