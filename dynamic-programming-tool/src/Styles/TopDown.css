@@ -60,6 +60,7 @@
     width: 600px;
     height: 100%;
     background-color: #23AE9A;
+    
 }
 
 .top-down-main-container {
@@ -101,6 +102,9 @@
     font-size: 20px;
     margin-top: 15px;;
     padding-right:18px ;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 70%;
 }  
 
 .top-down-side-container b{
@@ -174,4 +178,28 @@
     display: flex;
     flex-direction: column;
     margin-top: 30px;
+}
+
+.question-button{
+    width: 20%;
+    height: 40px;
+    background-color: #23AE9A;
+    color: #1B1B6B;
+    border: 1px solid;
+    border-radius: 8px;
+    margin-top: 75px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.top-down-button:hover{
+    background-color: #3B3B6B;
+}
+
+.headerTitles{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+    float: right;
+
 }
