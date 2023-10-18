@@ -5,157 +5,244 @@ import VisGraph, {
     Options,
   } from 'react-vis-graph-wrapper';
 import "../Styles/graph.css";
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form, ErrorMessage, setIn } from 'formik';
 import * as Yup from 'yup';
+import Popup from "./NodePopup";
+import 'reactjs-popup/dist/index.css';
+import { EditText, EditTextarea } from 'react-edit-text';
+import 'react-edit-text/dist/index.css';
+//import "../Styles/Popup.css"
 
-let identity = 0;
+var identity = -1;
+
+var nodeArray = [];
+var edgeArray = [];
 
 function GraphView(){
 
-    const [nodeToAdd, setNodeToAdd] = useState();
-    const [edgeToAdd, edgeNodeToAdd] = useState();
+    const vis = document.getElementById("myVisGraph");
+
+    const [namePopupComponent, setNamePopupComponent] = useState(false);
+    const [namePopupEditText, setNamePopupEditText] = useState("");
     const [nodeContainer, setNodes] = useState([]);
     const [edgeContainer, setEdges] = useState([]);
-    
-    const validationSchema = Yup.object().shape({
+
+    const editValidationSchema = Yup.object().shape({
+        nodeToEdit: Yup.number()
+            .required('You must enter the ID of a node to edit.')
+            .typeError('Node ID must be a number'),
+        newLabel: Yup.number()
+            .required('You must enter a label.')
+            .typeError('Node label must be a number')
+    });
+
+    const addValidationSchema = Yup.object().shape({
         nodeToAdd: Yup.number()
             .required('Node must have a label.')
             .typeError('Node label must be a number'),
         edgeToAdd: Yup.number()
             .required('Node must have parent.')
-            .typeError('Node parent must have a label that is a number')
+            .typeError('Node parent must have a label that is a number'),
     });
 
-    const addNode = (e) => {
-        identity+=1;
-        var newLabel = "id: " + identity + "\nlabel: " + e.nodeToAdd;
+    const createLabel = (identity, label) => {
+        //await setNamePopupComponent(true);
+        return "id: " + identity + "\nlabel: " + label;;
+    }
+
+    const createNode = (e) => {
+        identity += 1;
+        var newLabel = createLabel(identity, e.nodeToAdd);
         const newNode = {
           id: identity,
           label: newLabel,
         };
-
-        console.log(e.edgeToAdd);
-
-        var newEdge;
-        if(nodeContainer.length > 0){
-            const foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
-            newEdge = {
-                from: foundObject.id,
-                to: newNode.id,
-            };
-        }
-        else{
-            newEdge = {
-                from: newNode.id,
-                to: newNode.id,
-            };
-        }
-        
-        setNodes([...nodeContainer, newNode]);
-        setEdges([...edgeContainer, newEdge]);
-    };
-
-    const removeAllNodes = () =>{
-        setEdges([]);
-        setNodes([]);
+        return newNode;
     }
 
-    /*const removeNode = (e) => {
+    /*const addNode = (e) => {
+        var foundObject;
         var newEdge;
-        if(nodeContainer.length > 0){
-            const foundObject = nodeContainer.find((item) => item.label === e.edgeToAdd);
+        var newNode;
+        foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
+
+        //only creates node if the parent ID exists or if the graph is empty
+        if(foundObject != null){
+            newNode = createNode(e);
             newEdge = {
                 from: foundObject.id,
                 to: newNode.id,
             };
         }
         else{
-            newEdge = {
-                from: newNode.id,
-                to: newNode.id,
-            };
+            if(nodeContainer.length === 0){
+                newNode = createNode(e);
+                newEdge = {
+                    from: newNode.id,
+                    to: newNode.id,
+                };
+            }
+            else{
+                alert("Node not in the tree.");
+                return;
+            }
+            
         }
-        
         setNodes([...nodeContainer, newNode]);
         setEdges([...edgeContainer, newEdge]);
+        console.log(nodeContainer);
     };*/
-    
 
     const graph = {
-        nodes: nodeContainer,
-        edges: edgeContainer
+        nodes: nodeArray,
+        edges: edgeArray
     }
-
+    
     var option = {
+        /*configure: {
+            enabled: true,
+            filter: 'nodes,edges',
+            container: undefined,
+            showButton: true
+        },*/
+        edges: {
+            color:"black",
+            arrows:{
+                from:{
+                    enabled: false
+                },
+                to:{
+                    enabled: true
+                }
+            }
+        },
+
+        height: "500px",
+
+        interaction: {
+            dragNodes:true,
+        },
+
+        /*layout: {
+            randomSeed: undefined,
+            improvedLayout:true,
+            clusterThreshold: 150,
+            hierarchical: {
+              enabled:true,
+              levelSeparation: 100,
+              nodeSpacing: 100,
+              treeSpacing: 200,
+              blockShifting: true,
+              edgeMinimization: true,
+              parentCentralization: true,
+              direction: 'LR',        // UD, DU, LR, RL
+              sortMethod: 'hubsize',  // hubsize, directed
+              shakeTowards: 'roots'  // roots, leaves
+            }
+        },*/
+
+        manipulation: {
+            addNode: function(nodeData,callback) {
+                identity++;
+                nodeData.id = identity;
+                nodeData.label = createLabel(identity, namePopupEditText);
+                if(nodeArray.length === 0){
+                    nodeData.color = "#00ff00"
+                }
+                nodeArray.push(nodeData)
+                callback(nodeData);
+                console.log(namePopupEditText);
+            },
+            addEdge: function(edgeData,callback) {
+                console.log(edgeData)
+                edgeArray.push(edgeData)
+                if (edgeData.from === edgeData.to) {
+                  var r = window.confirm("Do you want to connect the node to itself?");
+                  if (r === true) {
+                    callback(edgeData);
+                  }
+                }
+                else {
+                  callback(edgeData);
+                }
+            },
+            /*editNode: function(nodeData,callback) {
+                nodeData.label = createLabel(identity, "fff");
+                callback(nodeData);
+                console.log(namePopupEditText);
+            },*/
+            editEdge: true,
+            deleteNode: function(nodeData, callback){
+                var foundNode, foundEdge;
+                foundNode = nodeArray.findIndex((item) => item.id == nodeData.nodes[0]);
+                foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
+                if(nodeData.edges.length != 0){
+                    var nodeID = nodeData.nodes[0];
+                    var fromExists = false;
+                    console.log(edgeArray.length)
+                    for(var i = 0; i < edgeArray.length; i++){
+                        if(nodeID === edgeArray[i].from){
+                            fromExists= true;
+                        }
+                    }
+                    if(!fromExists){
+                        callback(nodeData);
+                        nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
+                        //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
+                    }
+                    else{
+                        alert("NO!")
+                        callback(null)
+                    }
+                }
+                else{
+                    callback(nodeData);
+                    nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
+                    while(foundEdge !== -1){
+                        edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
+                        foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
+                    }
+                    //console.log(foundObject)
+                    //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
+                }
+            },
+            deleteEdge: true
+        },
+
         physics: {
             enabled: false
-        },
-        edges: {
-            color:"black"
-        },
-        height: "500px"
+        }
+        /**/
     }
 
-    const handleAdd = (e) => {
-        addNode(e);
-    }
-
-    const handleRemove = (e) => {
-        //removeNode(e);
+    const handleAdd = (e, setFn) => {
+        setFn(e.target.value);
+        //addNode(e);
+        //graph.addNode();
     }
 
     return(
         <div>
-            <VisGraph
+            <VisGraph id="myVisGraph"
                 graph={graph}
                 options={option}
             />
-            <div className="node-editor-container">
-                <div className="formik-container">
-                    <h3>Add Node</h3>
-                    <Formik
-                        initialValues={{nodeToAdd: "", edgeToAdd: "" }}
-                        validationSchema={validationSchema}
-                        onSubmit={handleAdd}
-                        >
-                        <Form>
-                            <label htmlFor="node">Node Name:</label>
-                            <div>
-                                <Field type="text" id="node" name="nodeToAdd" placeholder="eg. 57"/>
-                                <ErrorMessage name="nodeToAdd" className="addNode-errMsg" component="div"/>
-                            </div>
-                            <label htmlFor="edge">Node Parent ID:</label>
-                            <div>
-                                <Field type="text" id="edge" name="edgeToAdd" placeholder="eg. 0"/>
-                                <ErrorMessage name="edgeToAdd" className="addNode-errMsg" component="div"/>
-                            </div>
-                            <button type = "submit" className = "formik-button">Add Node</button>
-                        </Form>
-                    </Formik>
-                </div>
-                {/*<div className="formik-container">
-                    <h3>Remove Node</h3>
-                    <Formik
-                        initialValues={{nodeToRemove: "", edgeToRemove: "" }}
-                        validationSchema={validationSchema}
-                        onSubmit={handleRemove}
-                        >
-                        <Form>
-                            <label htmlFor="node">Node Name:</label>
-                            <div>
-                                <Field type="text" id="node" name="nodeToRemove" placeholder="eg. 57"/>
-                                <ErrorMessage name="nodeToRemove" className="removeNode-errMsg" component="div"/>
-                            </div>
-                            <label htmlFor="edge">Node Parent:</label>
-                            <div>
-                                <Field type="text" id="edge" name="edgeToRemove" placeholder="eg. 0"/>
-                                <ErrorMessage name="edgeToRemove" className="removeNode-errMsg" component="div"/>
-                            </div>
-                            <button type = "submit" className = "formik-button">Remove Node</button>
-                        </Form>
-                    </Formik>
-    </div>*/}
+            <h3>Node Label</h3>
+            <div className="edit-container">
+            <EditText className="edit-text" defaultValue="" 
+                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
+                        value={namePopupEditText}
+                    />
             </div>
+            <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
+                <h3>My Popup</h3>
+                <div>
+                    <EditText defaultValue="" 
+                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
+                        value={namePopupEditText}
+                    />
+                </div>
+            </Popup>
         </div>
     );
 }
