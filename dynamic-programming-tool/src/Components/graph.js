@@ -15,8 +15,8 @@ import "../Styles/Popup.css"
 
 var identity = -1;
 
-const nodeArray = [];
-const edgeArray = [];
+var nodeArray = [];
+var edgeArray = [];
 
 function GraphView(){
 
@@ -50,11 +50,54 @@ function GraphView(){
         return "id: " + identity + "\nlabel: " + label;;
     }
 
+    const createNode = (e) => {
+        identity += 1;
+        var newLabel = createLabel(identity, e.nodeToAdd);
+        const newNode = {
+          id: identity,
+          label: newLabel,
+        };
+        return newNode;
+    }
+
+    /*const addNode = (e) => {
+        var foundObject;
+        var newEdge;
+        var newNode;
+        foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
+
+        //only creates node if the parent ID exists or if the graph is empty
+        if(foundObject != null){
+            newNode = createNode(e);
+            newEdge = {
+                from: foundObject.id,
+                to: newNode.id,
+            };
+        }
+        else{
+            if(nodeContainer.length === 0){
+                newNode = createNode(e);
+                newEdge = {
+                    from: newNode.id,
+                    to: newNode.id,
+                };
+            }
+            else{
+                alert("Node not in the tree.");
+                return;
+            }
+            
+        }
+        setNodes([...nodeContainer, newNode]);
+        setEdges([...edgeContainer, newEdge]);
+        console.log(nodeContainer);
+    };*/
+
     const graph = {
         nodes: nodeArray,
         edges: edgeArray
     }
-
+    
     var option = {
         /*configure: {
             enabled: true,
@@ -63,7 +106,15 @@ function GraphView(){
             showButton: true
         },*/
         edges: {
-            color:"black"
+            color:"black",
+            arrows:{
+                from:{
+                    enabled: false
+                },
+                to:{
+                    enabled: true
+                }
+            }
         },
 
         height: "500px",
@@ -93,14 +144,18 @@ function GraphView(){
         manipulation: {
             addNode: function(nodeData,callback) {
                 identity++;
-                setNamePopupComponent(true);
-                while(namePopupComponent === true){}
                 nodeData.id = identity;
                 nodeData.label = createLabel(identity, namePopupEditText);
+                if(nodeArray.length === 0){
+                    nodeData.color = "#00ff00"
+                }
+                nodeArray.push(nodeData)
                 callback(nodeData);
                 console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
+                console.log(edgeData)
+                edgeArray.push(edgeData)
                 if (edgeData.from === edgeData.to) {
                   var r = window.confirm("Do you want to connect the node to itself?");
                   if (r === true) {
@@ -117,7 +172,40 @@ function GraphView(){
                 console.log(namePopupEditText);
             },*/
             editEdge: true,
-            deleteNode: true,
+            deleteNode: function(nodeData, callback){
+                var foundNode, foundEdge;
+                foundNode = nodeArray.findIndex((item) => item.id == nodeData.nodes[0]);
+                foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
+                if(nodeData.edges.length != 0){
+                    var nodeID = nodeData.nodes[0];
+                    var fromExists = false;
+                    console.log(edgeArray.length)
+                    for(var i = 0; i < edgeArray.length; i++){
+                        if(nodeID === edgeArray[i].from){
+                            fromExists= true;
+                        }
+                    }
+                    if(!fromExists){
+                        callback(nodeData);
+                        nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
+                        //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
+                    }
+                    else{
+                        alert("NO!")
+                        callback(null)
+                    }
+                }
+                else{
+                    callback(nodeData);
+                    nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
+                    while(foundEdge !== -1){
+                        edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
+                        foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
+                    }
+                    //console.log(foundObject)
+                    //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
+                }
+            },
             deleteEdge: true
         },
 
