@@ -1,6 +1,6 @@
 import React from "react";
 import "./Styles/Login.css";
-import "./Styles/TopDown.css";
+import "./Styles/Home.css";
 import Navbar from "./Components/Navbar";
 import GraphView from "./Components/graph";
 
@@ -13,6 +13,7 @@ function TopDownTest(){
             <Navbar placeholder=""></Navbar>
             <div>
                 <GraphView/>
+                <button className = "home-button">Submit answer</button>
             </div>
         </div>
     );
