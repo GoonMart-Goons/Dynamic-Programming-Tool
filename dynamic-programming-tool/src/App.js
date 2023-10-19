@@ -6,7 +6,9 @@ import TopDown from './TopDown';
 import BottomUp from './BottomUp';
 import Register from './Register';
 import Introduction from './Introduction';
-import Navbar from "./Navbar";
+import QuestionsH from './QuestionsH';
+import Navbar from "./Components/Navbar";
+import TopDownTest from './TopDownTest';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "./Auth";
 import PrivateRoute from "./PrivateRoute";
@@ -20,11 +22,14 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<PrivateRoute element={Home} />} />
+            <Route path="/questionsh" element={<QuestionsH />} />
+          <Route path="/home" element={<PrivateRoute element={Home} />} />
             <Route path="/topdown" element={<PrivateRoute element={TopDown} />} />
             <Route path="/bottomup" element={<PrivateRoute element={BottomUp} />} />
             <Route path="/introduction" element={<PrivateRoute element={Introduction} />} />
-          </Routes>
+            <Route path="/navbar" element={<Navbar/>}/>
+          <Route path="/topdowntest" element={<TopDownTest/>}/>
+        </Routes>
         </div>
       </Router>
     </AuthProvider>

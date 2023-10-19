@@ -33,6 +33,7 @@ function Navbar({placeholder}){
                         aria-expanded={visible}
                         onClick={() => setVisible(!visible)}
                     />
+                    <div className="headerTitles">
                     <CCollapse  className="navbar-collapse" visible={visible} fluid>
                         <CNavbarNav>
                             <CNavItem>
@@ -44,20 +45,27 @@ function Navbar({placeholder}){
                                 <CNavLink className="navLink" href="/introduction"  active={isActive(["/introduction"])}>INTRODUCTION</CNavLink>
                             </CNavItem>
                             <CNavItem>
+                                <CNavLink className="navLink" href="/questionsh"  active={isActive(["/questionsh"])}>QUESTIONS</CNavLink>
+                            </CNavItem>
+                            <CNavItem>
+                                <CNavLink className="navLink" href="/"  active={isActive(["/"])}>PROGRESS</CNavLink>
+                            </CNavItem>
+                            {/* <CNavItem>
                                 <CNavLink className="navLink" href="/topdown"  active={isActive(["/topdown"])}>TOP-DOWN APPROACH</CNavLink>
                             </CNavItem>
                             <CNavItem>
                                 <CNavLink className="navLink" href="/bottomup"  active={isActive(["/bottomup"])}>BOTTOM-UP APPROACH</CNavLink>
-                            </CNavItem>
+                            </CNavItem> 
                             <CNavItem>
                                 <CNavLink className="navLink" href="#"  active={isActive(["/finaltest"])}>FINAL TEST</CNavLink>
-                            </CNavItem>
+                            </CNavItem> */}
 
                             <CButton className="navLink" onClick={() => auth.signOut()} href="/" type="button" color="success" variant="ghost">
                                 SIGN OUT
                             </CButton>
                         </CNavbarNav>
                     </CCollapse>
+                    </div>
                 </CContainer>
             </CNavbar>
         </>
