@@ -26,7 +26,7 @@ function Home(){
     
     useEffect(() => {
         const fetchStudentData = async () => {
-            const studentRef = doc(db, 'Students',  currentUser.uid);
+            const studentRef = doc(db, 'Users',  currentUser.uid);
 
             getDoc(studentRef)
             .then((docSnapshot) => {
@@ -37,7 +37,7 @@ function Home(){
                 //console.log('Student Data:', studentData);
                 } else {
                 // Document does not exist
-                console.log('Student not found.');
+                console.log('User not found.');
                 }
             })
             .catch((error) => {

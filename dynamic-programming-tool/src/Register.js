@@ -49,11 +49,11 @@ function Register() {
             createUserWithEmailAndPassword(auth, values.studentEmail, values.password)
 
             .then((userCredential) => {
-                setDoc(doc(db, 'Students', userCredential.user.uid), {
+                setDoc(doc(db, 'Users', userCredential.user.uid), {
                     Name: values.firstName,
                     Surname: values.lastName,
                     Email: values.studentEmail,
-                    Role: values.role
+                    Role: values.role 
                 })
                 alert('Registered successfully! Please sign in');
                 navigate('/login'); 
