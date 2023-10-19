@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useContext } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
 import Navbar from "./Components/Navbar";
+import { AuthContext } from "./Database/Auth";
 
 function BottomUp(){
+
+    const {currentUser, userData} = useContext(AuthContext);
+
     return(
         <div className="top-down">
             {/*<div className="top-down-logo-container">*/}
@@ -24,8 +28,8 @@ function BottomUp(){
                         <div className="profile-container">
                             <img className="profile-pic" src = {profilePic} alt="profile pic"/>
                             <div className="profile-details-container">
-                                <h1>Tek Seven</h1>
-                                <h3>detektiv57@gmail.com</h3>
+                                <h1>{userData.Name} {userData.Surname}</h1>
+                                <h3>{userData.Email}</h3>
                             </div>
                         </div>
                     <button type = "submit" className = "top-down-button">Easy</button>
