@@ -5,7 +5,7 @@ import '@coreui/coreui/dist/css/coreui.min.css'
 import dpLogo from './Images/dp2.png';
 import { Link, useLocation } from "react-router-dom";
 import "./Styles/TopDown.css";
-import {app, auth} from "./firebase";
+import {app, auth} from "./Database/firebase";
 
 
 function Navbar({placeholder}){

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
@@ -7,8 +7,12 @@ import "./Styles/TopDown.css";
 import Navbar from "./Components/Navbar";
 import GraphView from "./Components/graph";
 import { useNavigate } from "react-router-dom";
+//import { db, auth } from './firebase';
+import { AuthContext } from "./Database/Auth";
 
 function TopDown(){
+
+    const {currentUser, userData} = useContext(AuthContext);
 
     const navigate = useNavigate();
     return(
@@ -28,8 +32,8 @@ function TopDown(){
                         <div className="profile-container">
                             <img className="profile-pic" src = {profilePic} alt="profile pic"/>
                             <div className="profile-details-container">
-                                <h1>Tek Seven</h1>
-                                <h3>detektiv57@gmail.com</h3>
+                                <h1>{userData.Name} {userData.Surname}</h1>
+                                <h3>{userData.Email}</h3>
                             </div>
                         </div>
                     <button type = "submit" className = "top-down-button" onClick= {() => navigate('/topdowntest')}>Easy</button>

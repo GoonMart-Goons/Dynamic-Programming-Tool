@@ -7,47 +7,20 @@ import achievementPic from './Images/achievement.png';
 import "./Styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import '@coreui/coreui/dist/css/coreui.min.css'
-import { db, auth } from './firebase';
-import { doc,  getDoc } from 'firebase/firestore';
+import { db, auth } from './Database/firebase';
 import {
     CButton,
     CContainer, CDropdown, CDropdownDivider, CDropdownItem, CDropdownMenu, CDropdownToggle,
     CNavbar,
     CNavbarBrand,
 } from "@coreui/react";
-import { AuthContext } from "./Auth";
+import { AuthContext } from "./Database/Auth";
 
 function Home(){
-    const [studentData, setStudentData] = useState(null);
 
     const navigate = useNavigate();
 
-    const {currentUser} = useContext(AuthContext);
-    
-    useEffect(() => {
-        const fetchStudentData = async () => {
-            const studentRef = doc(db, 'Users',  currentUser.uid);
-
-            getDoc(studentRef)
-            .then((docSnapshot) => {
-                if (docSnapshot.exists()) {
-                // Document exists, access its data using docSnapshot.data()
-                setStudentData(docSnapshot.data());
-                //console.log('Doc Snapshot:', docSnapshot.data());
-                //console.log('Student Data:', studentData);
-                } else {
-                // Document does not exist
-                console.log('User not found.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error accessing Firestore document:', error);
-            });
-        };
-
-        fetchStudentData();
-    }, []);
-
+    const {currentUser, userData} = useContext(AuthContext);
 
     return(
         <div className="home">
@@ -91,10 +64,10 @@ function Home(){
                         <div className="profile-container">
                             <img className="profile-pic" src = {profilePic}/>
                             <div className="profile-details-container">
-                            {studentData && (
+                            {userData && (
                                 <>
-                                <h1>{studentData.Name} {studentData.Surname}</h1>
-                                <h3>{studentData.Email}</h3>
+                                <h1>{userData.Name} {userData.Surname}</h1>
+                                <h3>{userData.Email}</h3>
                                 </>
                             )}
                             </div>

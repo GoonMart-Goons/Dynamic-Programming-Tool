@@ -10,9 +10,9 @@ import * as Yup from 'yup'
 
 //Database
 // Firebase imports
-import { auth, db } from './firebase'
+import { auth, db } from './Database/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { AuthContext } from "./Auth";
+import { AuthContext } from "./Database/Auth";
 
 function Login() {
     const navigate = useNavigate();

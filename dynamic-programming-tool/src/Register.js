@@ -7,7 +7,7 @@ import dpLogo from './Images/dp2.png';
 import { useNavigate } from "react-router-dom";
 
 //Database
-import { auth, db } from './firebase'
+import { auth, db } from './Database/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import {setDoc, doc } from "@firebase/firestore";
 

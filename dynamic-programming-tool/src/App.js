@@ -10,7 +10,7 @@ import QuestionsH from './QuestionsH';
 import Navbar from "./Components/Navbar";
 import TopDownTest from './TopDownTest';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from "./Auth";
+import { AuthProvider } from "./Database/Auth";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
             <Route path="/bottomup" element={<PrivateRoute element={BottomUp} />} />
             <Route path="/introduction" element={<PrivateRoute element={Introduction} />} />
             <Route path="/navbar" element={<Navbar/>}/>
-          <Route path="/topdowntest" element={<TopDownTest/>}/>
+          <Route path="/topdowntest" element={<PrivateRoute element={TopDownTest} />}/>
         </Routes>
         </div>
       </Router>
