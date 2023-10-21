@@ -1,10 +1,10 @@
 import React, { useState, useEffect,useContext } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
+import "./Styles/Home.css";
 import dpLogo from './Images/dp2.png';
 import profilePic from './Images/profile.png';
 import achievementPic from './Images/achievement.png';
-import "./Styles/Home.css";
 import { useNavigate } from "react-router-dom";
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { db, auth } from './Database/firebase';
@@ -15,6 +15,7 @@ import {
     CNavbarBrand,
 } from "@coreui/react";
 import { AuthContext } from "./Database/Auth";
+import {getBadges} from "./Database/Functions";
 
 function Home(){
 
@@ -22,6 +23,21 @@ function Home(){
 
     const {currentUser, userData} = useContext(AuthContext);
 
+    const [badges, setBadges] = useState([]);
+
+    useEffect(() => {
+        // Fetch badges and update the state when the component mounts
+        const fetchBadges = async () => {
+        const badgeNames = await getBadges(currentUser.uid);
+        setBadges(badgeNames);
+        //console.log("Badges", badges);
+        };
+
+        fetchBadges();
+    }, [currentUser.uid]);
+
+    //console.log("Badges", badges);
+    
     return(
         <div className="home">
             <>
@@ -64,19 +80,17 @@ function Home(){
                             </div>
                         </div>
                     <b>Achievements:</b>
-                    <div className="achievement">
-                        <img className="achievement-pic" src = {achievementPic}></img>
-                        <p>Made an account</p>
-                    </div>
-                    <div className="achievement">
-                        <img className="achievement-pic" src = {achievementPic}></img>
-                        <p>Ate an apple</p>
-                    </div>
-                    <div className="achievement">
-                        <img className="achievement-pic" src = {achievementPic}></img>
-                        <p>Did a third cool thing</p>
-                    </div>
-                    <b>Current Streak: 0 days</b>
+                    {badges.length > 0 ? (
+                        badges.map((badgeName, index) => (
+                            <div className="achievement" key={index}>
+                            <img className="profile-pic" src={achievementPic} alt="" />
+                            <p>{badgeName}</p>
+                            </div>
+                        ))
+                    ) : (
+                    <p style={{ marginLeft: '30px' }}>No badges yet</p>
+                    )}
+
                 </div>
                 <div className="home-main-container">
                     <h1>Practice</h1>
