@@ -132,18 +132,23 @@
 .achievement{
     display: flex;
     flex-direction: row;
-    color: #1B1B6B;
+    /*color: #1B1B6B;*/
 }
 
 .achievement-pic{
-    width: 20px;
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    align-items: center;
+    padding: 20px;
+    /*width: 20px;
     height: 20px;
     object-fit: contain;
     align-items: center;
     padding-top: 20px;
     padding-left: 30px;
     padding-bottom: 20px;
-    padding-right: 20px;
+    padding-right: 20px;*/
 }
 
 .title{
