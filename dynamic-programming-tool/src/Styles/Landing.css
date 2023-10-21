@@ -71,5 +71,6 @@
   .home-head2{
     text-decoration: none;
     color: rgb(199, 197, 193);
-    /* color:rgb(31, 29, 153) */
+    font-size: 22px;
+    font-weight:lighter;
   }

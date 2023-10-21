@@ -24,15 +24,6 @@ function Home(){
 
     return(
         <div className="home">
-            {/*<div className="home-logo-container">*/}
-            {/*    <Link to = "/">*/}
-            {/*        <img className="home-logo" src = {dpLogo} alt = "logo" />*/}
-            {/*    </Link>*/}
-            {/*    <div className="headerTitles">*/}
-            {/*        <h1 className="title">Dynamic Programming Bootcamp</h1>*/}
-            {/*        <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
             <>
                 <CNavbar expand="lg" colorScheme="dark" className="nav">
                     <CContainer fluid>
@@ -46,7 +37,7 @@ function Home(){
                             />
 
                         </CNavbarBrand>
-                        <CContainer className="headerTitles"><h1 className="title">Dynamic Programming Bootcamp</h1>
+                        <CContainer className="headerTitles"><h1 className="title">Dynamic Programming World</h1>
                             <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
                         </CContainer>
                         <div className="signOut" >
@@ -90,9 +81,8 @@ function Home(){
                 <div className="home-main-container">
                     <h1>Practice</h1>
                     <button type = "submit" className = "home-button" onClick= {() => navigate('/introduction')}>Introduction</button>
-                    <button type = "submit" className = "home-button" onClick= {() => navigate('/topdown')}>Top-down Approach</button>
-                    <button type = "submit" className = "home-button" onClick= {() => navigate('/bottomup')}>Bottom-up Approach</button>
-                    <button type = "submit" className = "home-button">Final Test</button>
+                    <button type = "submit" className = "home-button" onClick= {() => navigate('/questionsh')}>Questions</button>
+                    <button type = "submit" className = "home-button" onClick= {() => navigate('/topdowntest')}>Graphing Tool</button>
                 </div>
             </div>
         </div>

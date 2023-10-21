@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png';
 import { useNavigate } from "react-router-dom";
+import dpGif from './Images/bg2.gif';
 
 //For form validation
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
-//Database
+//Database 
 // Firebase imports
 import { auth, db } from './Database/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -58,12 +59,17 @@ function Login() {
 
     return (
         <div className = "login">
+            <div className="landing-background">
+             <img src={dpGif} alt="Background GIF" />
+            </div>
+
+            
             <Link to = "/">
                 <img className="login-logo" src = {dpLogo} alt = "logo" />
             </Link>
 
             <div className = "login-container">
-                <h1>Login to DP World</h1>
+                <h1>Login</h1>
                 <Formik
                     initialValues={{ email: "", password: "" }}
                     validationSchema={validationSchema}

@@ -222,14 +222,14 @@ function GraphView(){
     }
 
     return(
-        <div>
+        <div className="graphingTool">
             <VisGraph id="myVisGraph"
                 graph={graph}
                 options={option}
             />
-            <h3>Node Label</h3>
+            <h4>Add Node</h4>
             <div className="edit-container">
-            <EditText className="edit-text" defaultValue="" 
+            <EditText className="edit-text" defaultValue="Enter node label" 
                         onChange={(props) => handleAdd(props, setNamePopupEditText)}
                         value={namePopupEditText}
                     />

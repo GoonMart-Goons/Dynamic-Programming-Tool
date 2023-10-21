@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./Styles/Register.css";
 import dpLogo from './Images/dp2.png';
 import { useNavigate } from "react-router-dom";
+import dpGif from './Images/bg2.gif';
 
 //Database
 import { auth, db } from './Database/firebase'
@@ -67,15 +68,20 @@ function Register() {
 
     return (
         <div className="register">
+
+            <div className="landing-background">
+             <img src={dpGif} alt="Background GIF" />
+            </div>
+
             <Link to="/">
                 <img className="register-logo" src={dpLogo} alt="logo" />
             </Link>
 
             <div className="register-container">
-                <h1>Register to DP World</h1>
+                <h1 className="register-head">Register</h1>
 
                 <form onSubmit={formik.handleSubmit}>
-                   <div className="title-error"> <h5>NAME</h5>
+                   <div className="title-error"> NAME
                     {formik.touched.firstName && formik.errors.firstName ? (
                         <div className="error-message">{formik.errors.firstName}</div>
                     ) : null} </div>
@@ -90,7 +96,7 @@ function Register() {
                     />
 
 
-                   <div className="title-error"><h5>SURNAME</h5>
+                   <div className="title-error">SURNAME
                        {formik.touched.lastName && formik.errors.lastName ? (
                            <div className="error-message">{formik.errors.lastName}</div>
                        ) : null} </div>
@@ -105,7 +111,7 @@ function Register() {
                     />
 
 
-                    <div className="title-error"><h5>EMAIL</h5>
+                    <div className="title-error">EMAIL
                         {formik.touched.studentEmail && formik.errors.studentEmail ? (
                             <div className="error-message">{formik.errors.studentEmail}</div>
                         ) : null}</div>
@@ -120,7 +126,7 @@ function Register() {
                     />
 
 
-                    <div className="title-error"><h5>PASSWORD</h5>
+                    <div className="title-error">PASSWORD
                         {formik.touched.password && formik.errors.password ? (
                             <div className="error-message">{formik.errors.password}</div>
                         ) : null} </div>
@@ -139,9 +145,9 @@ function Register() {
 
                     {/* Role dropdown */}
                     <label className="register-dropdown" htmlFor="dropdown">
-                        Select your role:
+                        ROLE
                     </label>
-                    <select
+                    <select className="register-select"
                         id="role"
                         name="role"
                         value={formik.values.role}

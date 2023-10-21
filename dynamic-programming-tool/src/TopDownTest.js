@@ -1,7 +1,7 @@
 import React from "react";
 import "./Styles/Login.css";
 import "./Styles/Home.css";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Navbar";
 import GraphView from "./Components/graph";
 
 

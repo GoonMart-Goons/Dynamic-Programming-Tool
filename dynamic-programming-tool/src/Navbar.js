@@ -48,6 +48,9 @@ function Navbar({placeholder}){
                                 <CNavLink className="navLink" href="/questionsh"  active={isActive(["/questionsh"])}>QUESTIONS</CNavLink>
                             </CNavItem>
                             <CNavItem>
+                                <CNavLink className="navLink" href="/topdowntest"  active={isActive(["/topdowntest"])}>GRAPHING TOOL</CNavLink>
+                            </CNavItem>
+                            <CNavItem>
                                 <CNavLink className="navLink" href="/"  active={isActive(["/"])}>PROGRESS</CNavLink>
                             </CNavItem>
                             {/* <CNavItem>
