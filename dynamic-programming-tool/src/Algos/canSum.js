@@ -1,21 +1,18 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
 
-let tree
+let tree, myID = 0
+let nodes = []
 let targetSum, numbers
 
-function canSum(targetSum, numbers, parentID, memo = {}){   
-    let node, ID
-
-    if (parentID === -1){
-        tree = new Tree(targetSum)
-        ID = 0
+function canSum(targetSum, numbers, parentID = -1, memo = {}){  
+    const node = {
+        value: targetSum,
+        pid: parentID,
+        id: myID
     }
-    else{
-        node = new TreeNode(targetSum)
-        ID = node.ID
-        tree.insertByID(parentID, node)
-    }
+    myID++
+    nodes.push(node)
 
     if (targetSum in memo)
         return memo[targetSum]
@@ -28,7 +25,7 @@ function canSum(targetSum, numbers, parentID, memo = {}){
             memo[targetSum] = false
             return false
         }
-        else if (canSum(remainder, numbers, ID, memo) === true){
+        else if (canSum(remainder, numbers, node.id, memo) === true){
             memo[targetSum] = true
             return true
         }
@@ -63,7 +60,15 @@ function getCanSumQuestion(){
 }
 
 function getCanSumAnswer(){
-    canSum(targetSum, numbers, -1)
+    canSum(targetSum, numbers)
+    console.log('Nodes:', nodes)
+
+    nodes.sort((a, b) => a.id - b.id)
+    tree = new Tree(nodes[0].value)
+    for(var i = 1; i < nodes.length; i++)
+        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
+
+    console.log(tree.root.serializeTree())
     return tree.root.serializeTree()
 }
 

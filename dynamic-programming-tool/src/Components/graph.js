@@ -21,36 +21,29 @@ var nodeArray = [];
 var edgeArray = [];
 
 function getUserAnswer() {
-    console.log('Nodes:', nodeArray);
-    console.log('Edges:', edgeArray);
+    let nodes = []
 
-    let nodes = [];
-
-    for (let i = 0; i < nodeArray.length; i++) {
+    for(let i = 0; i < nodeArray.length; i++){
         const node = {
             value: getValueFromLabel(nodeArray[i].label),
             pid: undefined,
             id: nodeArray[i].id
-        };
-        nodes.push(node);
+        }
+        nodes.push(node)
     }
 
-    for (let i = 0; i < edgeArray.length; i++) {
-        const fromIndex = edgeArray[i].from;
-        const toIndex = edgeArray[i].to;
+    for(let i = 0; i < edgeArray.length; i++){
+        const fromIndex = edgeArray[i].from
+        const toIndex = edgeArray[i].to
 
-        if (fromIndex < nodes.length && toIndex < nodes.length) {
-            nodes[toIndex].pid = nodes[fromIndex].id;
+        if(fromIndex < nodes.length && toIndex < nodes.length){
+            nodes[toIndex].pid = nodes[fromIndex].id
         }
     }
-
-    console.log('Nodes:', nodes);
 
     const tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
-
-    console.log('User answer:', tree.root.serializeTree())
 
     return tree.root.serializeTree()
 }
@@ -199,10 +192,10 @@ function GraphView(){
                 }
                 nodeArray.push(nodeData)
                 callback(nodeData);
-                console.log(namePopupEditText);
+                // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
-                console.log(edgeData)
+                // console.log(edgeData)
                 edgeArray.push(edgeData)
                 if (edgeData.from === edgeData.to) {
                   var r = window.confirm("Do you want to connect the node to itself?");

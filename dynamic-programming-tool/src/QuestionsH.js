@@ -10,11 +10,32 @@ import GraphView from "./Components/graph";
 //Get question to ask + its answer
 import { getQuestion, getAnswer } from "./Algos/pickAlgo";
 import { getUserAnswer } from "./Components/graph";
+import { increaseCompletionCount } from "./Database/Functions";
+
+let answer, userAns
+
+function getUserAns(){
+    userAns = getUserAnswer()
+    console.log('User\'s answer:', userAns)
+    answer = getAnswer()
+    console.log('Actual answer:', answer)
+
+    console.log()
+
+    if(userAns === answer){
+        alert('You got the question right!')
+        //TODO add FB code here for +1
+        // increaseCompletionCount(userID, difficulty)
+    }
+    else
+        alert('Try again.')
+    // console.log(userAns === answer)
+}
 
 function QuestionsH(){
     const questionText = getQuestion()
-    const serializedTree = getAnswer()
-    var userAns
+    answer = getAnswer()
+    
 
     return(
         <div className="top-down">
@@ -32,7 +53,7 @@ function QuestionsH(){
                     <div className="graphingTool">
                         <GraphView/>
                     </div>
-                    <button type = "submit" className = "question-button" onClick={userAns = getUserAnswer}>SUBMIT</button>
+                    <button type = "submit" className = "question-button" onClick={getUserAns}>SUBMIT</button>
                 </div>
             </div>
         </div>
