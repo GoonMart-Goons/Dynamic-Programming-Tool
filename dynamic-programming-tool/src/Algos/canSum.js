@@ -36,6 +36,10 @@ function canSum(targetSum, numbers, parentID = -1, memo = {}){
 }
 
 function getCanSumQuestion(){
+    //Reset global vars
+    myID = 0
+    nodes = []
+
     const random = new rng(Date.now())
 
     targetSum = random.randomRangeInt(5, 30)
@@ -54,14 +58,13 @@ function getCanSumQuestion(){
     }
 
     let question = 'Using the canSum algorithm, construct the resultant tree given:\n'
-        + 'Target Sum = ' + String(targetSum) + ' and the numbers list ' + String(numbers)
+        + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
 
     return question
 }
 
 function getCanSumAnswer(){
     canSum(targetSum, numbers)
-    console.log('Nodes:', nodes)
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)

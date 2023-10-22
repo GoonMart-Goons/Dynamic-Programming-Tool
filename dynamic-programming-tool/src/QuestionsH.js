@@ -12,7 +12,7 @@ import { getQuestion, getAnswer } from "./Algos/pickAlgo";
 import { getUserAnswer } from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 
-let answer, userAns
+let question, answer, userAns
 
 function getUserAns(){
     userAns = getUserAnswer()
@@ -33,7 +33,7 @@ function getUserAns(){
 }
 
 function QuestionsH(){
-    const questionText = getQuestion()
+    question = getQuestion()
     answer = getAnswer()
     
 
@@ -45,7 +45,7 @@ function QuestionsH(){
                 <div className="top-down-side-container">
                 <span><button type = "button" className="question-state-btn">QUESTION</button>
                 <button type = "button" className="details-state-btn">DETAILS</button></span>
-                <p className="question-text" id="container">{questionText}</p>
+                <p className="question-text" id="container">{question}</p>
 
                 </div>
                 <div className="top-down-main-container">

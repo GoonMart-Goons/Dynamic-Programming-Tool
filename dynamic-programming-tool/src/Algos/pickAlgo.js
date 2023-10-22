@@ -10,9 +10,9 @@ let question, answer
 
 const chosenAlgo = random.randomInt(2)
 /*  I M P L E M E N T E D   A L G O S
-    1. Can Sum
-    2. Fibonacci
-    3. Longest Common Sequence
+    0. Can Sum
+    1. Fibonacci
+    2. Longest Common Sequence
 */
 
 function getQuestion(){
