@@ -38,7 +38,7 @@ function canSum(targetSum, numbers, parentID, memo = {}){
     return false
 }
 
-function getQuestion(){
+function getCanSumQuestion(){
     const random = new rng(Date.now())
 
     targetSum = random.randomRangeInt(5, 30)
@@ -58,18 +58,13 @@ function getQuestion(){
 
     let question = 'Using the canSum algorithm, construct the resultant tree given:\n'
         + 'Target Sum = ' + String(targetSum) + ' and the numbers list ' + String(numbers)
-    // console.log(question)
 
     return question
-
-    // console.log('answer:', canSum(targetSum, numbers, -1))
-    // console.log('serialized tree:', tree.root.serializeTree())
 }
 
-function getAnswer(){
+function getCanSumAnswer(){
     canSum(targetSum, numbers, -1)
-    console.log('Tree', tree)
     return tree.root.serializeTree()
 }
 
-export { getQuestion, getAnswer }
+export { getCanSumQuestion, getCanSumAnswer }

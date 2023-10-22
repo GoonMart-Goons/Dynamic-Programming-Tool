@@ -12,11 +12,59 @@ import 'reactjs-popup/dist/index.css';
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 //import "../Styles/Popup.css"
+//Used to export the user's answer
+import { Tree, TreeNode } from "../Classes/TreeClass";
 
 var identity = -1;
 
 var nodeArray = [];
 var edgeArray = [];
+
+function getUserAnswer() {
+    console.log('Nodes:', nodeArray);
+    console.log('Edges:', edgeArray);
+
+    let nodes = [];
+
+    for (let i = 0; i < nodeArray.length; i++) {
+        const node = {
+            value: getValueFromLabel(nodeArray[i].label),
+            pid: undefined,
+            id: nodeArray[i].id
+        };
+        nodes.push(node);
+    }
+
+    for (let i = 0; i < edgeArray.length; i++) {
+        const fromIndex = edgeArray[i].from;
+        const toIndex = edgeArray[i].to;
+
+        if (fromIndex < nodes.length && toIndex < nodes.length) {
+            nodes[toIndex].pid = nodes[fromIndex].id;
+        }
+    }
+
+    console.log('Nodes:', nodes);
+
+    const tree = new Tree(nodes[0].value)
+    for(var i = 1; i < nodes.length; i++)
+        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
+
+    console.log('User answer:', tree.root.serializeTree())
+
+    return tree.root.serializeTree()
+}
+
+
+function getValueFromLabel(label){
+    const regex = /label:\s*(.+)/
+    const match = label.match(regex)
+
+    if(match && match[1])
+        return match[1].trim()
+
+    return ''
+}
 
 function GraphView(){
 
@@ -248,3 +296,5 @@ function GraphView(){
 }
 
 export default GraphView;
+
+export {getUserAnswer}
