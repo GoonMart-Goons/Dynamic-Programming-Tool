@@ -53,7 +53,7 @@ function Home(){
                             />
 
                         </CNavbarBrand>
-                        <CContainer className="headerTitles"><h1 className="title">Dynamic Programming World</h1>
+                        <CContainer className="headerTitles"><h1 className="title">Dynamic Programming Bootcamp</h1>
                             <p className="subtitle">Practice makes perfect | Sharpen your skills | Move at your own pace</p>
                         </CContainer>
                         <div className="signOut" >
