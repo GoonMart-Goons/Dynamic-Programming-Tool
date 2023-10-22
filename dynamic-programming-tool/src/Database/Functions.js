@@ -21,20 +21,29 @@ export const increaseCompletionCount = async (userId, difficulty) => {
         // Reference to the "exerciseDocument" document within the "Exercises" subcollection
         const exerciseDocRef = doc(exercisesCollection, 'exerciseDocument');
 
-        // Get the current "Easy" value from the document
+        // Check if the "exerciseDocument" document exists
         const exerciseDocSnapshot = await getDoc(exerciseDocRef);
 
         let newCompletionValue;
 
-        if (!exerciseDocSnapshot.exists() || exerciseDocSnapshot.data()[difficulty] === undefined) {
-            // If the document doesn't exist or the field is undefined, create a new field.
+        // If the document doesn't exist
+        if (!exerciseDocSnapshot.exists()) {
+            const updateData = {
+              [difficulty]: 1,
+            };
+           
+            await setDoc(exerciseDocRef, updateData);
+        }
+        //If the field is undefined, create a new field.
+        else if(exerciseDocSnapshot.data()[difficulty] === undefined) {
             const updateData = {
               [difficulty]: 1,
             };
             
             // Use updateDoc to add the new field without overwriting existing data.
             await updateDoc(exerciseDocRef, updateData);
-        } else {
+        }
+        else {
             newCompletionValue = exerciseDocSnapshot.data()[difficulty] + 1;
             // Increment the existing field's value.
             await setDoc(exerciseDocRef, { [difficulty]: newCompletionValue }, { merge: true });
