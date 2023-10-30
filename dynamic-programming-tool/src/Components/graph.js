@@ -20,7 +20,7 @@ var edgeArray = [];
 
 function GraphView(){
 
-    const vis = document.getElementById("myVisGraph");
+    //const vis = document.getElementById("myVisGraph");
 
     const [namePopupComponent, setNamePopupComponent] = useState(false);
     const [namePopupEditText, setNamePopupEditText] = useState("");
@@ -95,7 +95,8 @@ function GraphView(){
 
     const graph = {
         nodes: nodeArray,
-        edges: edgeArray
+        edges: edgeArray,
+        
     }
     
     var option = {
@@ -166,11 +167,12 @@ function GraphView(){
                   callback(edgeData);
                 }
             },
-            /*editNode: function(nodeData,callback) {
-                nodeData.label = createLabel(identity, "fff");
+            editNode: function(nodeData,callback) {
+                var currID = nodeData.id
+                nodeData.label = createLabel(currID, namePopupEditText);
                 callback(nodeData);
-                console.log(namePopupEditText);
-            },*/
+                //console.log(namePopupEditText);
+            },
             editEdge: true,
             deleteNode: function(nodeData, callback){
                 var foundNode, foundEdge;
@@ -191,7 +193,7 @@ function GraphView(){
                         //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
                     }
                     else{
-                        alert("NO!")
+                        alert("Cannot delete node if it is a parent.")
                         callback(null)
                     }
                 }
@@ -202,8 +204,6 @@ function GraphView(){
                         edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
                         foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
                     }
-                    //console.log(foundObject)
-                    //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
                 }
             },
             deleteEdge: true
@@ -227,12 +227,21 @@ function GraphView(){
                 graph={graph}
                 options={option}
             />
-            <h4>Add Node</h4>
-            <div className="edit-container">
-            <EditText className="edit-text" defaultValue="Enter node label" 
-                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
-                        value={namePopupEditText}
-                    />
+            <div className="edit-text-container">
+                <h4>Add Node</h4>
+                <div className="edit-container">
+                <EditText className="edit-text" defaultValue="Enter node label" 
+                            onChange={(props) => handleAdd(props, setNamePopupEditText)}
+                            value={namePopupEditText}
+                        />
+                </div>
+                <h4>Add Node</h4>
+                <div className="edit-container">
+                <EditText className="edit-text" defaultValue="Enter node label" 
+                            onChange={(props) => handleAdd(props, setNamePopupEditText)}
+                            value={namePopupEditText}
+                        />
+                </div>
             </div>
             <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
                 <h3>My Popup</h3>
@@ -246,5 +255,6 @@ function GraphView(){
         </div>
     );
 }
+
 
 export default GraphView;
