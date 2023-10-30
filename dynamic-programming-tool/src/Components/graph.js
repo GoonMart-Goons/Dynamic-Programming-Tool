@@ -12,11 +12,52 @@ import 'reactjs-popup/dist/index.css';
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 //import "../Styles/Popup.css"
+//Used to export the user's answer
+import { Tree, TreeNode } from "../Classes/TreeClass";
 
 var identity = -1;
 
 var nodeArray = [];
 var edgeArray = [];
+
+function getUserAnswer() {
+    let nodes = []
+
+    for(let i = 0; i < nodeArray.length; i++){
+        const node = {
+            value: getValueFromLabel(nodeArray[i].label),
+            pid: undefined,
+            id: nodeArray[i].id
+        }
+        nodes.push(node)
+    }
+
+    for(let i = 0; i < edgeArray.length; i++){
+        const fromIndex = edgeArray[i].from
+        const toIndex = edgeArray[i].to
+
+        if(fromIndex < nodes.length && toIndex < nodes.length){
+            nodes[toIndex].pid = nodes[fromIndex].id
+        }
+    }
+
+    const tree = new Tree(nodes[0].value)
+    for(var i = 1; i < nodes.length; i++)
+        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
+
+    return tree.root.serializeTree()
+}
+
+
+function getValueFromLabel(label){
+    const regex = /label:\s*(.+)/
+    const match = label.match(regex)
+
+    if(match && match[1])
+        return match[1].trim()
+
+    return ''
+}
 
 function GraphView(){
 
@@ -152,10 +193,10 @@ function GraphView(){
                 }
                 nodeArray.push(nodeData)
                 callback(nodeData);
-                console.log(namePopupEditText);
+                // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
-                console.log(edgeData)
+                // console.log(edgeData)
                 edgeArray.push(edgeData)
                 if (edgeData.from === edgeData.to) {
                   var r = window.confirm("Do you want to connect the node to itself?");
@@ -258,3 +299,5 @@ function GraphView(){
 
 
 export default GraphView;
+
+export {getUserAnswer}
