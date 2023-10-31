@@ -186,26 +186,27 @@ function GraphView(){
         manipulation: {
             addNode: function(nodeData,callback) {
                 identity++;
-                nodeData.id = identity;
-                nodeData.label = createLabel(identity, namePopupEditText);
                 if(nodeArray.length === 0){
                     nodeData.color = "#00ff00"
+                    identity = 0
                 }
+                nodeData.id = identity;
+                nodeData.label = createLabel(identity, namePopupEditText);
                 nodeArray.push(nodeData)
                 callback(nodeData);
                 // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
-                // console.log(edgeData)
-                edgeArray.push(edgeData)
                 if (edgeData.from === edgeData.to) {
                   var r = window.confirm("Do you want to connect the node to itself?");
                   if (r === true) {
+                    edgeArray.push(edgeData)
                     callback(edgeData);
                   }
                 }
                 else {
-                  callback(edgeData);
+                    edgeArray.push(edgeData)
+                    callback(edgeData);
                 }
             },
             editNode: function(nodeData,callback) {
@@ -230,8 +231,13 @@ function GraphView(){
                     }
                     if(!fromExists){
                         callback(nodeData);
-                        nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
-                        //edgeArray = edgeArray.filter(obj => obj.id !== foundObject.edges[0]);
+                        //nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
+                        nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]);
+                        edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
+                        /*if(foundEdge != -1){
+                            edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
+                        }*/
+                        
                     }
                     else{
                         alert("Cannot delete node if it is a parent.")
@@ -240,11 +246,11 @@ function GraphView(){
                 }
                 else{
                     callback(nodeData);
-                    nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
-                    while(foundEdge !== -1){
+                    nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]); 
+                    /*while(foundEdge !== -1){
                         edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
                         foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
-                    }
+                    }*/
                 }
             },
             deleteEdge: true
@@ -269,13 +275,6 @@ function GraphView(){
                 options={option}
             />
             <div className="edit-text-container">
-                <h4>Add Node</h4>
-                <div className="edit-container">
-                <EditText className="edit-text" defaultValue="Enter node label" 
-                            onChange={(props) => handleAdd(props, setNamePopupEditText)}
-                            value={namePopupEditText}
-                        />
-                </div>
                 <h4>Add Node</h4>
                 <div className="edit-container">
                 <EditText className="edit-text" defaultValue="Enter node label" 
