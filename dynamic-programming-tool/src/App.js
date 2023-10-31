@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/questionsh" element={<QuestionsH />} />
+            <Route path="/questionsh" element={<PrivateRoute element={QuestionsH} />} />
             <Route path="/home" element={<PrivateRoute element={Home} />} />
             <Route path="/topdown" element={<PrivateRoute element={TopDown} />} />
             <Route path="/bottomup" element={<PrivateRoute element={BottomUp} />} />

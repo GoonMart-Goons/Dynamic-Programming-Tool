@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png'
@@ -11,31 +11,37 @@ import GraphView from "./Components/graph";
 import { getQuestion, getAnswer } from "./Algos/pickAlgo";
 import { getUserAnswer } from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
+import { AuthContext } from "./Database/Auth";
 
 let question, answer, userAns
-
-function getUserAns(){
-    userAns = getUserAnswer()
-    console.log('User\'s answer:', userAns)
-    answer = getAnswer()
-    console.log('Actual answer:', answer)
-
-    console.log()
-
-    if(userAns === answer){
-        alert('You got the question right!')
-        //TODO add FB code here for +1
-        // increaseCompletionCount(userID, difficulty)
-    }
-    else
-        alert('Try again.')
-    // console.log(userAns === answer)
+const difficulty = {
+    easy: "Easy",
+    medium: "Medium",
+    hard: "Hard"
 }
 
 function QuestionsH(){
     question = getQuestion()
     answer = getAnswer()
+
+    function GetUserAns(){
+        userAns = getUserAnswer()
+        console.log('User\'s answer:', userAns)
+        answer = getAnswer()
+        console.log('Actual answer:', answer)
     
+        // console.log('Auth:', AuthContext)
+        // const {currentUser, userData} = useContext(AuthContext)
+        // console.log('User:', currentUser)
+        // increaseCompletionCount(currentUser.uid, difficulty.easy)
+    
+        if(userAns === answer){
+            alert('You got the question right!')            
+        }
+        else
+            alert('Try again.')
+        // console.log(userAns === answer)
+    }    
 
     return(
         <div className="top-down">
@@ -53,7 +59,7 @@ function QuestionsH(){
                     <div className="graphingTool">
                         <GraphView/>
                     </div>
-                    <button type = "submit" className = "question-button" onClick={getUserAns}>SUBMIT</button>
+                    <button type = "submit" className = "question-button" onClick={GetUserAns}>SUBMIT</button>
                 </div>
             </div>
         </div>
