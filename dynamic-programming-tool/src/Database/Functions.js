@@ -57,7 +57,7 @@ export const increaseCompletionCount = async (userId, difficulty) => {
             const badgesCollection = collection(userDocRef, 'Badges');
     
             // Create a new document within the "Badges" subcollection with the number as the field name
-            const badgeDocRef = doc(badgesCollection, difficulty+newCompletionValue.toString());
+            const badgeDocRef = doc(badgesCollection, newCompletionValue.toString() + " " + difficulty);
     
             // Set the field value to the corresponding string from easyBadges
             await setDoc(badgeDocRef, { message: Badges[newCompletionValue] });

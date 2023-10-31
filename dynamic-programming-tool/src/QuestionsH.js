@@ -24,18 +24,17 @@ function QuestionsH(){
     question = getQuestion()
     answer = getAnswer()
 
+    const {currentUser, userData} = useContext(AuthContext)
+    
     function GetUserAns(){
         userAns = getUserAnswer()
         console.log('User\'s answer:', userAns)
         answer = getAnswer()
         console.log('Actual answer:', answer)
-    
-        // console.log('Auth:', AuthContext)
-        // const {currentUser, userData} = useContext(AuthContext)
-        // console.log('User:', currentUser)
-        // increaseCompletionCount(currentUser.uid, difficulty.easy)
+        
     
         if(userAns === answer){
+            increaseCompletionCount(currentUser.uid, difficulty.easy)
             alert('You got the question right!')            
         }
         else
