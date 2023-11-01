@@ -32,13 +32,13 @@ class rng{
 }
 
 let tree, myID = 0
-let nodes = []
+let nodes, repeatedSub = []
 let targetSum, numbers
 
-function bestSum(targetSum, numbers, parentID = -1, memo = {}, rsub = []){  
+function bestSum(targetSum, numbers, parentID = -1, memo = {}){  
     
     if (targetSum < 0)
-        return [null, rsub, nodes]
+        return null
     
     const node = {
         value: targetSum,
@@ -49,18 +49,18 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}, rsub = []){
     nodes.push(node)
 
     if (targetSum in memo){
-        rsub.push(node)
-        return [memo[targetSum], rsub, nodes]
+        repeatedSub.push(node)
+        return memo[targetSum]
     }
     if (targetSum === 0) 
-        return [[], rsub, nodes]
+        return []
     
 
     let shortestCombination = null
 
     for(let num of numbers){
         const remainder = targetSum - num
-        const remainderResult = bestSum(remainder, numbers, node.id, memo, rsub)[0]
+        const remainderResult = bestSum(remainder, numbers, node.id, memo)
         if (remainderResult !== null){
             const combination = [...remainderResult, [node, num]]
             if (shortestCombination === null || combination.length < shortestCombination.length){
@@ -70,7 +70,7 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}, rsub = []){
     }
 
     memo[targetSum] = shortestCombination
-    return [shortestCombination, rsub, nodes ]
+    return shortestCombination
 }
 
 
@@ -102,7 +102,7 @@ function getBestSumQuestion(){
     let question = 'A) Using the bestSum algorithm, construct the resultant tree given:\n'
                     + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
                     + '\n\n' 
-                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum' //(this is obtained from the 0-th index of the element in the  out[0] array). It is also exculusive of the node with the value 0
+                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum' //(this is obtained from the 0-th index of the element in the out array). It is also exculusive of the node with the value 0
                     // OR -> What is the smallest combination of values that produce the targetSum'
                     + '\n\n'
                     + 'C) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
@@ -126,6 +126,6 @@ console.log(getBestSumQuestion())
 
 const out = bestSum(targetSum, numbers)
 
-console.log(out[0]) //Shortest path and smallest combination
-console.log(out[1]) //Nodes that were obtained through memoisation
-console.log(out[2]) //All nodes in tree
+console.log(out) //Shortest path and smallest combination
+console.log(repeatedSub) //Nodes that were obtained through memoisation
+console.log(nodes) //All nodes in tree
