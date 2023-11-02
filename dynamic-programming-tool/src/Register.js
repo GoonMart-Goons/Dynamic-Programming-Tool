@@ -34,6 +34,24 @@ const validationSchema = Yup.object().shape({
 
 
 function Register() {
+    // Create and configure link elements
+    const preconnect1 = document.createElement('link');
+    preconnect1.rel = 'preconnect';
+    preconnect1.href = 'https://fonts.googleapis.com';
+
+    const preconnect2 = document.createElement('link');
+    preconnect2.rel = 'preconnect';
+    preconnect2.href = 'https://fonts.gstatic.com';
+    preconnect2.crossOrigin = 'anonymous';
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Amaranth&family=Luckiest+Guy&family=Sansita&display=swap';
+
+    // Append link elements to the document head
+    document.head.appendChild(preconnect1);
+    document.head.appendChild(preconnect2);
+    document.head.appendChild(link);
 
     const navigate = useNavigate();
     const formik = useFormik({
@@ -171,6 +189,8 @@ function Register() {
                     By registering you agree to DP World's Conditions of Use & Sale.
                     Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
+                <p>Already have an account? <Link to = "/login" > LOGIN</Link></p>
+                
             </div>
         </div>
     );

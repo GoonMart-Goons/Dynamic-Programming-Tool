@@ -9,6 +9,7 @@
     color: #23AE9A;
     margin-right: 15px;
 }
+
 .navbar-collapse{
     margin-left: 20px;
 }
@@ -56,6 +57,7 @@
     width: 600px;
     height: 100%;
     background-color: #23AE9A;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .home-main-container {
@@ -67,6 +69,9 @@
     height: 100%;
     background-color: white;
 }
+.home-main-container h1{
+    font-family: 'Luckiest Guy', cursive;
+}
 
 .home-button{
     width: 20%;
@@ -77,6 +82,7 @@
     margin-top: 50px;
     cursor: pointer;
     align-items: center;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .home-button:hover{
@@ -155,11 +161,13 @@
 .title{
     font-size: 35px;
     color: #23AE9A;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .subtitle{
     font-size: 20px;
     color: #23AE9A;
+    font-family: 'Amaranth', sans-serif;
 }
 
 .headerTitles{
@@ -170,5 +178,6 @@
 }
 .signOut{
     width: 300px;
-
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 50px;
 }

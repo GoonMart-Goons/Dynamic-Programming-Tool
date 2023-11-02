@@ -34,34 +34,43 @@
     align-items: center;
     justify-content: center;
     width: 300px;
-    height: 400px;
-    padding: 20px;
+    height: 500px;
+    padding: 10px;
     margin-bottom: 50px;
     background-color: rgba(6, 6, 94, 0.911);
     color: white;
     border: 1px solid rgb(73, 72, 72);
     border-radius: 5px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    font-family: 'Amaranth', sans-serif;
 }
 
+form{
+    width:90%;
+}
 
 .login-container > form > label{
     font-weight: lighter;
     margin-top: 20px;
 }
 
-.login-container > form > input{
-    margin-bottom: 25px;
-    border-radius: 25px;
+.login-field{
+    height: 30px;
+    width: 98%;
+    margin-bottom: 5px;
+    border: 1px solid lightgray;
+    border-radius: 13px;
+    padding-left: 10px;
+    background-color: white;
 }
 
 .login-button{
-    width: 100%;
+    width: 97%;
     height: 30px;
     background-color: #23AE9A;
     border: 1px solid;
-    border-radius: 15px;
-    margin-top: 25px;
+    border-radius: 8px;
+    margin-top: 15px;
     cursor: pointer;
     align-items: center;
 }
@@ -73,13 +82,16 @@
 .login-container > p{
     font-size: 10px;
     margin-top: 15px;
-    padding-left:38px ;
-    padding-right:15px ;
-}  
+    padding-left:10px ;
+    padding-right:10px ;
+}
 
 .login-container > h1{
+    color: #23AE9A;
     font-weight: 200;
     margin-bottom: 10px;
+    margin-top: 20px;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .login-container > form > input{
