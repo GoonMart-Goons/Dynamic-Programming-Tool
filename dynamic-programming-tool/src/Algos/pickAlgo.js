@@ -6,9 +6,9 @@ import { getLCSQuestion, getLCSAnswer } from "./longestCommonSequence.js";
 
 
 let random = new rng(Date.now())
-let question, answer
+let question, answer, chosenAlgo
 
-const chosenAlgo = random.randomInt(2)
+//const chosenAlgo = random.randomInt(2)
 /*  I M P L E M E N T E D   A L G O S
     0. Can Sum
     1. Fibonacci
@@ -16,6 +16,9 @@ const chosenAlgo = random.randomInt(2)
 */
 
 function getQuestion(){
+
+    chosenAlgo = random.randomInt(2)
+    
     switch(chosenAlgo){
         case 0:
             question = getCanSumQuestion()

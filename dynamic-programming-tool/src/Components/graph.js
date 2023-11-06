@@ -14,6 +14,7 @@ import 'react-edit-text/dist/index.css';
 //import "../Styles/Popup.css"
 //Used to export the user's answer
 import { Tree, TreeNode } from "../Classes/TreeClass";
+import WrittenAnswer from "./writtenAnswer";
 
 var identity = -1;
 
@@ -60,6 +61,10 @@ function getValueFromLabel(label){
 }
 
 function GraphView(){
+    identity = -1;
+
+    nodeArray = [];
+    edgeArray = [];
 
     //const vis = document.getElementById("myVisGraph");
 
@@ -274,7 +279,7 @@ function GraphView(){
                 graph={graph}
                 options={option}
             />
-            <div className="edit-text-container">
+            <div id = "node-answer-box" className="edit-text-container">
                 <h4>Add Node</h4>
                 <div className="edit-container">
                 <EditText className="edit-text" defaultValue="Enter node label" 
@@ -283,6 +288,7 @@ function GraphView(){
                         />
                 </div>
             </div>
+            <WrittenAnswer/>
             <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
                 <h3>My Popup</h3>
                 <div>

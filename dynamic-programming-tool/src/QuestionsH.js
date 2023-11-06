@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png'
@@ -13,7 +13,7 @@ import { getUserAnswer } from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 import { AuthContext } from "./Database/Auth";
 
-let question, answer, userAns
+let question, answer, userAns, questionCount
 const difficulty = {
     easy: "Easy",
     medium: "Medium",
@@ -40,8 +40,11 @@ function QuestionsH(){
     document.head.appendChild(preconnect2);
     document.head.appendChild(link);
     
-    question = getQuestion()
-    answer = getAnswer()
+    const [question, setQuestion] = useState(getQuestion());
+    const [answer, setAnswer] = useState(getAnswer());
+    const [refreshGraph, setRefreshGraph] = useState(0);
+    questionCount = 0
+    
 
     const {currentUser, userData} = useContext(AuthContext)
 
@@ -60,20 +63,50 @@ function QuestionsH(){
     };
     
     function GetUserAns(){
-        userAns = getUserAnswer()
-        console.log('User\'s answer:', userAns)
-        answer = getAnswer()
-        console.log('Actual answer:', answer)
+
+        if(questionCount === 0){
+            userAns = getUserAnswer()
+            console.log('User\'s answer:', userAns)
+        }
+        else{
+            userAns = sessionStorage.getItem('textBoxValue');
+        }
         
     
         if(userAns === answer){
             increaseCompletionCount(currentUser.uid, difficulty.easy)
+            questionCount++;
             alert('You got the question right!')            
         }
         else
             alert('Try again.')
         // console.log(userAns === answer)
     }    
+
+    const handleAnswerBoxBtn = () => {
+        questionCount++
+        console.log("answer: ", answer)
+        if(document.getElementById('node-answer-box').style.display !== 'none'){
+            
+            document.getElementById('node-answer-box').style.display = 'none';
+            document.getElementById('written-answer-box').style.display = 'block';
+        }
+        else{
+            //alert(`Congradulations! New badge for ${}`)
+            const temp =  sessionStorage.getItem('writtenAnswerValue');
+            alert(`${temp}`)
+        }
+
+        if(questionCount >= 3){
+            //question = getQuestion()
+            questionCount = 0
+
+            setQuestion(getQuestion())
+            setAnswer(getAnswer())
+            
+            setRefreshGraph(refreshGraph + 1)
+        }
+    };
 
     return(
         <div className="top-down">
@@ -85,17 +118,19 @@ function QuestionsH(){
                 <button type = "button" className="details-state-btn" onClick={handleDetailsBtn}>DETAILS</button></span>
 
                 <div id="question-container">
-                <p className="question-text" id="container">{question}</p></div>
+                    <p className="question-text" id="container">{question}</p>
+                </div>
                 <div id="details-container" style={{display: "none"}}>
-                <p className="question-text" >Pseudocode and Details go in here if applicable.</p></div>
+                    <p className="question-text" >Pseudocode and Details go in here if applicable.</p>
+                </div>
 
                 </div>
                 <div className="top-down-main-container">
                     <h3 className="question-h3">Answer</h3>
                     <div className="graphingTool">
-                        <GraphView/>
+                        <GraphView key={refreshGraph} /> {/* Use a unique key to force re-render */}
                     </div>
-                    <button type = "submit" className = "question-button" onClick={GetUserAns}>SUBMIT</button>
+                    <button type = "submit" className = "question-button" onClick= {handleAnswerBoxBtn} /*{GetUserAns}*/>SUBMIT</button>
                 </div>
             </div>
         </div>
