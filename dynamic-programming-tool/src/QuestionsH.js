@@ -21,10 +21,43 @@ const difficulty = {
 }
 
 function QuestionsH(){
+    // Create and configure link elements
+    const preconnect1 = document.createElement('link');
+    preconnect1.rel = 'preconnect';
+    preconnect1.href = 'https://fonts.googleapis.com';
+
+    const preconnect2 = document.createElement('link');
+    preconnect2.rel = 'preconnect';
+    preconnect2.href = 'https://fonts.gstatic.com';
+    preconnect2.crossOrigin = 'anonymous';
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Amaranth&family=Luckiest+Guy&family=Sansita&display=swap';
+
+    // Append link elements to the document head
+    document.head.appendChild(preconnect1);
+    document.head.appendChild(preconnect2);
+    document.head.appendChild(link);
+    
     question = getQuestion()
     answer = getAnswer()
 
     const {currentUser, userData} = useContext(AuthContext)
+
+    const handleDetailsBtn = () => {
+        // Hide the home page
+        document.getElementById('question-container').style.display = 'none';
+        // Show settings
+        document.getElementById('details-container').style.display = 'block';
+    };
+
+    const handleQuestionBtn = () => {
+        // Hide the home page
+        document.getElementById('details-container').style.display = 'none';
+        // Show settings
+        document.getElementById('question-container').style.display = 'block';
+    };
     
     function GetUserAns(){
         userAns = getUserAnswer()
@@ -48,9 +81,13 @@ function QuestionsH(){
 
             <div className="top-down-container">
                 <div className="top-down-side-container">
-                <span><button type = "button" className="question-state-btn">QUESTION</button>
-                <button type = "button" className="details-state-btn">DETAILS</button></span>
-                <p className="question-text" id="container">{question}</p>
+                <span><button type = "button" className="question-state-btn" onClick={handleQuestionBtn}>QUESTION</button>
+                <button type = "button" className="details-state-btn" onClick={handleDetailsBtn}>DETAILS</button></span>
+
+                <div id="question-container">
+                <p className="question-text" id="container">{question}</p></div>
+                <div id="details-container" style={{display: "none"}}>
+                <p className="question-text" >Pseudocode and Details go in here if applicable.</p></div>
 
                 </div>
                 <div className="top-down-main-container">

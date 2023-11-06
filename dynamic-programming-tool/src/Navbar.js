@@ -50,9 +50,6 @@ function Navbar({placeholder}){
                             <CNavItem>
                                 <CNavLink className="navLink" href="/topdowntest"  active={isActive(["/topdowntest"])}>GRAPHING TOOL</CNavLink>
                             </CNavItem>
-                            <CNavItem>
-                                <CNavLink className="navLink" href="/"  active={isActive(["/"])}>PROGRESS</CNavLink>
-                            </CNavItem>
                             {/* <CNavItem>
                                 <CNavLink className="navLink" href="/topdown"  active={isActive(["/topdown"])}>TOP-DOWN APPROACH</CNavLink>
                             </CNavItem>

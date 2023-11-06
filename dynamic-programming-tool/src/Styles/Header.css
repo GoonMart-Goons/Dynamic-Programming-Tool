@@ -1,40 +1,40 @@
-.header {
-    background-color: #e4e008;
+.login{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+    /* justify-content: center; */
+    height: 100vh;
+    background-color: rgb(240, 241, 235);
+  }
 
-.header-logo {
-    width: 100px;
-    margin: 0 20px;
-    margin-top: 18px;
-    object-fit: contain;
-}
-
-.header-option {
+.node-editor-container {
     display: flex;
-    flex-direction:row;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 0 9px;
-    cursor: pointer;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+    height: 100%;
 }
 
-.header-link {
-    color: black;
-    text-decoration: none; 
+.edit-text{
+    border: 1px solid black;
+    border-radius: 8px;
+    color: lightslategray;
 }
 
-.header-optionLineOne {
-    font-size: 10px;
+.formik-container {
+    padding: 20px;
 }
 
-.header-optionLineTwo {
-    font-size: 13px;
-    font-weight: 800;
-    align-items: end;
-    float: right;
+.addNode-errMsg{
+    color: red;
+    align-self: center;
+    width: 250px;
+    /* margin-top: 10px; */
+}
+
+.graphingTool{
+    margin-bottom: 10px;
+    border: #1C8878 solid 2px;
+    
+    border-radius: 2px;
 }
