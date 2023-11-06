@@ -2,7 +2,7 @@ import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
 
 let tree, myID = 0
-let nodes, repeatedSub = []
+let nodes = [], repeatedSub = []
 let targetSum, numbers
 
 function bestSum(targetSum, numbers, parentID = -1, memo = {}){  
@@ -19,7 +19,7 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
     nodes.push(node)
 
     if (targetSum in memo){
-        repeatedSub.push({id: node.id, num: targetSum})
+        repeatedSub.push(node.id)
         return memo[targetSum]
     }
     if (targetSum === 0) 
@@ -32,7 +32,8 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
         const remainder = targetSum - num
         const remainderResult = bestSum(remainder, numbers, node.id, memo)
         if (remainderResult !== null){
-            const combination = [...remainderResult, {id: node.id, num: targetSum}]
+            // const combination = [...remainderResult, {id: node.id, num: targetSum}]
+            const combination = [...remainderResult, node.id]
             if (shortestCombination === null || combination.length < shortestCombination.length){
                 shortestCombination = combination
             }
@@ -64,7 +65,6 @@ function getBestSumQuestion(){
         const num = random.pickFrom(freeNumbers)
         numbers.push(num)
         freeNumbers.splice(freeNumbers.indexOf(num), 1)
-
     }
 
     /*let question = 'Using the bestSum algorithm, construct the resultant tree given:\n'
@@ -93,7 +93,7 @@ function getBestSumAnswer(){
     console.log('Tree:', tree.root.serializeTree())
     console.log('Shortest:', out) //Shortest path and smallest combination
     console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
-    return tree.root.serializeTree()
+    return [tree.root.serializeTree(), out, repeatedSub]
 }
 
 export { getBestSumQuestion, getBestSumAnswer }
