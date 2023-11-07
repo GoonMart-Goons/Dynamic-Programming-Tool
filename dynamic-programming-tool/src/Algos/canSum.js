@@ -23,7 +23,8 @@ function canSum(targetSum, numbers, parentID = -1, memo = {}){
         const remainder = targetSum - num
         if (remainder < 0){
             memo[targetSum] = false
-            return false
+            //return false
+            continue
         }
         else if (canSum(remainder, numbers, node.id, memo) === true){
             memo[targetSum] = true
