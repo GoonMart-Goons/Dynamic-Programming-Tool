@@ -141,12 +141,6 @@ function GraphView(){
     }
     
     var option = {
-        /*configure: {
-            enabled: true,
-            filter: 'nodes,edges',
-            container: undefined,
-            showButton: true
-        },*/
         edges: {
             color:"black",
             arrows:{
@@ -164,24 +158,6 @@ function GraphView(){
         interaction: {
             dragNodes:true,
         },
-
-        /*layout: {
-            randomSeed: undefined,
-            improvedLayout:true,
-            clusterThreshold: 150,
-            hierarchical: {
-              enabled:true,
-              levelSeparation: 100,
-              nodeSpacing: 100,
-              treeSpacing: 200,
-              blockShifting: true,
-              edgeMinimization: true,
-              parentCentralization: true,
-              direction: 'LR',        // UD, DU, LR, RL
-              sortMethod: 'hubsize',  // hubsize, directed
-              shakeTowards: 'roots'  // roots, leaves
-            }
-        },*/
 
         manipulation: {
             addNode: function(nodeData,callback) {
@@ -211,9 +187,11 @@ function GraphView(){
             },
             editNode: function(nodeData,callback) {
                 var currID = nodeData.id
-                nodeData.label = createLabel(currID, namePopupEditText);
+                var newLabel = createLabel(currID, namePopupEditText);
+                nodeData.label = newLabel;
+                var foundNode = nodeArray.findIndex((item) => item.id == currID);
+                nodeArray[foundNode].label = newLabel;
                 callback(nodeData);
-                //console.log(namePopupEditText);
             },
             editEdge: true,
             deleteNode: function(nodeData, callback){
@@ -231,13 +209,8 @@ function GraphView(){
                     }
                     if(!fromExists){
                         callback(nodeData);
-                        //nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
                         nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]);
                         edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
-                        /*if(foundEdge != -1){
-                            edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
-                        }*/
-                        
                     }
                     else{
                         alert("Cannot delete node if it is a parent.")
@@ -247,10 +220,6 @@ function GraphView(){
                 else{
                     callback(nodeData);
                     nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]); 
-                    /*while(foundEdge !== -1){
-                        edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
-                        foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
-                    }*/
                 }
             },
             deleteEdge: true
@@ -259,13 +228,10 @@ function GraphView(){
         physics: {
             enabled: false
         }
-        /**/
     }
 
     const handleAdd = (e, setFn) => {
         setFn(e.target.value);
-        //addNode(e);
-        //graph.addNode();
     }
 
     return(
