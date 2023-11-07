@@ -28,7 +28,7 @@ class rng{
     }
 
     pickFrom(numbers){
-        return numbers[this.randomInt(numbers.length)]
+        return numbers[this.randomInt(numbers.length - 1)]
     }
 }
 

@@ -54,7 +54,7 @@ function getFibAnswer(){
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    return tree.root.serializeTree()
+    return [tree.root.serializeTree()]
 }
 
 export { getFibQuestion, getFibAnswer }

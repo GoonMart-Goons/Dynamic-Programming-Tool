@@ -72,7 +72,7 @@ function getCanSumAnswer(){
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
     console.log(tree.root.serializeTree())
-    return tree.root.serializeTree()
+    return [tree.root.serializeTree()]
 }
 
 export { getCanSumQuestion, getCanSumAnswer }
