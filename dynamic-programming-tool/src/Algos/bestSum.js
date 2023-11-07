@@ -23,7 +23,7 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
         return memo[targetSum]
     }
     if (targetSum === 0) 
-        return []
+        return [node.id]
     
 
     let shortestCombination = null
