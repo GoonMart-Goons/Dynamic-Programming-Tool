@@ -13,7 +13,7 @@ import { getUserAnswer } from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 import { AuthContext } from "./Database/Auth";
 
-let question, answer, userAns, questionCount
+let userAns
 const difficulty = {
     easy: "Easy",
     medium: "Medium",
@@ -43,7 +43,10 @@ function QuestionsH(){
     const [question, setQuestion] = useState(getQuestion());
     const [answer, setAnswer] = useState(getAnswer());
     const [refreshGraph, setRefreshGraph] = useState(0);
-    questionCount = 0
+    const [questionCount, setQuestionCount] = useState(0);
+    //console.log("Qc: ", questionCount)
+    //console.log("answeR: ", answer)
+    console.log("Curr answer: ", answer[questionCount])
     
 
     const {currentUser, userData} = useContext(AuthContext)
@@ -65,27 +68,54 @@ function QuestionsH(){
     function GetUserAns(){
 
         if(questionCount === 0){
+            // The serialised graph answer
             userAns = getUserAnswer()
             console.log('User\'s answer:', userAns)
         }
         else{
-            userAns = sessionStorage.getItem('textBoxValue');
+            // The textbox answer
+            userAns = sessionStorage.getItem('writtenAnswerValue')
         }
         
     
-        if(userAns === answer){
-            increaseCompletionCount(currentUser.uid, difficulty.easy)
-            questionCount++;
-            alert('You got the question right!')            
+        if(userAns === answer[questionCount]){
+            //increaseCompletionCount(currentUser.uid, difficulty.easy)
+            setQuestionCount(questionCount + 1)
+            alert('You got the question right!')
+
+            //Hide "Add Node" box and show written answer box
+            if(document.getElementById('node-answer-box').style.display !== 'none'){
+                document.getElementById('node-answer-box').style.display = 'none';
+                document.getElementById('written-answer-box').style.display = 'block';
+            }
         }
         else
             alert('Try again.')
-        // console.log(userAns === answer)
+
+        if(questionCount + 1 >= answer.length){ // Sets how mny answers each question has (using setQuestionCount() to update will be async so we dont get the latest value, we account for this offset by adding 1)
+            //question = getQuestion()
+            increaseCompletionCount(currentUser.uid, difficulty.easy)
+            setQuestionCount(0)
+            document.getElementById('node-answer-box').style.display = 'block';
+            document.getElementById('written-answer-box').style.display = 'none';
+
+            setQuestion(getQuestion())
+            setAnswer(getAnswer())
+            console.log("answeR: ", answer)
+            
+            setRefreshGraph(refreshGraph + 1)
+        }
+        else{
+            console.log("Curr answer: ", answer[questionCount + 1])
+        }
+
+
     }    
 
-    const handleAnswerBoxBtn = () => {
-        questionCount++
-        console.log("answer: ", answer)
+    /*const handleAnswerBoxBtn = () => {
+        setQuestionCount(questionCount + 1)
+        //console.log("Qc: ", questionCount)
+        //console.log("answer: ", answer)
         if(document.getElementById('node-answer-box').style.display !== 'none'){
             
             document.getElementById('node-answer-box').style.display = 'none';
@@ -97,16 +127,19 @@ function QuestionsH(){
             alert(`${temp}`)
         }
 
-        if(questionCount >= 3){
+        if(questionCount + 1 >= answer.length){ // Sets how mny answers each question has (using setQuestionCount() to update will be async so we dont get the latest value, we account for this offset by adding 1)
             //question = getQuestion()
-            questionCount = 0
+            setQuestionCount(0)
+            document.getElementById('node-answer-box').style.display = 'block';
+            document.getElementById('written-answer-box').style.display = 'none';
 
             setQuestion(getQuestion())
             setAnswer(getAnswer())
+            console.log("answeR: ", answer)
             
             setRefreshGraph(refreshGraph + 1)
         }
-    };
+    };*/
 
     return(
         <div className="top-down">
@@ -128,9 +161,9 @@ function QuestionsH(){
                 <div className="top-down-main-container">
                     <h3 className="question-h3">Answer</h3>
                     <div className="graphingTool">
-                        <GraphView key={refreshGraph} /> {/* Use a unique key to force re-render */}
+                        <GraphView key={refreshGraph} questionNumber={questionCount}/> {/* Use a unique key to force re-render */}
                     </div>
-                    <button type = "submit" className = "question-button" onClick= {handleAnswerBoxBtn} /*{GetUserAns}*/>SUBMIT</button>
+                    <button type = "submit" className = "question-button" onClick= {GetUserAns}>SUBMIT</button>
                 </div>
             </div>
         </div>

@@ -73,7 +73,9 @@ function getBestSumQuestion(){
     let question = 'A) Using the bestSum algorithm, construct the resultant tree given:\n'
                     + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
                     + '\n\n' 
-                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum' //(this is obtained from the 0-th index of the element in the out array). It is also exculusive of the node with the value 0
+                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum? ' + 
+                    'In the case that a memoised node is used, use the id of the orignal node and not that of the repeated node. ' + 
+                    'In the case that there is no shortest path, answer -1.'
                     // OR -> What is the smallest combination of values that produce the targetSum'
                     + '\n\n'
                     + 'C) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
@@ -83,16 +85,20 @@ function getBestSumQuestion(){
 
 function getBestSumAnswer(){    
     var out = bestSum(targetSum, numbers)
-    if (out === null) out = -1
+    if (out === null){
+        out = -1
+    }else{
+        out = out.slice().reverse()
+    } 
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log('Tree:', tree.root.serializeTree())
-    console.log('Shortest:', out) //Shortest path and smallest combination
-    console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Shortest:', out) //Shortest path and smallest combination
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 

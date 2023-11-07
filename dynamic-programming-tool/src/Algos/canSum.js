@@ -57,22 +57,26 @@ function getCanSumQuestion(){
 
     }
 
-    let question = 'Using the canSum algorithm, construct the resultant tree given:\n'
-        + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
+    let question = 'A) Using the canSum algorithm, construct the resultant tree given:\n'
+        + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers +
+        '\n\n' +
+        'B) Is it possible to sum to the target sum using the given numbers list? true/false'
 
     return question
 }
 
 function getCanSumAnswer(){
-    canSum(targetSum, numbers)
+    const val = canSum(targetSum, numbers)
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log(tree.root.serializeTree())
-    return [tree.root.serializeTree()]
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Boolean:', val)
+
+    return [tree.root.serializeTree(), val]
 }
 
 export { getCanSumQuestion, getCanSumAnswer }

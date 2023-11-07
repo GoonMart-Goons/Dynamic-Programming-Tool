@@ -60,7 +60,7 @@ function getValueFromLabel(label){
     return ''
 }
 
-function GraphView(){
+function GraphView({questionNumber}){
     identity = -1;
 
     nodeArray = [];
@@ -273,6 +273,7 @@ function GraphView(){
         //graph.addNode();
     }
 
+
     return(
         <div className="graphingTool">
             <VisGraph id="myVisGraph"
@@ -288,7 +289,7 @@ function GraphView(){
                         />
                 </div>
             </div>
-            <WrittenAnswer/>
+            <WrittenAnswer questionNumber={questionNumber}/>
             <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
                 <h3>My Popup</h3>
                 <div>

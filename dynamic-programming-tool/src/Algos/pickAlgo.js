@@ -14,28 +14,29 @@ let question, answer, chosenAlgo
     0. Can Sum
     1. Fibonacci
     2. Longest Common Sequence
+    3. Best Sum
 */
 
 function getQuestion(){
 
-    chosenAlgo = random.randomInt(2)
+    chosenAlgo = random.randomInt(3)
     
     switch(chosenAlgo){
         case 0:
             question = getCanSumQuestion()
-            answer = getCanSumAnswer()[0]
+            answer = getCanSumAnswer()
             break
         case 1:
             question = getFibQuestion()
-            answer = getFibAnswer()[0]
+            answer = getFibAnswer()
             break
         case 2:
             question = getLCSQuestion()
-            answer = getLCSAnswer()[0]
+            answer = getLCSAnswer()
             break                
         case 3:
             question = getBestSumQuestion()
-            answer = getBestSumAnswer()[0]
+            answer = getBestSumAnswer()
             break                
     }
 

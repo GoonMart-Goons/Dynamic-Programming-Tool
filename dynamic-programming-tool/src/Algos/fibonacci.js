@@ -3,7 +3,7 @@ import { rng } from "../Classes/RNG.js";
 
 let tree, n
 let myID = 0
-let nodes = []
+let nodes, repeatedSub = []
 
 function fib(n, parentID = -1, memo = {}){
     const node = {
@@ -18,6 +18,7 @@ function fib(n, parentID = -1, memo = {}){
     if(n in memo){
         node.value = memo[n]
         nodes.push(node)
+        repeatedSub.push(node.id)
         return memo[n]
     }
     
@@ -41,7 +42,9 @@ function getFibQuestion(){
     const random = new rng(Date.now())
     n = random.randomRangeInt(3, 9)
 
-    let question = 'Using the fibonacci algorithm, construct the resultant tree of fib(' + n + ')'
+    let question = 'A) Using the fibonacci algorithm, construct the resultant tree of fib(' + n + ')'
+                    + '\n\n' +
+                    'B) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
 
     return question
 }
@@ -54,7 +57,10 @@ function getFibAnswer(){
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    return [tree.root.serializeTree()]
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+
+    return [tree.root.serializeTree(), repeatedSub]
 }
 
 export { getFibQuestion, getFibAnswer }

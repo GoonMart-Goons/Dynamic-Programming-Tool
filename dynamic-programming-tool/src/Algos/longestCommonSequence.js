@@ -3,7 +3,7 @@ import { rng } from "../Classes/RNG.js";
 
 let tree, strings, ans
 let myID = 0
-let nodes = []
+let nodes, repeatedSub = []
 const random = new rng(Date.now())
 
 function shuffleString(str){
@@ -67,6 +67,7 @@ function lcs(A, B, parentID = -1, memo = {}){
     if(memo[A.length] && memo[A.length][B.length] !== undefined){
         node.value = memo[A.length][B.length]
         nodes.push(node)
+        repeatedSub.push(node.id)
         return memo[A.length][B.length]
     }
 
@@ -97,8 +98,11 @@ function getLCSQuestion(){
     nodes = []
     myID = 0
 
-    let question = 'Using the Longest Common Subsequence algorithm, ' +
-                   'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")'
+    let question = 'A) Using the Longest Common Subsequence algorithm, ' +
+                   'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")' + 
+                   '\n\n' +
+                   'B) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
+    
     return question
 }
 
@@ -110,7 +114,10 @@ function getLCSAnswer(){
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    return [tree.root.serializeTree()]
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+
+    return [tree.root.serializeTree(), repeatedSub]
 }
 
 export { getLCSQuestion, getLCSAnswer }
