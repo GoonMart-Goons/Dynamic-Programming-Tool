@@ -1,10 +1,11 @@
 import React from "react";
-import { render, fireEvent, act } from "@testing-library/react";
+import { render, fireEvent, act, screen, waitFor} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import "@testing-library/jest-dom"; // Import the library itself
+import "@testing-library/jest-dom"; // Import the library itself 
 
 import Login from "../Login";
 
+//DISPLAY
 test("renders Logo", () => {
     const {getByAltText} = render(
       <MemoryRouter>
@@ -57,6 +58,7 @@ test("renders Button", () => {
     expect(loginButton).toBeInTheDocument();
   });
 
+  //INTERACTION
   test("User can enter text in email and password fields", () => {
     const { getByPlaceholderText } = render(
       <MemoryRouter>
@@ -75,3 +77,28 @@ test("renders Button", () => {
     expect(emailInput.value).toBe("test@example.com");
     expect(passwordInput.value).toBe("password123");
   });
+
+  //ERRORS
+  test("User can enter text in email and password fields", () => {
+    const { getByPlaceholderText, getByText } = render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>
+    );
+
+    const passwordInput = getByPlaceholderText("Enter your password");
+
+    act(() => {
+        fireEvent.change(passwordInput, { target: { value: "test" } });
+    });
+
+    fireEvent.blur(passwordInput);
+
+    const passwordError = getByText("Password must be at least 8 characters.");
+  
+    // expect(passwordError).toBeInTheDocument();
+
+    // await waitFor(() => {
+        expect(passwordError).toBeInTheDocument();
+    // });
+});

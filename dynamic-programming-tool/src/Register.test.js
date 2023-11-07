@@ -20,7 +20,7 @@ describe('Register Component', () => {
             </MemoryRouter>
         );
 
-        // Check if the form is rendered
+        // Check if the form is rendered 
         expect(screen.getByRole('form')).toBeInTheDocument();
 
         // Check for input fields
