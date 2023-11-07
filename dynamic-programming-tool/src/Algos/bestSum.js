@@ -1,5 +1,8 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, myID = 0
 let nodes = [], repeatedSub = []
@@ -106,7 +109,39 @@ function getBestSumAnswer(){
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 
-export { getBestSumQuestion, getBestSumAnswer }
+function GetBestSumDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function buildTree(targetSum, numbers):
+        create a root node with value targetSum
+        add the root node to the tree
+        
+        for each num in numbers:
+            if targetSum - num >= 0:
+                Create child node with value targetSum - num
+                Add child node as child of the root node
+                Recursively call 
+                buildTree(targetSum - num, numbers)
+
+        return the root node of the tree
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is the pseudocode for the bestSum algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+  }
+
+export { getBestSumQuestion, getBestSumAnswer, GetBestSumDetails }
 
 // console.log('Shortest:', out) //Shortest path and smallest combination
 // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation

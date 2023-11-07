@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 import GraphView from "./Components/graph";
 
 //Get question to ask + its answer
-import { getQuestion, getAnswer } from "./Algos/pickAlgo";
+import { getQuestion, getAnswer, GetDetails, getDetailNo} from "./Algos/pickAlgo";
 import { getUserAnswer, clearGraph} from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 import { AuthContext } from "./Database/Auth";
@@ -42,6 +42,7 @@ function QuestionsH(){
     
     const [question, setQuestion] = useState(getQuestion());
     const [answer, setAnswer] = useState(getAnswer());
+    const [detailNo, setDetailNo] = useState(getDetailNo());
     const [refreshGraph, setRefreshGraph] = useState(0);
     const [questionCount, setQuestionCount] = useState(0);
     //console.log("Qc: ", questionCount)
@@ -105,6 +106,7 @@ function QuestionsH(){
 
             setQuestion(getQuestion())
             setAnswer(getAnswer())
+            setDetailNo(getDetailNo())
             console.log("answeR: ", answer)
             
             setRefreshGraph(refreshGraph + 1)
@@ -113,7 +115,7 @@ function QuestionsH(){
 
     }    
 
-    const handleAnswerBoxBtn = () => {
+    /*const handleAnswerBoxBtn = () => {
         setQuestionCount(questionCount + 1)
         //console.log("Qc: ", questionCount)
         //console.log("answer: ", answer)
@@ -141,7 +143,7 @@ function QuestionsH(){
             setRefreshGraph(refreshGraph + 1)
             clearGraph()
         }
-    };
+    };*/
 
     return(
         <div className="top-down">
@@ -156,7 +158,8 @@ function QuestionsH(){
                     <p className="question-text" id="container">{question}</p>
                 </div>
                 <div id="details-container" style={{display: "none"}}>
-                    <p className="question-text" >Pseudocode and Details go in here if applicable.</p>
+                    {/*<p className="question-text" >Pseudocode and Details go in here if applicable.</p>*/}
+                    <GetDetails number = {detailNo}/>
                 </div>
 
                 </div>

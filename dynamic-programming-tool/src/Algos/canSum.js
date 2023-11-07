@@ -1,5 +1,8 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, myID = 0
 let nodes = []
@@ -80,4 +83,41 @@ function getCanSumAnswer(){
     return [tree.root.serializeTree(), val]
 }
 
-export { getCanSumQuestion, getCanSumAnswer }
+function GetCanSumDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function canSum(targetSum, numbers, memo):
+        if targetSum in memo:
+            return memo[targetSum]
+
+        if targetSum is 0:
+            return true
+
+        for each num in numbers:
+            remainder = targetSum - num
+            if remainder < 0:
+                continue
+            if canSum(remainder, numbers, memo) is true:
+                memo[targetSum] = true
+                return true
+
+        memo[targetSum] = false
+        return false
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is the pseudocode for the canSum algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+  }
+
+export { getCanSumQuestion, getCanSumAnswer, GetCanSumDetails }

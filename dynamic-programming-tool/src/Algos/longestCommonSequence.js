@@ -1,5 +1,8 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, strings, ans
 let myID = 0
@@ -125,4 +128,37 @@ function getLCSAnswer(){
     return [tree.root.serializeTree(), repeatedSub]
 }
 
-export { getLCSQuestion, getLCSAnswer }
+function GetLCSDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function lcs(A, B, memo):
+        if A or B is empty:
+            return 0
+
+        if A[0] equals B[0]:
+            result = 1 + lcs(A[1:], B[1:], memo)
+        else:
+            leftResult = lcs(A[1:], B, memo)
+            rightResult = lcs(A, B[1:], memo)
+            result = max(leftResult, rightResult)
+
+        memo[A][B] = result
+        return result
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is an example of the LCS algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+}
+
+export { getLCSQuestion, getLCSAnswer, GetLCSDetails }

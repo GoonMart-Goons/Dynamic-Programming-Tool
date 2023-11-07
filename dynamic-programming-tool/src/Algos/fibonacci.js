@@ -1,5 +1,8 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, n
 let myID = 0
@@ -68,7 +71,39 @@ function getFibAnswer(){
     return [tree.root.serializeTree(), repeatedSub]
 }
 
-export { getFibQuestion, getFibAnswer }
+function GetFibDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function fib(n, memo):
+        if n in memo:
+            return memo[n]
+
+        if n <= 2:
+            result = 1
+        else:
+            result = fib(n - 1, memo) + fib(n - 2, memo)
+
+        memo[n] = result
+        return result
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is the pseudocode for the Fibonacci algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+  }
+
+
+export { getFibQuestion, getFibAnswer, GetFibDetails}
 
 //Ask Question
 // console.log(getQuestion())
