@@ -111,17 +111,6 @@ function Login() {
                     </Form>
                 </Formik>
 
-                {/* <form onSubmit = {handleSubmit}>
-                    <h5>STUDENT NUMBER</h5>
-                    <input type = "text" placeholder="Enter your student number" />
-
-                    <h5>PASSWORD</h5>
-                    <input type = "password" placeholder="Enter your password" />
-
-                    <button type = "submit" className = "login-button">LOGIN</button>
-
-                </form> */}
-
                 <p> By logging in you agree to DP World's Conditions of Use & Sale. Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.</p>
                 <p>Don't have an account? <Link to = "/Register"> REGISTER</Link></p>
             </div>

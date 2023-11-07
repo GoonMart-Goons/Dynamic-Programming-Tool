@@ -1,21 +1,21 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom'; // Use MemoryRouter to mock the Router
-import Home from '../Home';
+import React from "react";
+import { render, fireEvent, act } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Home from "../Home";
 
-test('renders the Home component', () => {
+test("Clicking Introduction button navigates to Introduction route", () => {
   const { getByText } = render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={["/home"]}>
       <Home />
     </MemoryRouter>
   );
 
-  // Your test code here
-  const titleElement = getByText('Dynamic Programming Bootcamp');
-  expect(titleElement).toBeInTheDocument();
+  const introductionButton = getByText("Introduction");
+  act(() => {
+    fireEvent.click(introductionButton);
+  });
+
+  expect(window.location.pathname).toBe("/introduction");
 });
 
-// test('renders the Heading', () => {
-//   const { getByText } = render(<Home />);
-  
-// });
+// Similarly, write tests for other buttons and navigation.
