@@ -38,19 +38,24 @@ function getFibQuestion(){
     //Reset global vars to reuse question w/out problems
     myID = 0
     nodes = []
+    repeatedSub = []
 
     const random = new rng(Date.now())
     n = random.randomRangeInt(3, 9)
 
     let question = 'A) Using the fibonacci algorithm, construct the resultant tree of fib(' + n + ')'
                     + '\n\n' +
-                    'B) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
+                    'B) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
 
     return question
 }
 
 function getFibAnswer(){
     fib(n)
+
+    if(repeatedSub.length === 0){
+        repeatedSub = -1
+    }
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)

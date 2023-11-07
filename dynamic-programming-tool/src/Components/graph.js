@@ -21,6 +21,12 @@ var identity = -1;
 var nodeArray = [];
 var edgeArray = [];
 
+function clearGraph(){
+    identity = -1;
+    nodeArray = [];
+    edgeArray = [];
+}
+
 function getUserAnswer() {
     let nodes = []
 
@@ -61,10 +67,6 @@ function getValueFromLabel(label){
 }
 
 function GraphView({questionNumber}){
-    identity = -1;
-
-    nodeArray = [];
-    edgeArray = [];
 
     //const vis = document.getElementById("myVisGraph");
 
@@ -306,4 +308,4 @@ function GraphView({questionNumber}){
 
 export default GraphView;
 
-export {getUserAnswer}
+export {getUserAnswer, clearGraph}

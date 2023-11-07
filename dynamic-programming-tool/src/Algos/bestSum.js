@@ -78,7 +78,7 @@ function getBestSumQuestion(){
                     'In the case that there is no shortest path, answer -1.'
                     // OR -> What is the smallest combination of values that produce the targetSum'
                     + '\n\n'
-                    + 'C) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
+                    + 'C) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
 
     return question
 }
@@ -90,6 +90,10 @@ function getBestSumAnswer(){
     }else{
         out = out.slice().reverse()
     } 
+
+    if(repeatedSub.length === 0){
+        repeatedSub = -1
+    }
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)

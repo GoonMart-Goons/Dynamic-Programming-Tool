@@ -9,7 +9,7 @@ import GraphView from "./Components/graph";
 
 //Get question to ask + its answer
 import { getQuestion, getAnswer } from "./Algos/pickAlgo";
-import { getUserAnswer } from "./Components/graph";
+import { getUserAnswer, clearGraph} from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 import { AuthContext } from "./Database/Auth";
 
@@ -75,10 +75,11 @@ function QuestionsH(){
         else{
             // The textbox answer
             userAns = sessionStorage.getItem('writtenAnswerValue')
+            console.log('User\'s answer:', userAns)
         }
         
     
-        if(userAns === answer[questionCount]){
+        if(userAns === answer[questionCount].toString()){ // Converts answer to string value
             //increaseCompletionCount(currentUser.uid, difficulty.easy)
             setQuestionCount(questionCount + 1)
             alert('You got the question right!')
@@ -88,9 +89,12 @@ function QuestionsH(){
                 document.getElementById('node-answer-box').style.display = 'none';
                 document.getElementById('written-answer-box').style.display = 'block';
             }
+
+            console.log("Curr answer: ", answer[questionCount + 1])
         }
-        else
+        else{
             alert('Try again.')
+        }
 
         if(questionCount + 1 >= answer.length){ // Sets how mny answers each question has (using setQuestionCount() to update will be async so we dont get the latest value, we account for this offset by adding 1)
             //question = getQuestion()
@@ -104,15 +108,12 @@ function QuestionsH(){
             console.log("answeR: ", answer)
             
             setRefreshGraph(refreshGraph + 1)
+            clearGraph()
         }
-        else{
-            console.log("Curr answer: ", answer[questionCount + 1])
-        }
-
 
     }    
 
-    /*const handleAnswerBoxBtn = () => {
+    const handleAnswerBoxBtn = () => {
         setQuestionCount(questionCount + 1)
         //console.log("Qc: ", questionCount)
         //console.log("answer: ", answer)
@@ -138,8 +139,9 @@ function QuestionsH(){
             console.log("answeR: ", answer)
             
             setRefreshGraph(refreshGraph + 1)
+            clearGraph()
         }
-    };*/
+    };
 
     return(
         <div className="top-down">

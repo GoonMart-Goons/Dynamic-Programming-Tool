@@ -24,7 +24,6 @@ function WrittenAnswer({questionNumber}){
 
     let questionNo = String.fromCharCode('A'.charCodeAt(0) + questionNumber);  // Maps interger to letter
 
-
     return (
         <div id = "written-answer-box" className="edit-text-container" style={{display: "none"}}>
             <h4>Question {questionNo}</h4>

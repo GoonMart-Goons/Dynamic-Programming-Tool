@@ -96,18 +96,23 @@ function getLCSQuestion(){
     const numMatching = random.randomInt(3)
     strings = generateStrings(lenA, lenB, numMatching)
     nodes = []
+    repeatedSub = []
     myID = 0
 
     let question = 'A) Using the Longest Common Subsequence algorithm, ' +
                    'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")' + 
                    '\n\n' +
-                   'B) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
+                   'B) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
     
     return question
 }
 
 function getLCSAnswer(){
     const ans = lcs(strings.A, strings.B)
+
+    if(repeatedSub.length === 0){
+        repeatedSub = -1
+    }
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
