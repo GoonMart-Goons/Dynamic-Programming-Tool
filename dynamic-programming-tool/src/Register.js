@@ -72,10 +72,10 @@ function Register() {
                     Name: values.firstName,
                     Surname: values.lastName,
                     Email: values.studentEmail,
-                    Role: values.role 
+                    Role: values.role
                 })
                 alert('Registered successfully! Please sign in');
-                navigate('/login'); 
+                navigate('/login');
 
             }).catch((error) => {
                 alert("Failed to register: " + error.messsage);
@@ -98,7 +98,7 @@ function Register() {
             <div className="register-container">
                 <h1 className="register-head">Register</h1>
 
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} role="form">
                    <div className="title-error"> NAME
                     {formik.touched.firstName && formik.errors.firstName ? (
                         <div className="error-message">{formik.errors.firstName}</div>
@@ -168,6 +168,7 @@ function Register() {
                     <select className="register-select"
                         id="role"
                         name="role"
+                        data-testid="roleselect"
                         value={formik.values.role}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -179,7 +180,7 @@ function Register() {
                         <div className="error-message">{formik.errors.role}</div>
                     ) : null}
 
-                    <button type="submit" className="register-button">
+                    <button type="submit" className="register-button" data-testid="register-button">
                         REGISTER
                     </button>
                 </form>
@@ -190,7 +191,7 @@ function Register() {
                     Please see our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.
                 </p>
                 <p>Already have an account? <Link to = "/login" > LOGIN</Link></p>
-                
+
             </div>
         </div>
     );
