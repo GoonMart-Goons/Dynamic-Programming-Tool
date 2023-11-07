@@ -1,38 +1,8 @@
-const seedrandom = require('seedrandom');
-
-class rng{
-    constructor(seed){
-        this.seed = seed
-        this.randomizer = seedrandom(this.seed)
-    }
-
-    setSeed(newSeed){
-        this.seed = newSeed
-        this.randomizer = seedrandom(this.seed)
-    }
-    
-    random(){
-        return this.randomizer()
-    }
-
-    randomInt(max){
-        return Math.floor(this.randomizer() * (max))
-    }
-
-    randomRange(min, max){
-        return this.randomizer() * (max - min) + min
-    }
-    randomRangeInt(min, max){
-        return Math.floor(this.randomizer() * (max - min + 1)) + min
-    }
-
-    pickFrom(numbers){
-        return numbers[this.randomInt(numbers.length)]
-    }
-}
+import { Tree, TreeNode } from "../Classes/TreeClass.js";
+import { rng } from "../Classes/RNG.js";
 
 let tree, myID = 0
-let nodes, repeatedSub = []
+let nodes = [], repeatedSub = []
 let targetSum, numbers
 
 function bestSum(targetSum, numbers, parentID = -1, memo = {}){  
@@ -49,11 +19,11 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
     nodes.push(node)
 
     if (targetSum in memo){
-        repeatedSub.push(node)
+        repeatedSub.push(node.id)
         return memo[targetSum]
     }
     if (targetSum === 0) 
-        return []
+        return [node.id]
     
 
     let shortestCombination = null
@@ -62,7 +32,8 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
         const remainder = targetSum - num
         const remainderResult = bestSum(remainder, numbers, node.id, memo)
         if (remainderResult !== null){
-            const combination = [...remainderResult, [node, num]]
+            // const combination = [...remainderResult, {id: node.id, num: targetSum}]
+            const combination = [...remainderResult, node.id]
             if (shortestCombination === null || combination.length < shortestCombination.length){
                 shortestCombination = combination
             }
@@ -78,6 +49,7 @@ function getBestSumQuestion(){
     //Reset global vars
     myID = 0
     nodes = []
+    repeatedSub = []
 
     const random = new rng(Date.now())
 
@@ -93,7 +65,6 @@ function getBestSumQuestion(){
         const num = random.pickFrom(freeNumbers)
         numbers.push(num)
         freeNumbers.splice(freeNumbers.indexOf(num), 1)
-
     }
 
     /*let question = 'Using the bestSum algorithm, construct the resultant tree given:\n'
@@ -110,22 +81,23 @@ function getBestSumQuestion(){
     return question
 }
 
-/*function getBestSumAnswer(){
-    bestSum(targetSum, numbers)
+function getBestSumAnswer(){    
+    var out = bestSum(targetSum, numbers)
+    if (out === null) out = -1
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log(tree.root.serializeTree())
-    return tree.root.serializeTree()
-}*/
+    console.log('Tree:', tree.root.serializeTree())
+    console.log('Shortest:', out) //Shortest path and smallest combination
+    console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+    return [tree.root.serializeTree(), out, repeatedSub]
+}
 
-console.log(getBestSumQuestion())
+export { getBestSumQuestion, getBestSumAnswer }
 
-const out = bestSum(targetSum, numbers)
-
-console.log(out) //Shortest path and smallest combination
-console.log(repeatedSub) //Nodes that were obtained through memoisation
-console.log(nodes) //All nodes in tree
+// console.log('Shortest:', out) //Shortest path and smallest combination
+// console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+// console.log('Nodes:', nodes) //All nodes in tree

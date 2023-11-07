@@ -3,6 +3,7 @@ import { rng } from "../Classes/RNG.js";
 import { getCanSumQuestion, getCanSumAnswer } from "./canSum.js";
 import { getFibQuestion, getFibAnswer } from "./fibonacci.js";
 import { getLCSQuestion, getLCSAnswer } from "./longestCommonSequence.js";
+import { getBestSumQuestion, getBestSumAnswer } from "./bestSum.js";
 
 
 let random = new rng(Date.now())
@@ -22,15 +23,19 @@ function getQuestion(){
     switch(chosenAlgo){
         case 0:
             question = getCanSumQuestion()
-            answer = getCanSumAnswer()
+            answer = getCanSumAnswer()[0]
             break
         case 1:
             question = getFibQuestion()
-            answer = getFibAnswer()
+            answer = getFibAnswer()[0]
             break
         case 2:
             question = getLCSQuestion()
-            answer = getLCSAnswer()
+            answer = getLCSAnswer()[0]
+            break                
+        case 3:
+            question = getBestSumQuestion()
+            answer = getBestSumAnswer()[0]
             break                
     }
 
