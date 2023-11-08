@@ -18,7 +18,7 @@ function TopDownTest(){
 
     return(
         <div className="top-down">
-            <Navbar placeholder=""></Navbar>
+            <Navbar data-testid="nav-bar" placeholder=""></Navbar>
             <div>
                 <GraphView/>
                 {/* The difficulty used here is a temp example depending on the mode the user is in*/}
