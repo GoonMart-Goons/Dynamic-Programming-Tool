@@ -1,9 +1,12 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, strings, ans
 let myID = 0
-let nodes = []
+let nodes, repeatedSub = []
 const random = new rng(Date.now())
 
 function shuffleString(str){
@@ -67,6 +70,7 @@ function lcs(A, B, parentID = -1, memo = {}){
     if(memo[A.length] && memo[A.length][B.length] !== undefined){
         node.value = memo[A.length][B.length]
         nodes.push(node)
+        repeatedSub.push(node.id)
         return memo[A.length][B.length]
     }
 
@@ -95,22 +99,66 @@ function getLCSQuestion(){
     const numMatching = random.randomInt(3)
     strings = generateStrings(lenA, lenB, numMatching)
     nodes = []
+    repeatedSub = []
     myID = 0
 
-    let question = 'Using the Longest Common Subsequence algorithm, ' +
-                   'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")'
+    let question = 'A) Using the Longest Common Subsequence algorithm, ' +
+                   'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")' + 
+                   '\n\n' +
+                   'B) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
+    
     return question
 }
 
 function getLCSAnswer(){
     const ans = lcs(strings.A, strings.B)
 
+    if(repeatedSub.length === 0){
+        repeatedSub = -1
+    }
+
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    return [tree.root.serializeTree()]
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+
+    return [tree.root.serializeTree(), repeatedSub]
 }
 
-export { getLCSQuestion, getLCSAnswer }
+function GetLCSDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function lcs(A, B, memo):
+        if A or B is empty:
+            return 0
+
+        if A[0] equals B[0]:
+            result = 1 + lcs(A[1:], B[1:], memo)
+        else:
+            leftResult = lcs(A[1:], B, memo)
+            rightResult = lcs(A, B[1:], memo)
+            result = max(leftResult, rightResult)
+
+        memo[A][B] = result
+        return result
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is an example of the LCS algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+}
+
+export { getLCSQuestion, getLCSAnswer, GetLCSDetails }

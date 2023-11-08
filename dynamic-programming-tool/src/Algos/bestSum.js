@@ -1,12 +1,14 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, myID = 0
 let nodes = [], repeatedSub = []
 let targetSum, numbers
 
-function bestSum(targetSum, numbers, parentID = -1, memo = {}){  
-    
+function bestSum(targetSum, numbers, parentID = -1, memo = {}){    
     if (targetSum < 0)
         return null
     
@@ -25,7 +27,6 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
     if (targetSum === 0) 
         return [node.id]
     
-
     let shortestCombination = null
 
     for(let num of numbers){
@@ -73,17 +74,27 @@ function getBestSumQuestion(){
     let question = 'A) Using the bestSum algorithm, construct the resultant tree given:\n'
                     + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
                     + '\n\n' 
-                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum' //(this is obtained from the 0-th index of the element in the out array). It is also exculusive of the node with the value 0
+                    + 'B) What is the path of nodes that produce the shortest combination of the targetSum? ' + 
+                    'In the case that a memoised node is used, use the id of the orignal node and not that of the repeated node. ' + 
+                    'In the case that there is no shortest path, answer -1.'
                     // OR -> What is the smallest combination of values that produce the targetSum'
                     + '\n\n'
-                    + 'C) In which nodes (if any) was the repeating substructure property demonstated? Write out the node IDs'
+                    + 'C) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
 
     return question
 }
 
 function getBestSumAnswer(){    
     var out = bestSum(targetSum, numbers)
-    if (out === null) out = -1
+    if (out === null){
+        out = -1
+    }else{
+        out = out.slice().reverse().toString()
+    } 
+
+    if(repeatedSub.length === 0){
+        repeatedSub = -1
+    }
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
@@ -96,7 +107,39 @@ function getBestSumAnswer(){
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 
-export { getBestSumQuestion, getBestSumAnswer }
+function GetBestSumDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function buildTree(targetSum, numbers):
+        create a root node with value targetSum
+        add the root node to the tree
+        
+        for each num in numbers:
+            if targetSum - num >= 0:
+                Create child node with value targetSum - num
+                Add child node as child of the root node
+                Recursively call 
+                buildTree(targetSum - num, numbers)
+
+        return the root node of the tree
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is the pseudocode for the bestSum algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+  }
+
+export { getBestSumQuestion, getBestSumAnswer, GetBestSumDetails }
 
 // console.log('Shortest:', out) //Shortest path and smallest combination
 // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation

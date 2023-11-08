@@ -1,5 +1,8 @@
 import { Tree, TreeNode } from "../Classes/TreeClass.js";
 import { rng } from "../Classes/RNG.js";
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "../Styles/TopDown.css";
 
 let tree, myID = 0
 let nodes = []
@@ -23,7 +26,8 @@ function canSum(targetSum, numbers, parentID = -1, memo = {}){
         const remainder = targetSum - num
         if (remainder < 0){
             memo[targetSum] = false
-            return false
+            //return false
+            continue
         }
         else if (canSum(remainder, numbers, node.id, memo) === true){
             memo[targetSum] = true
@@ -57,22 +61,63 @@ function getCanSumQuestion(){
 
     }
 
-    let question = 'Using the canSum algorithm, construct the resultant tree given:\n'
-        + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
+    let question = 'A) Using the canSum algorithm, construct the resultant tree given:\n'
+        + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers +
+        '\n\n' +
+        'B) Is it possible to sum to the target sum using the given numbers list? true/false'
 
     return question
 }
 
 function getCanSumAnswer(){
-    canSum(targetSum, numbers)
+    const val = canSum(targetSum, numbers)
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log(tree.root.serializeTree())
-    return [tree.root.serializeTree()]
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Boolean:', val)
+
+    return [tree.root.serializeTree(), val]
 }
 
-export { getCanSumQuestion, getCanSumAnswer }
+function GetCanSumDetails() {
+
+    const customStyle = {
+        backgroundColor: 'transparent' // Set the background color to transparent
+      };
+
+    const pseudocode = 
+    `function canSum(targetSum, numbers, memo):
+        if targetSum in memo:
+            return memo[targetSum]
+
+        if targetSum is 0:
+            return true
+
+        for each num in numbers:
+            remainder = targetSum - num
+            if remainder < 0:
+                continue
+            if canSum(remainder, numbers, memo) is true:
+                memo[targetSum] = true
+                return true
+
+        memo[targetSum] = false
+        return false
+    `;
+  
+    return (
+      <div className="question-text">
+        <br/>
+        <p>This is the pseudocode for the canSum algorithm:</p>
+        <SyntaxHighlighter language="python" style={docco} customStyle={customStyle}>
+          {pseudocode}
+        </SyntaxHighlighter>
+      </div>
+    );
+  }
+
+export { getCanSumQuestion, getCanSumAnswer, GetCanSumDetails }

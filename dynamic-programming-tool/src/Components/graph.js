@@ -10,11 +10,18 @@ import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 //Used to export the user's answer
 import { Tree, TreeNode } from "../Classes/TreeClass";
+import WrittenAnswer from "./writtenAnswer";
 
 var identity = -1;
 
 var nodeArray = [];
 var edgeArray = [];
+
+function clearGraph(){
+    identity = -1;
+    nodeArray = [];
+    edgeArray = [];
+}
 
 function getUserAnswer() {
     let nodes = []
@@ -55,7 +62,7 @@ function getValueFromLabel(label){
     return ''
 }
 
-function GraphView(){
+function GraphView({questionNumber}){
 
     const [namePopupEditText, setNamePopupEditText] = useState("");
 
@@ -162,13 +169,14 @@ function GraphView(){
         setFn(e.target.value);
     }
 
+
     return(
         <div className="graphingTool">
             <VisGraph id="myVisGraph"
                 graph={graph}
                 options={option}
             />
-            <div className="edit-text-container">
+            <div id = "node-answer-box" className="edit-text-container">
                 <h4>Add Node</h4>
                 <div className="edit-container">
                 <EditText className="edit-text" defaultValue="Enter node label" 
@@ -177,6 +185,16 @@ function GraphView(){
                         />
                 </div>
             </div>
+            <WrittenAnswer questionNumber={questionNumber}/>
+            <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
+                <h3>My Popup</h3>
+                <div>
+                    <EditText defaultValue="" 
+                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
+                        value={namePopupEditText}
+                    />
+                </div>
+            </Popup>
         </div>
     );
 }
@@ -184,4 +202,4 @@ function GraphView(){
 
 export default GraphView;
 
-export {getUserAnswer}
+export {getUserAnswer, clearGraph}
