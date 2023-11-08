@@ -46,7 +46,7 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
 }
 
 
-function getBestSumQuestion(){
+function GetBestSumQuestion(){
     //Reset global vars
     myID = 0
     nodes = []
@@ -68,10 +68,12 @@ function getBestSumQuestion(){
         freeNumbers.splice(freeNumbers.indexOf(num), 1)
     }
 
+    let tempNumbers = numbers.join(',');
+
     /*let question = 'Using the bestSum algorithm, construct the resultant tree given:\n'
         + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers*/
 
-    let question = 'A) Using the bestSum algorithm, construct the resultant tree given:\n'
+    /*let question = 'A) Using the bestSum algorithm, construct the resultant tree given:\n'
                     + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers
                     + '\n\n' 
                     + 'B) What is the path of nodes that produce the shortest combination of the targetSum? ' + 
@@ -81,7 +83,22 @@ function getBestSumQuestion(){
                     + '\n\n'
                     + 'C) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
 
-    return question
+    return question*/
+    return (
+        <div className="question-text">
+          <br/>
+          <p><strong>A)</strong> Using the bestSum algorithm, construct the resultant tree given:</p>
+          <p>Target Sum = {targetSum} and the numbers list {tempNumbers} </p>
+          <br/>
+          <p><strong>B)</strong> What is the path of nodes that produce the shortest combination of the targetSum?</p>
+          <p>Enter the answer as a comma separated list starting from the root e.g. 0,1,2,3</p>
+          <p>In the case that a memoised node is used, use the id of the orignal node and not that of the repeated node.</p>
+          <p>In the case that there is no shortest path, answer -1.</p>
+          <br/>        
+          <p><strong>C)</strong> In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.</p>
+          
+        </div>
+      );
 }
 
 function getBestSumAnswer(){    
@@ -139,7 +156,7 @@ function GetBestSumDetails() {
     );
   }
 
-export { getBestSumQuestion, getBestSumAnswer, GetBestSumDetails }
+export { GetBestSumQuestion, getBestSumAnswer, GetBestSumDetails }
 
 // console.log('Shortest:', out) //Shortest path and smallest combination
 // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation

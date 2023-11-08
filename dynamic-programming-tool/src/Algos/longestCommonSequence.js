@@ -93,7 +93,7 @@ function lcs(A, B, parentID = -1, memo = {}){
     return node.value
 }
 
-function getLCSQuestion(){
+function GetLCSQuestion(){
     const lenA = random.randomRangeInt(1, 3)
     const lenB = random.randomRangeInt(1, 4)
     const numMatching = random.randomInt(3)
@@ -102,12 +102,24 @@ function getLCSQuestion(){
     repeatedSub = []
     myID = 0
 
-    let question = 'A) Using the Longest Common Subsequence algorithm, ' +
+    /*let question = 'A) Using the Longest Common Subsequence algorithm, ' +
                    'construct the resultant tree of lcs("' + strings.A + '", "' + strings.B + '")' + 
                    '\n\n' +
                    'B) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
     
-    return question
+    return question*/
+
+    return (
+        <div className="question-text">
+          <br/>
+          <p><strong>A)</strong> Using the Longest Common Subsequence algorithm, construct the resultant tree of </p>
+          <p>lcs("{strings.A}", "{strings.B}")</p>
+          <p>Each node should have the value "&#123;SubstringA&#125;,&#123;SubstringB&#125;,&#123;nunber&#125;". For example, the second node of lcs("ABC","DEF") would have the value "BC,DEF,0".</p>
+          <p>When you have reached the end of a string, input nothing for that substring, e.g. "AB,,0"</p>
+          <br/>
+          <p><strong>B)</strong> In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.</p>
+        </div>
+      );
 }
 
 function getLCSAnswer(){
@@ -118,7 +130,7 @@ function getLCSAnswer(){
     }
 
     nodes.sort((a, b) => a.id - b.id)
-    tree = new Tree(nodes[0].value)
+    tree = new Tree(nodes[0].A.toString() + ',' + nodes[0].B.toString() + ',' + nodes[0].value.toString())
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].A.toString() + ',' + nodes[i].B.toString() + ',' + nodes[i].value.toString()))
 
@@ -161,4 +173,4 @@ function GetLCSDetails() {
     );
 }
 
-export { getLCSQuestion, getLCSAnswer, GetLCSDetails }
+export { GetLCSQuestion, getLCSAnswer, GetLCSDetails }

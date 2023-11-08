@@ -153,7 +153,7 @@ function QuestionsH(){
                 <button type = "button" className="details-state-btn" onClick={handleDetailsBtn}>DETAILS</button></span>
 
                 <div id="question-container">
-                    <p className="question-text" id="container">{question}</p>
+                    <p> {question} </p>
                 </div>
                 <div id="details-container" style={{display: "none"}}>
                     {/*<p className="question-text" >Pseudocode and Details go in here if applicable.</p>*/}

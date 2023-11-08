@@ -37,7 +37,7 @@ function fib(n, parentID = -1, memo = {}){
     return memo[n]
 }
 
-function getFibQuestion(){
+function GetFibQuestion(){
     //Reset global vars to reuse question w/out problems
     myID = 0
     nodes = []
@@ -46,11 +46,20 @@ function getFibQuestion(){
     const random = new rng(Date.now())
     n = random.randomRangeInt(3, 9)
 
-    let question = 'A) Using the fibonacci algorithm, construct the resultant tree of fib(' + n + ')'
+    /*let question = 'A) Using the fibonacci algorithm, construct the resultant tree of fib(' + n + ')'
                     + '\n\n' +
                     'B) In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.'
 
-    return question
+    return question*/
+
+    return (
+        <div className="question-text">
+          <br/>
+          <p><strong>A)</strong> Using the fibonacci algorithm, construct the resultant tree of fib({n})</p>
+          <br/>
+          <p><strong>B)</strong> In which nodes (if any) was the repeating substructure property demonstated? In the case that there are none, answer -1.</p>
+        </div>
+      );
 }
 
 function getFibAnswer(){
@@ -103,7 +112,7 @@ function GetFibDetails() {
   }
 
 
-export { getFibQuestion, getFibAnswer, GetFibDetails}
+export { GetFibQuestion, getFibAnswer, GetFibDetails}
 
 //Ask Question
 // console.log(getQuestion())

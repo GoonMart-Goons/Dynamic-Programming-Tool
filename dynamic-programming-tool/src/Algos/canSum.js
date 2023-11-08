@@ -39,7 +39,7 @@ function canSum(targetSum, numbers, parentID = -1, memo = {}){
     return false
 }
 
-function getCanSumQuestion(){
+function GetCanSumQuestion(){
     //Reset global vars
     myID = 0
     nodes = []
@@ -60,13 +60,24 @@ function getCanSumQuestion(){
         freeNumbers.splice(freeNumbers.indexOf(num), 1)
 
     }
+    let tempNumbers = numbers.join(',');
 
-    let question = 'A) Using the canSum algorithm, construct the resultant tree given:\n'
+    /*let question = 'A) Using the canSum algorithm, construct the resultant tree given:\n'
         + 'Target Sum = ' + targetSum + ' and the numbers list ' + numbers +
         '\n\n' +
         'B) Is it possible to sum to the target sum using the given numbers list? true/false'
 
-    return question
+    return question*/
+
+    return (
+        <div className="question-text">
+          <br/>
+          <p><strong>A)</strong> Using the canSum algorithm, construct the resultant tree given:</p>
+          <p>Target Sum = {targetSum} and the numbers list {tempNumbers} </p>
+          <br/>
+          <p><strong>B)</strong> Is it possible to sum to the target sum using the given numbers list? true/false</p>
+        </div>
+      );
 }
 
 function getCanSumAnswer(){
@@ -120,4 +131,4 @@ function GetCanSumDetails() {
     );
   }
 
-export { getCanSumQuestion, getCanSumAnswer, GetCanSumDetails }
+export { GetCanSumQuestion, getCanSumAnswer, GetCanSumDetails }

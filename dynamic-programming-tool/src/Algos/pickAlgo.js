@@ -1,9 +1,9 @@
 import { rng } from "../Classes/RNG.js";
 //Implemented algos
-import { getCanSumQuestion, getCanSumAnswer, GetCanSumDetails } from "./canSum.js";
-import { getFibQuestion, getFibAnswer, GetFibDetails} from "./fibonacci.js";
-import { getLCSQuestion, getLCSAnswer, GetLCSDetails } from "./longestCommonSequence.js";
-import { getBestSumQuestion, getBestSumAnswer, GetBestSumDetails } from "./bestSum.js";
+import { GetCanSumQuestion, getCanSumAnswer, GetCanSumDetails } from "./canSum.js";
+import { GetFibQuestion, getFibAnswer, GetFibDetails} from "./fibonacci.js";
+import { GetLCSQuestion, getLCSAnswer, GetLCSDetails } from "./longestCommonSequence.js";
+import { GetBestSumQuestion, getBestSumAnswer, GetBestSumDetails } from "./bestSum.js";
 
 
 let random = new rng(Date.now())
@@ -20,23 +20,22 @@ let question, answer, details, chosenAlgo
 function getQuestion(){
 
     chosenAlgo = random.randomInt(3)
-    chosenAlgo = 2
     
     switch(chosenAlgo){
         case 0:
-            question = getCanSumQuestion()
+            question = GetCanSumQuestion()
             answer = getCanSumAnswer()
             break
         case 1:
-            question = getFibQuestion()
+            question = GetFibQuestion()
             answer = getFibAnswer()
             break
         case 2:
-            question = getLCSQuestion()
+            question = GetLCSQuestion()
             answer = getLCSAnswer()
             break                
         case 3:
-            question = getBestSumQuestion()
+            question = GetBestSumQuestion()
             answer = getBestSumAnswer()
             break                
     }
