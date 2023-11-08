@@ -27,6 +27,14 @@ function clearGraph(){
     edgeArray = [];
 }
 
+function findNodeByID(nodes, idToFind){
+    for(var i = 0; i < nodes.length; i++)
+        if(nodes[i].id === idToFind)
+            return i
+
+    return -1
+}
+
 function getUserAnswer() {
     let nodes = []
 
@@ -42,15 +50,22 @@ function getUserAnswer() {
     for(let i = 0; i < edgeArray.length; i++){
         const fromIndex = edgeArray[i].from
         const toIndex = edgeArray[i].to
-
-        if(fromIndex < nodes.length && toIndex < nodes.length){
-            nodes[toIndex].pid = nodes[fromIndex].id
-        }
+        nodes[findNodeByID(nodes, toIndex)].pid = nodes[findNodeByID(nodes, fromIndex)].id
     }
 
     const tree = new Tree(nodes[0].value)
-    for(var i = 1; i < nodes.length; i++)
-        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
+    tree.root.ID = nodes[0].id
+    for(var i = 1; i < nodes.length; i++){
+        const newNode = new TreeNode(nodes[i].value)
+        newNode.ID = nodes[i].id
+        console.log('newest node pid:', nodes[i].pid)
+        tree.insertByID(nodes[i].pid, newNode)
+        console.log('newest node:', newNode)
+    }
+
+    console.log('nodes:', nodes)
+    console.log('edge array:', edgeArray)
+    console.log('tree IDs:', tree.root.serializeTreeID())
 
     return tree.root.serializeTree()
 }
@@ -201,7 +216,6 @@ function GraphView({questionNumber}){
                 nodeData.label = createLabel(identity, namePopupEditText);
                 nodeArray.push(nodeData)
                 callback(nodeData);
-                // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
                 if (edgeData.from === edgeData.to) {
@@ -240,13 +254,8 @@ function GraphView({questionNumber}){
                     }
                     if(!fromExists){
                         callback(nodeData);
-                        //nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
                         nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]);
                         edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
-                        /*if(foundEdge != -1){
-                            edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
-                        }*/
-                        
                     }
                     else{
                         alert("Cannot delete node if it is a parent.")
@@ -256,10 +265,6 @@ function GraphView({questionNumber}){
                 else{
                     callback(nodeData);
                     nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]); 
-                    /*while(foundEdge !== -1){
-                        edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
-                        foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
-                    }*/
                 }
             },
             deleteEdge: true
@@ -273,8 +278,6 @@ function GraphView({questionNumber}){
 
     const handleAdd = (e, setFn) => {
         setFn(e.target.value);
-        //addNode(e);
-        //graph.addNode();
     }
 
 

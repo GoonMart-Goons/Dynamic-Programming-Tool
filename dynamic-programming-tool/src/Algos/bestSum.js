@@ -102,9 +102,9 @@ function getBestSumAnswer(){
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log('Tree:', tree.root.serializeTree())
-    console.log('Shortest:', out) //Shortest path and smallest combination
-    console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Shortest:', out) //Shortest path and smallest combination
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 
