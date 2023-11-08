@@ -95,6 +95,7 @@ function getBestSumAnswer(){
     if(repeatedSub.length === 0){
         repeatedSub = -1
     }
+    else repeatedSub.sort((a, b) => a - b)
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)

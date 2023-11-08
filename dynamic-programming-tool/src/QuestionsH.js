@@ -78,8 +78,29 @@ function QuestionsH(){
             console.log('User\'s answer:', userAns)
         }
         
-    
-        if(userAns === answer[questionCount].toString()){ // Converts answer to string value
+        if (questionCount === 2){
+            let userAnsArr = userAns.split(',')
+            userAnsArr = userAnsArr.map(function (value){
+                return parseInt(value)
+            })
+            userAnsArr.sort((a, b) => a - b)
+
+            if (userAnsArr.toString() === answer[questionCount].toString()){
+                setQuestionCount(questionCount + 1)
+                alert('You got the question right!')
+
+                //Hide "Add Node" box and show written answer box
+                if(document.getElementById('node-answer-box').style.display !== 'none'){
+                    document.getElementById('node-answer-box').style.display = 'none';
+                    document.getElementById('written-answer-box').style.display = 'block';
+                }
+
+                console.log("Curr answer: ", answer[questionCount + 1])
+            } else {
+                alert('Try again.')
+            }
+        }
+        else if(userAns === answer[questionCount].toString()){ // Converts answer to string value
             //increaseCompletionCount(currentUser.uid, difficulty.easy)
             setQuestionCount(questionCount + 1)
             alert('You got the question right!')
