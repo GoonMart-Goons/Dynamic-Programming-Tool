@@ -9,7 +9,6 @@ import { GetBestSumQuestion, getBestSumAnswer, GetBestSumDetails } from "./bestS
 let random = new rng(Date.now())
 let question, answer, details, chosenAlgo
 
-//const chosenAlgo = random.randomInt(2)
 /*  I M P L E M E N T E D   A L G O S
     0. Can Sum
     1. Fibonacci

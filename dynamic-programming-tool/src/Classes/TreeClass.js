@@ -83,7 +83,20 @@ class TreeNode{
         }
 
         return serializedStr
+    }
 
+    serializeTreeID(){
+        if (!this)
+            return ''
+
+        let serializedStr = String(this.ID)
+        if (this.children.length > 0){
+            serializedStr += '(' + this.children.map(function(childNode) {
+                return childNode.serializeTree()
+            }).join(',') + ')'
+        }
+
+        return serializedStr
     }
 }
 

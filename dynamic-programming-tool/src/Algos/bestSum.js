@@ -112,15 +112,16 @@ function getBestSumAnswer(){
     if(repeatedSub.length === 0){
         repeatedSub = -1
     }
+    else repeatedSub.sort((a, b) => a - b)
 
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    console.log('Tree:', tree.root.serializeTree())
-    console.log('Shortest:', out) //Shortest path and smallest combination
-    console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+    // console.log('Tree:', tree.root.serializeTree())
+    // console.log('Shortest:', out) //Shortest path and smallest combination
+    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 
