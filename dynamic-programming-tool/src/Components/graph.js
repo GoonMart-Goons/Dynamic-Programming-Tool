@@ -5,9 +5,13 @@ import VisGraph, {
     Options,
   } from 'react-vis-graph-wrapper';
 import "../Styles/graph.css";
+import { Formik, Field, Form, ErrorMessage, setIn } from 'formik';
+import * as Yup from 'yup';
+import Popup from "./NodePopup";
 import 'reactjs-popup/dist/index.css';
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
+//import "../Styles/Popup.css"
 //Used to export the user's answer
 import { Tree, TreeNode } from "../Classes/TreeClass";
 import WrittenAnswer from "./writtenAnswer";
@@ -64,11 +68,78 @@ function getValueFromLabel(label){
 
 function GraphView({questionNumber}){
 
+    //const vis = document.getElementById("myVisGraph");
+
+    const [namePopupComponent, setNamePopupComponent] = useState(false);
     const [namePopupEditText, setNamePopupEditText] = useState("");
+    const [nodeContainer, setNodes] = useState([]);
+    const [edgeContainer, setEdges] = useState([]);
+
+    const editValidationSchema = Yup.object().shape({
+        nodeToEdit: Yup.number()
+            .required('You must enter the ID of a node to edit.')
+            .typeError('Node ID must be a number'),
+        newLabel: Yup.number()
+            .required('You must enter a label.')
+            .typeError('Node label must be a number')
+    });
+
+    const addValidationSchema = Yup.object().shape({
+        nodeToAdd: Yup.number()
+            .required('Node must have a label.')
+            .typeError('Node label must be a number'),
+        edgeToAdd: Yup.number()
+            .required('Node must have parent.')
+            .typeError('Node parent must have a label that is a number'),
+    });
 
     const createLabel = (identity, label) => {
+        //await setNamePopupComponent(true);
         return "id: " + identity + "\nlabel: " + label;;
     }
+
+    const createNode = (e) => {
+        identity += 1;
+        var newLabel = createLabel(identity, e.nodeToAdd);
+        const newNode = {
+          id: identity,
+          label: newLabel,
+        };
+        return newNode;
+    }
+
+    /*const addNode = (e) => {
+        var foundObject;
+        var newEdge;
+        var newNode;
+        foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
+
+        //only creates node if the parent ID exists or if the graph is empty
+        if(foundObject != null){
+            newNode = createNode(e);
+            newEdge = {
+                from: foundObject.id,
+                to: newNode.id,
+            };
+        }
+        else{
+            if(nodeContainer.length === 0){
+                newNode = createNode(e);
+                newEdge = {
+                    from: newNode.id,
+                    to: newNode.id,
+                };
+            }
+            else{
+                alert("Node not in the tree.");
+                return;
+            }
+            
+        }
+        setNodes([...nodeContainer, newNode]);
+        setEdges([...edgeContainer, newEdge]);
+        console.log(nodeContainer);
+    };*/
 
     const graph = {
         nodes: nodeArray,
@@ -77,6 +148,12 @@ function GraphView({questionNumber}){
     }
     
     var option = {
+        /*configure: {
+            enabled: true,
+            filter: 'nodes,edges',
+            container: undefined,
+            showButton: true
+        },*/
         edges: {
             color:"black",
             arrows:{
@@ -95,6 +172,24 @@ function GraphView({questionNumber}){
             dragNodes:true,
         },
 
+        /*layout: {
+            randomSeed: undefined,
+            improvedLayout:true,
+            clusterThreshold: 150,
+            hierarchical: {
+              enabled:true,
+              levelSeparation: 100,
+              nodeSpacing: 100,
+              treeSpacing: 200,
+              blockShifting: true,
+              edgeMinimization: true,
+              parentCentralization: true,
+              direction: 'LR',        // UD, DU, LR, RL
+              sortMethod: 'hubsize',  // hubsize, directed
+              shakeTowards: 'roots'  // roots, leaves
+            }
+        },*/
+
         manipulation: {
             addNode: function(nodeData,callback) {
                 identity++;
@@ -106,6 +201,7 @@ function GraphView({questionNumber}){
                 nodeData.label = createLabel(identity, namePopupEditText);
                 nodeArray.push(nodeData)
                 callback(nodeData);
+                // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
                 if (edgeData.from === edgeData.to) {
@@ -122,11 +218,9 @@ function GraphView({questionNumber}){
             },
             editNode: function(nodeData,callback) {
                 var currID = nodeData.id
-                var newLabel = createLabel(currID, namePopupEditText);
-                nodeData.label = newLabel;
-                var foundNode = nodeArray.findIndex((item) => item.id == currID);
-                nodeArray[foundNode].label = newLabel;
+                nodeData.label = createLabel(currID, namePopupEditText);
                 callback(nodeData);
+                //console.log(namePopupEditText);
             },
             editEdge: true,
             deleteNode: function(nodeData, callback){
@@ -144,8 +238,13 @@ function GraphView({questionNumber}){
                     }
                     if(!fromExists){
                         callback(nodeData);
+                        //nodeArray = nodeArray.filter(obj => obj.id !== foundNode.id);
                         nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]);
                         edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
+                        /*if(foundEdge != -1){
+                            edgeArray = edgeArray.filter(obj => obj.id !== nodeData.edges[0]);
+                        }*/
+                        
                     }
                     else{
                         alert("Cannot delete node if it is a parent.")
@@ -155,6 +254,10 @@ function GraphView({questionNumber}){
                 else{
                     callback(nodeData);
                     nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]); 
+                    /*while(foundEdge !== -1){
+                        edgeArray = edgeArray.filter(obj => obj.from !== nodeData.nodes[0]);
+                        foundEdge = edgeArray.findIndex((item) => item.from == nodeData.nodes[0]);
+                    }*/
                 }
             },
             deleteEdge: true
@@ -163,10 +266,13 @@ function GraphView({questionNumber}){
         physics: {
             enabled: false
         }
+        /**/
     }
 
     const handleAdd = (e, setFn) => {
         setFn(e.target.value);
+        //addNode(e);
+        //graph.addNode();
     }
 
 
