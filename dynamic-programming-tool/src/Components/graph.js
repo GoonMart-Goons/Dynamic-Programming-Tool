@@ -5,13 +5,9 @@ import VisGraph, {
     Options,
   } from 'react-vis-graph-wrapper';
 import "../Styles/graph.css";
-import { Formik, Field, Form, ErrorMessage, setIn } from 'formik';
-import * as Yup from 'yup';
-import Popup from "./NodePopup";
 import 'reactjs-popup/dist/index.css';
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-//import "../Styles/Popup.css"
 //Used to export the user's answer
 import { Tree, TreeNode } from "../Classes/TreeClass";
 
@@ -61,78 +57,11 @@ function getValueFromLabel(label){
 
 function GraphView(){
 
-    //const vis = document.getElementById("myVisGraph");
-
-    const [namePopupComponent, setNamePopupComponent] = useState(false);
     const [namePopupEditText, setNamePopupEditText] = useState("");
-    const [nodeContainer, setNodes] = useState([]);
-    const [edgeContainer, setEdges] = useState([]);
-
-    const editValidationSchema = Yup.object().shape({
-        nodeToEdit: Yup.number()
-            .required('You must enter the ID of a node to edit.')
-            .typeError('Node ID must be a number'),
-        newLabel: Yup.number()
-            .required('You must enter a label.')
-            .typeError('Node label must be a number')
-    });
-
-    const addValidationSchema = Yup.object().shape({
-        nodeToAdd: Yup.number()
-            .required('Node must have a label.')
-            .typeError('Node label must be a number'),
-        edgeToAdd: Yup.number()
-            .required('Node must have parent.')
-            .typeError('Node parent must have a label that is a number'),
-    });
 
     const createLabel = (identity, label) => {
-        //await setNamePopupComponent(true);
         return "id: " + identity + "\nlabel: " + label;;
     }
-
-    const createNode = (e) => {
-        identity += 1;
-        var newLabel = createLabel(identity, e.nodeToAdd);
-        const newNode = {
-          id: identity,
-          label: newLabel,
-        };
-        return newNode;
-    }
-
-    /*const addNode = (e) => {
-        var foundObject;
-        var newEdge;
-        var newNode;
-        foundObject = nodeContainer.find((item) => item.id == e.edgeToAdd);
-
-        //only creates node if the parent ID exists or if the graph is empty
-        if(foundObject != null){
-            newNode = createNode(e);
-            newEdge = {
-                from: foundObject.id,
-                to: newNode.id,
-            };
-        }
-        else{
-            if(nodeContainer.length === 0){
-                newNode = createNode(e);
-                newEdge = {
-                    from: newNode.id,
-                    to: newNode.id,
-                };
-            }
-            else{
-                alert("Node not in the tree.");
-                return;
-            }
-            
-        }
-        setNodes([...nodeContainer, newNode]);
-        setEdges([...edgeContainer, newEdge]);
-        console.log(nodeContainer);
-    };*/
 
     const graph = {
         nodes: nodeArray,
@@ -170,7 +99,6 @@ function GraphView(){
                 nodeData.label = createLabel(identity, namePopupEditText);
                 nodeArray.push(nodeData)
                 callback(nodeData);
-                // console.log(namePopupEditText);
             },
             addEdge: function(edgeData,callback) {
                 if (edgeData.from === edgeData.to) {
@@ -249,15 +177,6 @@ function GraphView(){
                         />
                 </div>
             </div>
-            <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
-                <h3>My Popup</h3>
-                <div>
-                    <EditText defaultValue="" 
-                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
-                        value={namePopupEditText}
-                    />
-                </div>
-            </Popup>
         </div>
     );
 }
