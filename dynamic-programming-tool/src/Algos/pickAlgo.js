@@ -20,6 +20,7 @@ let question, answer, details, chosenAlgo
 function getQuestion(){
 
     chosenAlgo = random.randomInt(3)
+    chosenAlgo = 2
     
     switch(chosenAlgo){
         case 0:

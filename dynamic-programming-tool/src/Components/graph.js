@@ -218,9 +218,11 @@ function GraphView({questionNumber}){
             },
             editNode: function(nodeData,callback) {
                 var currID = nodeData.id
-                nodeData.label = createLabel(currID, namePopupEditText);
+                var newLabel = createLabel(currID, namePopupEditText);
+                nodeData.label = newLabel;
+                var foundNode = nodeArray.findIndex((item) => item.id == currID);
+                nodeArray[foundNode].label = newLabel;
                 callback(nodeData);
-                //console.log(namePopupEditText);
             },
             editEdge: true,
             deleteNode: function(nodeData, callback){

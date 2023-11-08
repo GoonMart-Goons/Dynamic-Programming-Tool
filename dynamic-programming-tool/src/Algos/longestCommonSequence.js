@@ -120,7 +120,7 @@ function getLCSAnswer(){
     nodes.sort((a, b) => a.id - b.id)
     tree = new Tree(nodes[0].value)
     for(var i = 1; i < nodes.length; i++)
-        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
+        tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].A.toString() + ',' + nodes[i].B.toString() + ',' + nodes[i].value.toString()))
 
     // console.log('Tree:', tree.root.serializeTree())
     // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
