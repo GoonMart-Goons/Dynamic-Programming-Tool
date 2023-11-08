@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/Dynamic-Programming-Tool/static/css/main.6578b80f.css",
+    "main.js": "/Dynamic-Programming-Tool/static/js/main.7a6880cb.js",
+    "static/js/787.b6a0106d.chunk.js": "/Dynamic-Programming-Tool/static/js/787.b6a0106d.chunk.js",
+    "static/media/bg2.gif": "/Dynamic-Programming-Tool/static/media/bg2.fa66324b70e137cc18a4.gif",
+    "static/media/dp.gif": "/Dynamic-Programming-Tool/static/media/dp.15d804dcc6edd58015bd.gif",
+    "static/media/profile.png": "/Dynamic-Programming-Tool/static/media/profile.6e77bc395eeb875a5191.png",
+    "static/media/achievement.png": "/Dynamic-Programming-Tool/static/media/achievement.855fa1c2ed2b0fb5449e.png",
+    "index.html": "/Dynamic-Programming-Tool/index.html",
+    "main.6578b80f.css.map": "/Dynamic-Programming-Tool/static/css/main.6578b80f.css.map",
+    "main.7a6880cb.js.map": "/Dynamic-Programming-Tool/static/js/main.7a6880cb.js.map",
+    "787.b6a0106d.chunk.js.map": "/Dynamic-Programming-Tool/static/js/787.b6a0106d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6578b80f.css",
+    "static/js/main.7a6880cb.js"
+  ]
+}
