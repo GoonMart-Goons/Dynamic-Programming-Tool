@@ -8,8 +8,7 @@ let tree, myID = 0
 let nodes = [], repeatedSub = []
 let targetSum, numbers
 
-function bestSum(targetSum, numbers, parentID = -1, memo = {}){  
-    
+function bestSum(targetSum, numbers, parentID = -1, memo = {}){    
     if (targetSum < 0)
         return null
     
@@ -28,7 +27,6 @@ function bestSum(targetSum, numbers, parentID = -1, memo = {}){
     if (targetSum === 0) 
         return [node.id]
     
-
     let shortestCombination = null
 
     for(let num of numbers){
@@ -91,7 +89,7 @@ function getBestSumAnswer(){
     if (out === null){
         out = -1
     }else{
-        out = out.slice().reverse()
+        out = out.slice().reverse().toString()
     } 
 
     if(repeatedSub.length === 0){
@@ -103,9 +101,9 @@ function getBestSumAnswer(){
     for(var i = 1; i < nodes.length; i++)
         tree.insertByID(nodes[i].pid, new TreeNode(nodes[i].value))
 
-    // console.log('Tree:', tree.root.serializeTree())
-    // console.log('Shortest:', out) //Shortest path and smallest combination
-    // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
+    console.log('Tree:', tree.root.serializeTree())
+    console.log('Shortest:', out) //Shortest path and smallest combination
+    console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 

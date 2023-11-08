@@ -67,7 +67,6 @@ function QuestionsH(){
     };
     
     function GetUserAns(){
-
         if(questionCount === 0){
             // The serialised graph answer
             userAns = getUserAnswer()
@@ -112,7 +111,6 @@ function QuestionsH(){
             setRefreshGraph(refreshGraph + 1)
             clearGraph()
         }
-
     }    
 
     /*const handleAnswerBoxBtn = () => {
