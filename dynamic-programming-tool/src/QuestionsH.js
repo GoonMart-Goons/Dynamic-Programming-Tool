@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
 import dpLogo from './Images/dp2.png'
@@ -45,7 +45,9 @@ function QuestionsH(){
     const [detailNo, setDetailNo] = useState(getDetailNo());
     const [refreshGraph, setRefreshGraph] = useState(0);
     const [questionCount, setQuestionCount] = useState(0);
-    //console.log("Qc: ", questionCount)
+    const [questionAttemptCount, setQuestionAttemptCount] = useState(0);
+    const [gotAssistance, setGotAssistance] = useState(false);
+    console.log("Qc: ", questionCount)
     //console.log("answeR: ", answer)
     console.log("Curr answer: ", answer[questionCount])
     
@@ -88,6 +90,7 @@ function QuestionsH(){
             if (userAnsArr.toString() === answer[questionCount].toString()){
                 setQuestionCount(questionCount + 1)
                 alert('You got the question right!')
+                setQuestionAttemptCount(0)
 
                 //Hide "Add Node" box and show written answer box
                 if(document.getElementById('node-answer-box').style.display !== 'none'){
@@ -97,13 +100,31 @@ function QuestionsH(){
 
                 console.log("Curr answer: ", answer[questionCount + 1])
             } else {
-                alert('Try again.')
+                setQuestionAttemptCount(questionAttemptCount + 1)
+                if(questionAttemptCount === 0){
+                    alert('Answer incorrect. Try again.')
+                }
+                else if(questionAttemptCount === 1){
+                    alert('Answer incorrect. You have one more attempt.')
+                }
+                else{
+                    alert(`Answer incorrect. The correct answer is ${answer[questionCount].toString()}`)
+                    setQuestionAttemptCount(0)
+                    setGotAssistance(true)
+                    setQuestionCount(questionCount + 1)
+
+                    if(document.getElementById('node-answer-box').style.display !== 'none'){
+                        document.getElementById('node-answer-box').style.display = 'none';
+                        document.getElementById('written-answer-box').style.display = 'block';
+                    }
+                }   
             }
         }
         else if(userAns === answer[questionCount].toString()){ // Converts answer to string value
             //increaseCompletionCount(currentUser.uid, difficulty.easy)
             setQuestionCount(questionCount + 1)
             alert('You got the question right!')
+            setQuestionAttemptCount(0)
 
             //Hide "Add Node" box and show written answer box
             if(document.getElementById('node-answer-box').style.display !== 'none'){
@@ -114,12 +135,34 @@ function QuestionsH(){
             console.log("Curr answer: ", answer[questionCount + 1])
         }
         else{
-            alert('Try again.')
-        }
+            setQuestionAttemptCount(questionAttemptCount + 1)
+            if(questionAttemptCount === 0){
+                alert('Answer incorrect. Try again.')
+            }
+            else if(questionAttemptCount === 1){
+                alert('Answer incorrect. You have one more attempt.')
+            }
+            else{
+                alert(`Answer incorrect. The correct answer is ${answer[questionCount].toString()}`)
+                setQuestionAttemptCount(0)
+                setGotAssistance(true)
+                setQuestionCount(questionCount + 1)
 
-        if(questionCount + 1 >= answer.length){ // Sets how mny answers each question has (using setQuestionCount() to update will be async so we dont get the latest value, we account for this offset by adding 1)
-            //question = getQuestion()
-            increaseCompletionCount(currentUser.uid, difficulty.easy)
+                if(document.getElementById('node-answer-box').style.display !== 'none'){
+                    document.getElementById('node-answer-box').style.display = 'none';
+                    document.getElementById('written-answer-box').style.display = 'block';
+                }
+            }   
+        }
+    }    
+
+    // useEffect will run whenever questionCount changes, in particular, checks when its time to display next question 
+    useEffect(() => {
+        if(questionCount >= answer.length){
+            if(!gotAssistance){
+                increaseCompletionCount(currentUser.uid, difficulty.easy)
+                console.log("Updated database")
+            }
             setQuestionCount(0)
             document.getElementById('node-answer-box').style.display = 'block';
             document.getElementById('written-answer-box').style.display = 'none';
@@ -131,38 +174,10 @@ function QuestionsH(){
             
             setRefreshGraph(refreshGraph + 1)
             clearGraph()
+            setQuestionAttemptCount(0)
+            setGotAssistance(false)
         }
-    }    
-
-    /*const handleAnswerBoxBtn = () => {
-        setQuestionCount(questionCount + 1)
-        //console.log("Qc: ", questionCount)
-        //console.log("answer: ", answer)
-        if(document.getElementById('node-answer-box').style.display !== 'none'){
-            
-            document.getElementById('node-answer-box').style.display = 'none';
-            document.getElementById('written-answer-box').style.display = 'block';
-        }
-        else{
-            //alert(`Congradulations! New badge for ${}`)
-            const temp =  sessionStorage.getItem('writtenAnswerValue');
-            alert(`${temp}`)
-        }
-
-        if(questionCount + 1 >= answer.length){ // Sets how mny answers each question has (using setQuestionCount() to update will be async so we dont get the latest value, we account for this offset by adding 1)
-            //question = getQuestion()
-            setQuestionCount(0)
-            document.getElementById('node-answer-box').style.display = 'block';
-            document.getElementById('written-answer-box').style.display = 'none';
-
-            setQuestion(getQuestion())
-            setAnswer(getAnswer())
-            console.log("answeR: ", answer)
-            
-            setRefreshGraph(refreshGraph + 1)
-            clearGraph()
-        }
-    };*/
+      }, [questionCount]);
 
     return(
         <div className="top-down">
