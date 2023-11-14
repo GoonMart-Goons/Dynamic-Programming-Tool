@@ -60,7 +60,7 @@ function GraphView(){
     const [namePopupEditText, setNamePopupEditText] = useState("");
 
     const createLabel = (identity, label) => {
-        return "id: " + identity + "\nlabel: " + label;;
+        return "id: " + identity + "\nlabel: " + label;
     }
 
     const graph = {
@@ -184,4 +184,4 @@ function GraphView(){
 
 export default GraphView;
 
-export {getUserAnswer}
+export {getUserAnswer, getValueFromLabel}
