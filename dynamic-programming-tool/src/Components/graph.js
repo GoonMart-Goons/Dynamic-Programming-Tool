@@ -21,6 +21,8 @@ var identity = -1;
 var nodeArray = [];
 var edgeArray = [];
 
+let tree
+
 function clearGraph(){
     identity = -1;
     nodeArray = [];
@@ -36,6 +38,9 @@ function findNodeByID(nodes, idToFind){
 }
 
 function getUserAnswer() {
+    if(nodeArray.length === 0)
+        return  ''
+    
     let nodes = []
 
     for(let i = 0; i < nodeArray.length; i++){
@@ -53,21 +58,19 @@ function getUserAnswer() {
         nodes[findNodeByID(nodes, toIndex)].pid = nodes[findNodeByID(nodes, fromIndex)].id
     }
 
-    const tree = new Tree(nodes[0].value)
+    tree = new Tree(nodes[0].value)
     tree.root.ID = nodes[0].id
     for(var i = 1; i < nodes.length; i++){
         const newNode = new TreeNode(nodes[i].value)
         newNode.ID = nodes[i].id
-        console.log('newest node pid:', nodes[i].pid)
         tree.insertByID(nodes[i].pid, newNode)
-        console.log('newest node:', newNode)
     }
 
-    console.log('nodes:', nodes)
-    console.log('edge array:', edgeArray)
-    console.log('tree IDs:', tree.root.serializeTreeID())
-
     return tree.root.serializeTree()
+}
+
+function getUserDecomposedAnswer(){
+    return tree.root.decomposeTree()
 }
 
 
@@ -313,4 +316,4 @@ function GraphView({questionNumber}){
 
 export default GraphView;
 
-export {getUserAnswer, clearGraph}
+export {getUserAnswer, getUserDecomposedAnswer, clearGraph}

@@ -8,8 +8,8 @@ import Navbar from "./Navbar";
 import GraphView from "./Components/graph";
 
 //Get question to ask + its answer
-import { getQuestion, getAnswer, GetDetails, getDetailNo} from "./Algos/pickAlgo";
-import { getUserAnswer, clearGraph} from "./Components/graph";
+import { getQuestion, getAnswer, getDecomposedAnswer, GetDetails, getDetailNo} from "./Algos/pickAlgo";
+import { getUserAnswer, getUserDecomposedAnswer, clearGraph} from "./Components/graph";
 import { increaseCompletionCount } from "./Database/Functions";
 import { AuthContext } from "./Database/Auth";
 
@@ -42,6 +42,7 @@ function QuestionsH(){
     
     const [question, setQuestion] = useState(getQuestion());
     const [answer, setAnswer] = useState(getAnswer());
+    const [decomposedAnswer, setDecomposedAnswer] = useState(getDecomposedAnswer())
     const [detailNo, setDetailNo] = useState(getDetailNo());
     const [refreshGraph, setRefreshGraph] = useState(0);
     const [questionCount, setQuestionCount] = useState(0);
@@ -50,6 +51,7 @@ function QuestionsH(){
     console.log("Qc: ", questionCount)
     //console.log("answeR: ", answer)
     console.log("Curr answer: ", answer[questionCount])
+    console.log('Decom:', decomposedAnswer)
     
 
     const {currentUser, userData} = useContext(AuthContext)
@@ -136,11 +138,21 @@ function QuestionsH(){
         }
         else{
             setQuestionAttemptCount(questionAttemptCount + 1)
+            let userDecomposedAns = getUserDecomposedAnswer()
+            console.log('User decom:', userDecomposedAns)
+
+            let nodeToLookAt = -1
+            for(var i = 0; i < Math.min(userDecomposedAns.length, decomposedAnswer.length); i++)
+                if(userDecomposedAns[i].value !== decomposedAnswer[i].value){
+                    nodeToLookAt = userDecomposedAns[i].id
+                    break
+                }
+
             if(questionAttemptCount === 0){
-                alert('Answer incorrect. Try again.')
+                alert('Answer incorrect. Look at node ' + nodeToLookAt + ' and try again.')
             }
             else if(questionAttemptCount === 1){
-                alert('Answer incorrect. You have one more attempt.')
+                alert('Answer incorrect. Look at node ' + nodeToLookAt + '. You have one more attempt.')
             }
             else{
                 alert(`Answer incorrect. The correct answer is ${answer[questionCount].toString()}`)

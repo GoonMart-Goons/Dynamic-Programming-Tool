@@ -140,6 +140,10 @@ function getLCSAnswer(){
     return [tree.root.serializeTree(), repeatedSub]
 }
 
+function getLCSDecomposedAnswer(){
+    return tree.root.decomposeTree()
+}
+
 function GetLCSDetails() {
 
     const customStyle = {
@@ -173,4 +177,4 @@ function GetLCSDetails() {
     );
 }
 
-export { GetLCSQuestion, getLCSAnswer, GetLCSDetails }
+export { GetLCSQuestion, getLCSAnswer, getLCSDecomposedAnswer, GetLCSDetails }

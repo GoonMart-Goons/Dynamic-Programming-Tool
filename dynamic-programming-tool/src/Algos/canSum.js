@@ -94,6 +94,10 @@ function getCanSumAnswer(){
     return [tree.root.serializeTree(), val]
 }
 
+function getCanSumDecomposedAnswer(){
+    return tree.root.decomposeTree()
+}
+
 function GetCanSumDetails() {
 
     const customStyle = {
@@ -131,4 +135,4 @@ function GetCanSumDetails() {
     );
   }
 
-export { GetCanSumQuestion, getCanSumAnswer, GetCanSumDetails }
+export { GetCanSumQuestion, getCanSumAnswer, getCanSumDecomposedAnswer, GetCanSumDetails }

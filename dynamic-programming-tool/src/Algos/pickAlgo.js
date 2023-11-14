@@ -1,13 +1,13 @@
 import { rng } from "../Classes/RNG.js";
 //Implemented algos
-import { GetCanSumQuestion, getCanSumAnswer, GetCanSumDetails } from "./canSum.js";
-import { GetFibQuestion, getFibAnswer, GetFibDetails} from "./fibonacci.js";
-import { GetLCSQuestion, getLCSAnswer, GetLCSDetails } from "./longestCommonSequence.js";
-import { GetBestSumQuestion, getBestSumAnswer, GetBestSumDetails } from "./bestSum.js";
+import { GetCanSumQuestion, getCanSumAnswer, getCanSumDecomposedAnswer, GetCanSumDetails } from "./canSum.js";
+import { GetFibQuestion, getFibAnswer, getFibDecomposedAnswer, GetFibDetails} from "./fibonacci.js";
+import { GetLCSQuestion, getLCSAnswer, getLCSDecomposedAnswer, GetLCSDetails } from "./longestCommonSequence.js";
+import { GetBestSumQuestion, getBestSumAnswer, getBestSumDecomposedAnswer, GetBestSumDetails } from "./bestSum.js";
 
 
 let random = new rng(Date.now())
-let question, answer, details, chosenAlgo
+let question, answer, decomposedAnswer, details, chosenAlgo
 
 /*  I M P L E M E N T E D   A L G O S
     0. Can Sum
@@ -18,24 +18,29 @@ let question, answer, details, chosenAlgo
 
 function getQuestion(){
 
-    chosenAlgo = random.randomInt(3)
+    // chosenAlgo = random.randomInt(3)
+    chosenAlgo = 3
     
     switch(chosenAlgo){
         case 0:
             question = GetCanSumQuestion()
             answer = getCanSumAnswer()
+            decomposedAnswer = getCanSumDecomposedAnswer()                      
             break
         case 1:
             question = GetFibQuestion()
             answer = getFibAnswer()
+            decomposedAnswer = getFibDecomposedAnswer()  
             break
         case 2:
             question = GetLCSQuestion()
             answer = getLCSAnswer()
+            decomposedAnswer = getLCSDecomposedAnswer()  
             break                
         case 3:
             question = GetBestSumQuestion()
             answer = getBestSumAnswer()
+            decomposedAnswer = getBestSumDecomposedAnswer()  
             break                
     }
 
@@ -44,6 +49,10 @@ function getQuestion(){
 
 function getAnswer(){
     return answer
+}
+
+function getDecomposedAnswer(){
+    return decomposedAnswer
 }
 
 function GetDetails({number}){
@@ -69,4 +78,4 @@ function getDetailNo(){
     return chosenAlgo
 }
 
-export { getQuestion, getAnswer, GetDetails, getDetailNo }
+export { getQuestion, getAnswer, getDecomposedAnswer, GetDetails, getDetailNo }

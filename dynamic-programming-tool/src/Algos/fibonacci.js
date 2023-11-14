@@ -80,6 +80,10 @@ function getFibAnswer(){
     return [tree.root.serializeTree(), repeatedSub]
 }
 
+function getFibDecomposedAnswer(){
+  return tree.root.decomposeTree()
+}
+
 function GetFibDetails() {
 
     const customStyle = {
@@ -112,7 +116,7 @@ function GetFibDetails() {
   }
 
 
-export { GetFibQuestion, getFibAnswer, GetFibDetails}
+export { GetFibQuestion, getFibAnswer, getFibDecomposedAnswer, GetFibDetails}
 
 //Ask Question
 // console.log(getQuestion())

@@ -125,6 +125,10 @@ function getBestSumAnswer(){
     return [tree.root.serializeTree(), out, repeatedSub]
 }
 
+function getBestSumDecomposedAnswer(){
+    return tree.root.decomposeTree()
+}
+
 function GetBestSumDetails() {
 
     const customStyle = {
@@ -157,7 +161,7 @@ function GetBestSumDetails() {
     );
   }
 
-export { GetBestSumQuestion, getBestSumAnswer, GetBestSumDetails }
+export { GetBestSumQuestion, getBestSumAnswer, getBestSumDecomposedAnswer, GetBestSumDetails }
 
 // console.log('Shortest:', out) //Shortest path and smallest combination
 // console.log('Repeated:', repeatedSub) //Nodes that were obtained through memoisation

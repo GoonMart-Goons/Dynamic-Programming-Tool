@@ -79,7 +79,7 @@ class TreeNode{
         if (this.children.length > 0){
             serializedStr += '(' + this.children.map(function(childNode) {
                 return childNode.serializeTree()
-            }).join(',') + ')'
+            }).join('.') + ')'
         }
 
         return serializedStr
@@ -92,11 +92,29 @@ class TreeNode{
         let serializedStr = String(this.ID)
         if (this.children.length > 0){
             serializedStr += '(' + this.children.map(function(childNode) {
-                return childNode.serializeTree()
-            }).join(',') + ')'
+                return childNode.serializeTreeID()
+            }).join('.') + ')'
         }
 
         return serializedStr
+    }
+
+    decomposeTree(){
+        let ids = this.serializeTreeID()
+        let values = this.serializeTree()
+
+        ids = ids.replaceAll('(', '.').replaceAll(')', '.')
+        ids = ids.split('.')
+        ids = ids.filter(str => str !== '')
+        values = values.replaceAll('(', '.').replaceAll(')', '.')
+        values = values.split('.')
+        values = values.filter(str => str !== '')
+
+        let decomposedTree = []
+        for(var i = 0; i < ids.length; i++)
+            decomposedTree.push({id: ids[i], value: values[i]})
+
+        return decomposedTree
     }
 }
 
