@@ -18,8 +18,8 @@ let question, answer, decomposedAnswer, details, chosenAlgo
 
 function getQuestion(){
 
-    // chosenAlgo = random.randomInt(3)
-    chosenAlgo = 3
+    chosenAlgo = random.randomInt(3)
+    // chosenAlgo = 3
     
     switch(chosenAlgo){
         case 0:
