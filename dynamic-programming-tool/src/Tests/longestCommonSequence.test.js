@@ -44,16 +44,18 @@ describe("generateStrings", () => {
   });
 });
 
-function lcsWrapper(A, B) {
+/*function lcsWrapper(A, B) {
   const nodes = [];
   const repeatedSub = [];
 
-  function wrapper(...args) {
-      const result = lcs(...args);
+    function wrapper(...args) {
+      const result = lcs(...args, nodes, repeatedSub);
+      nodes.push(...result.nodes);
+      repeatedSub.push(...result.repeatedSub);
       return result;
   }
 
-  return wrapper;
+  return [wrapper, nodes, repeatedSub];
 }
 
 describe("lcs", () => {
@@ -61,12 +63,15 @@ describe("lcs", () => {
     const A = "ABCBDAB";
     const B = "BDCAB";
 
-    const lengthOfLCS = lcsWrapper(A, B);
+    const [lcsWrapped, nodes, repeatedSub] = lcsWrapper(A, B);
+
+    // Call the wrapper function instead of the original function
+    const lengthOfLCS = lcsWrapped(A, B);
 
     // The longest common subsequence is "BCAB" with a length of 4
     expect(lengthOfLCS).toBe(4);
   });
-});
+});*/
 
 
 

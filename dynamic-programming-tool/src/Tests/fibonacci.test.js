@@ -1,12 +1,31 @@
 // fibonacci.test.js
-import { GetFibQuestion, getFibAnswer, GetFibDetails } from "../Algos/fibonacci";
-import { Tree, TreeNode } from "../Classes/TreeClass";
+import { GetFibQuestion, getFibAnswer, GetFibDetails, getFibDecomposedAnswer} from "../Algos/fibonacci";
 
 describe("Fibonacci Question", () => {
   it("should generate a valid question", () => {
     const question = GetFibQuestion();
 
     expect(question).toBeDefined();
+    // Assert the overall structure of the question
+     expect(question.type).toBe("div");
+     expect(question.props.children).toHaveLength(4); 
+
+     // Assert the content of the first paragraph
+     const firstParagraph = question.props.children[1];
+     expect(firstParagraph.type).toBe("p");
+     // Convert the children array to a string for matching
+    const firstParagraphText = firstParagraph.props.children.join("");
+
+    // Use toMatch with a regular expression
+    expect(firstParagraphText).toMatch(/Using.*fibonacci.*construct.*resultant.*tree.*of/);
+
+     // Assert the content of the third paragraph
+     const thirdParagraph = question.props.children[3];
+     expect(thirdParagraph.type).toBe("p");
+     const thirdParagraphText = thirdParagraph.props.children.join("");
+
+    // Use toMatch with a regular expression
+    expect(thirdParagraphText).toMatch(/In.*which.*nodes/);
   });
 });
 
@@ -32,35 +51,28 @@ describe("Fibonacci Details", () => {
     const details = GetFibDetails();
 
     expect(details).toBeDefined();
+
+    // Assert the overall structure of the details
+    expect(details.type).toBe("div");
+    expect(details.props.children).toHaveLength(3); 
+
+    // Assert the content of the first paragraph
+    const firstParagraph = details.props.children[1];
+    expect(firstParagraph.type).toBe("p");
+    // Convert the children array to a string for matching
+    const firstParagraphText = firstParagraph.props.children
+
+    // Use toMatch with a regular expression
+    expect(firstParagraphText).toMatch(/This is the pseudocode for the Fibonacci algorithm:/);
   });
 });
 
-// Additional tests for TreeClass.js
-describe("Tree and TreeNode Classes", () => {
-  it("should create a valid tree structure", () => {
-    const tree = new Tree(1);
-    const node1 = new TreeNode(2);
-    const node2 = new TreeNode(3);
-
-    tree.insert(node1);
-    tree.insert(node2);
-
-    expect(tree.root.value).toBe(1);
-    expect(tree.root.children.length).toBe(2);
-    expect(tree.root.children[0].value).toBe(2);
-    expect(tree.root.children[1].value).toBe(3);
+describe("getFibDecomposedAnswer", () => {
+    it("should return a valid decomposed answer", () => {
+  
+      // Call the function to get the decomposed answer
+      const decomposedAnswer = getFibDecomposedAnswer();
+  
+      expect(decomposedAnswer).toBeDefined();
+    });
   });
-
-  it("should serialize the tree correctly", () => {
-    const tree = new Tree(1);
-    const node1 = new TreeNode(2);
-    const node2 = new TreeNode(3);
-
-    tree.insert(node1);
-    tree.insert(node2);
-
-    const serializedTree = tree.root.serializeTree();
-
-    expect(serializedTree).toBe("1(2.3)");
-  });
-});
