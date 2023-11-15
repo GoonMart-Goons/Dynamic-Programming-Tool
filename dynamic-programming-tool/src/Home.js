@@ -114,7 +114,7 @@ function Home(){
                     <h1>Practice</h1>
                     <button type = "submit" className = "home-button" onClick= {() => navigate('/introduction')}>Introduction</button>
                     <button type = "submit" className = "home-button" onClick= {() => navigate('/questionsh')}>Questions</button>
-                    <button type = "submit" className = "home-button" onClick= {() => navigate('/topdowntest')}>Graphing Tool</button>
+                    {/*<button type = "submit" className = "home-button" onClick= {() => navigate('/topdowntest')}>Graphing Tool</button>*/}
                 </div>
             </div>
         </div>
