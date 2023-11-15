@@ -149,10 +149,19 @@ function QuestionsH(){
                 }
 
             if(questionAttemptCount === 0){
-                alert('Answer incorrect. Look at node ' + nodeToLookAt + ' and try again.')
+                if(questionCount === 0){
+                    alert('Answer incorrect. Look at node ' + nodeToLookAt + ' and try again.')
+                }
+                else{
+                    alert('Answer incorrect. Try again.')
+                }
             }
             else if(questionAttemptCount === 1){
-                alert('Answer incorrect. Look at node ' + nodeToLookAt + '. You have one more attempt.')
+                if(questionCount === 0){
+                    alert('Answer incorrect. Look at node ' + nodeToLookAt + '. You have one more attempt.')
+                }else{
+                    alert('Answer incorrect. You have one more attempt.')
+                }
             }
             else{
                 alert(`Answer incorrect. The correct answer is ${answer[questionCount].toString()}`)
