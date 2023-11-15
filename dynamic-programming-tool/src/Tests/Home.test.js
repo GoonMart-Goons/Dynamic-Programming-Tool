@@ -7,7 +7,7 @@ test("Clicking Introduction button navigates to Introduction route", () => {
   const { getByText } = render(
     <MemoryRouter initialEntries={["/home"]}>
       <Home />
-    </MemoryRouter>
+    </MemoryRouter> 
   );
 
   const introductionButton = getByText("Introduction");

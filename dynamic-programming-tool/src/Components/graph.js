@@ -306,4 +306,4 @@ function GraphView({questionNumber}){
 
 export default GraphView;
 
-export {getUserAnswer, getUserDecomposedAnswer, clearGraph}
+export {getUserAnswer, getUserDecomposedAnswer, clearGraph, getValueFromLabel}
