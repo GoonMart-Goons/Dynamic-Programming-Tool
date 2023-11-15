@@ -11,7 +11,7 @@ describe('TopDownTest Component', () => {
             <MemoryRouter>
                 <TopDownTest />
             </MemoryRouter>
-        );
+        ); 
 
         const navBar = screen.getByTestId('nav-bar');
         expect(navBar).toBeInTheDocument();
