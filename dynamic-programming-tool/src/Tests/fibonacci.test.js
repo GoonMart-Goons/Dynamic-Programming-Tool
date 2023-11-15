@@ -14,8 +14,16 @@ describe("Fibonacci Answer", () => {
   it("should generate a valid answer", () => {
     const answer = getFibAnswer();
 
+    // Ensure that the answer is an array with two elements
+    expect(Array.isArray(answer)).toBe(true);
     expect(answer).toHaveLength(2);
-    expect(answer).toBeDefined();
+    // Validate tree structure format
+    const [treeStructure, repeatingSubstructure] = answer;
+    // Verify that the tree structure follows the expected format
+    expect(typeof treeStructure).toBe("string");
+    // Check that the repeating substructure is either an array or -1
+    expect(Array.isArray(repeatingSubstructure) || repeatingSubstructure === -1).toBe(true);
+  
   });
 });
 

@@ -178,3 +178,4 @@ function GetLCSDetails() {
 }
 
 export { GetLCSQuestion, getLCSAnswer, getLCSDecomposedAnswer, GetLCSDetails }
+export { shuffleString, generateStrings, lcs }
