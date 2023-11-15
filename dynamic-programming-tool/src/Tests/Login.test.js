@@ -9,7 +9,7 @@ import Login from "../Login";
 test("renders Logo", () => {
     const {getByAltText} = render(
       <MemoryRouter>
-        <Login />
+        <Login /> 
       </MemoryRouter>
     );
   

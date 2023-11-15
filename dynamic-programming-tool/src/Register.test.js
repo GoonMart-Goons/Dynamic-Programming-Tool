@@ -103,7 +103,7 @@ describe('Input Validation Errors', () => {
         await waitFor(() => {
             expect(screen.getByText("Password must be at least 8 characters long")).toBeInTheDocument();
         });
-    });
+    }); 
 
     test('shows error for password without an uppercase letter', async () => {
         render(

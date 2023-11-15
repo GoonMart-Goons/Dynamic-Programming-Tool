@@ -4,7 +4,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor} from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { Tree, TreeNode } from "../Classes/TreeClass";
+//import { Tree, TreeNode } from "../Classes/TreeClass";
 
 describe('getUserAnswer', () => {
 
@@ -12,7 +12,7 @@ describe('getUserAnswer', () => {
     // Mock nodeArray and edgeArray
     const nodeArray = [
       {id: 1, value: 'Node 1'}, 
-      {id: 2, value: 'Node 2'},
+      {id: 2, value: 'Node 2'}, 
     ];
     
     const edgeArray = [
