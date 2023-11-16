@@ -41,22 +41,6 @@ class TreeNode{
             
     }
 
-    //Traverses tree using BFS and prints curr node ID
-    preOrderID(){
-        console.log(this.ID)
-
-        for(let childNode of this.children)
-            childNode.preOrderID()
-    }
-    
-    //Traverses tree using BFS and prints curr node value
-    preOrderVal(){
-        console.log(this.value)
-
-        for(let childNode of this.children)
-            childNode.preOrderVal()
-    }
-
     //Looks for a node w/ value = searchVal, if found return T else return F
     containsNodeVal(searchVal){
         if (this.value === searchVal)
@@ -72,8 +56,8 @@ class TreeNode{
 
     //Writes tree as a str, can use to check ans is correct
     serializeTree(){
-        if (!this)
-            return ''
+        // if (!this)
+        //     return ''
 
         let serializedStr = String(this.value)
         if (this.children.length > 0){
@@ -86,8 +70,8 @@ class TreeNode{
     }
 
     serializeTreeID(){
-        if (!this)
-            return ''
+        // if (!this)
+        //     return ''
 
         let serializedStr = String(this.ID)
         if (this.children.length > 0){
