@@ -7,7 +7,6 @@ import VisGraph, {
 import "../Styles/graph.css";
 import { Formik, Field, Form, ErrorMessage, setIn } from 'formik';
 import * as Yup from 'yup';
-import Popup from "./NodePopup";
 import 'reactjs-popup/dist/index.css';
 import { EditText, EditTextarea } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
@@ -300,15 +299,6 @@ function GraphView({questionNumber}){
                 </div>
             </div>
             <WrittenAnswer questionNumber={questionNumber}/>
-            <Popup trigger={namePopupComponent} setTrigger={setNamePopupComponent}>
-                <h3>My Popup</h3>
-                <div>
-                    <EditText defaultValue="" 
-                        onChange={(props) => handleAdd(props, setNamePopupEditText)}
-                        value={namePopupEditText}
-                    />
-                </div>
-            </Popup>
         </div>
     );
 }
@@ -316,4 +306,4 @@ function GraphView({questionNumber}){
 
 export default GraphView;
 
-export {getUserAnswer, getUserDecomposedAnswer, clearGraph}
+export {getUserAnswer, getUserDecomposedAnswer, clearGraph, getValueFromLabel}
