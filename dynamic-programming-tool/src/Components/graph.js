@@ -121,6 +121,7 @@ function GraphView({questionNumber}){
 
             //addNode, addEdge, editNode and deleteNode are custom written functions
             addNode: function(nodeData,callback) {
+                if(nodeArray.length===0 || nodeArray.length - 1 === edgeArray.length){
                 identity++;
 
                 //sets node colour to green for the root
@@ -134,17 +135,23 @@ function GraphView({questionNumber}){
 
                 //adds nodes to the display
                 callback(nodeData);
+                }
+                else{
+                    alert("Every node needs to be connected to another node before you can continue.");
+                }
+
             },
 
             addEdge: function(edgeData,callback) {
 
                 //checks to see if user dragged the edge to node of origin
                 if (edgeData.from === edgeData.to) {
-                  var wantsSelfConnection = window.confirm("Do you want to connect the node to itself?");
+                  /*var wantsSelfConnection = window.confirm("Do you want to connect the node to itself?");
                   if (wantsSelfConnection === true) {
                     edgeArray.push(edgeData)
                     callback(edgeData);
-                  }
+                  }*/
+                  alert("Cannot make an edge loop on a node");
                 }
                 else {
                     edgeArray.push(edgeData)
