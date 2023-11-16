@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect} from "react";
 import { Form, Link } from "react-router-dom";
 import "./Styles/Login.css";
-import dpLogo from './Images/dp2.png'
-import profilePic from './Images/profile.png';
 import "./Styles/TopDown.css";
 import Navbar from "./Navbar";
 import GraphView from "./Components/graph";
+import { useNavigate } from "react-router-dom";
 
 //Get question to ask + its answer
 import { getQuestion, getAnswer, getDecomposedAnswer, GetDetails, getDetailNo} from "./Algos/pickAlgo";
@@ -40,6 +39,7 @@ function QuestionsH(){
     document.head.appendChild(preconnect2);
     document.head.appendChild(link);
     
+    const navigate = useNavigate();
     const [question, setQuestion] = useState(getQuestion());
     const [answer, setAnswer] = useState(getAnswer());
     const [decomposedAnswer, setDecomposedAnswer] = useState(getDecomposedAnswer())
@@ -211,6 +211,7 @@ function QuestionsH(){
 
                 <div id="question-container">
                     <p> {question} </p>
+                    <button type = "submit" className = "next-question-button" onClick= {() => navigate('/questionsh')}>NEXT QUESTION</button>
                 </div>
                 <div id="details-container" style={{display: "none"}}>
                     {/*<p className="question-text" >Pseudocode and Details go in here if applicable.</p>*/}

@@ -194,6 +194,22 @@
     font-family: 'Amaranth', sans-serif;
 }
 
+.next-question-button{
+    width: 35%;
+    height: 40px;
+    margin-bottom: 10px;
+    background-color: #1B1B6B;
+    color: #ffffff;
+    border: 1px solid #23AE9A;
+    border-radius: 25px;
+    margin-top: 0;
+    margin-left: 14px;
+    font-size: 13px;
+    cursor: pointer;
+    align-items: center;
+    font-family: 'Amaranth', sans-serif;
+}
+
 .top-down-button:hover{
     background-color: #3B3B6B;
 }
