@@ -18,7 +18,7 @@ function WrittenAnswer({questionNumber}){
     const handleInputChange = (e) => {
       const newValue = e.target.value;
       setWrittenAnswer(newValue);
-    };
+    }; 
 
     sessionStorage.setItem('writtenAnswerValue', "");
 
