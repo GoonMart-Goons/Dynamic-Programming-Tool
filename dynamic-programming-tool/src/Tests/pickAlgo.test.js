@@ -1,4 +1,4 @@
-import { getQuestion, getAnswer, getDecomposedAnswer, GetDetails, getDetailNo } from "./pickAlgo";
+import { getQuestion, getAnswer, getDecomposedAnswer, GetDetails, getDetailNo } from "../Algos/pickAlgo";
 
 test('Test getQuestion is not null', () => {
     //Run 1000 times so all 4 algos get called at least once
