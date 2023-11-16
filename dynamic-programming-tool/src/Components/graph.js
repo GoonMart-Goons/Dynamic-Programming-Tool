@@ -121,20 +121,23 @@ function GraphView({questionNumber}){
 
             //addNode, addEdge, editNode and deleteNode are custom written functions
             addNode: function(nodeData,callback) {
-                if(nodeArray.length===0 || nodeArray.length - 1 === edgeArray.length){
+                if(namePopupEditText===""){
+                    alert("Please provide the node with a name.");
+                }
+                else if(nodeArray.length===0 || nodeArray.length - 1 === edgeArray.length){
                 identity++;
 
-                //sets node colour to green for the root
-                if(nodeArray.length === 0){
-                    nodeData.color = "#00ff00"
-                    identity = 0
-                }
-                nodeData.id = identity;
-                nodeData.label = createLabel(identity, namePopupEditText);
-                nodeArray.push(nodeData);
+                    //sets node colour to green for the root
+                    if(nodeArray.length === 0){
+                        nodeData.color = "#00ff00"
+                        identity = 0
+                    }
+                    nodeData.id = identity;
+                    nodeData.label = createLabel(identity, namePopupEditText);
+                    nodeArray.push(nodeData);
 
-                //adds nodes to the display
-                callback(nodeData);
+                    //adds nodes to the display
+                    callback(nodeData);
                 }
                 else{
                     alert("Every node needs to be connected to another node before you can continue.");
