@@ -146,11 +146,6 @@ function GraphView({questionNumber}){
 
                 //checks to see if user dragged the edge to node of origin
                 if (edgeData.from === edgeData.to) {
-                  /*var wantsSelfConnection = window.confirm("Do you want to connect the node to itself?");
-                  if (wantsSelfConnection === true) {
-                    edgeArray.push(edgeData)
-                    callback(edgeData);
-                  }*/
                   alert("Cannot make an edge loop on a node");
                 }
                 else {
