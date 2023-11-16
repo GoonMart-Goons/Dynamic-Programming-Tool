@@ -195,7 +195,10 @@ function GraphView({questionNumber}){
                     nodeArray = nodeArray.filter(obj => obj.id !== nodeData.nodes[0]); 
                 }
             },
-            deleteEdge: true
+            deleteEdge: function(edgeData,callback) {
+                edgeArray = edgeArray.filter(obj => obj.id !== edgeData.edges[0]);
+                callback(edgeData)
+            }
         },
 
         //when enabled, nodes will bounce away from each other we=hen moved closer together
