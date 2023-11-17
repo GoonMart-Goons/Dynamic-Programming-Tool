@@ -69,6 +69,11 @@ function QuestionsH(){
         // Show settings
         document.getElementById('question-container').style.display = 'block';
     };
+
+    function handleNextQuestionButton(){
+        setGotAssistance(true)
+        setQuestionCount(4)
+    }
     
     function GetUserAns(){
         if(questionCount === 0){
@@ -150,7 +155,10 @@ function QuestionsH(){
 
             if(questionAttemptCount === 0){
                 if(questionCount === 0){
-                    alert('Answer incorrect. Look at node ' + nodeToLookAt + ' and try again.')
+                    if(nodeToLookAt === -1)
+                        alert('Answer incorrect. You haven\'t completed the tree. Try again.')
+                    else
+                        alert('Answer incorrect. Look at node ' + nodeToLookAt + ' and try again.')
                 }
                 else{
                     alert('Answer incorrect. Try again.')
@@ -158,7 +166,10 @@ function QuestionsH(){
             }
             else if(questionAttemptCount === 1){
                 if(questionCount === 0){
-                    alert('Answer incorrect. Look at node ' + nodeToLookAt + '. You have one more attempt.')
+                    if(nodeToLookAt === -1)
+                        alert('Answer incorrect. You haven\'t completed the tree. You have one more attempt.')
+                    else
+                        alert('Answer incorrect. Look at node ' + nodeToLookAt + '. You have one more attempt.')
                 }else{
                     alert('Answer incorrect. You have one more attempt.')
                 }
@@ -190,6 +201,7 @@ function QuestionsH(){
 
             setQuestion(getQuestion())
             setAnswer(getAnswer())
+            setDecomposedAnswer(getDecomposedAnswer())
             setDetailNo(getDetailNo())
             console.log("answeR: ", answer)
             
@@ -211,7 +223,7 @@ function QuestionsH(){
 
                 <div id="question-container">
                     <p> {question} </p>
-                    <button type = "submit" className = "next-question-button" onClick= {() => navigate('/questionsh')}>NEXT QUESTION</button>
+                    <button type = "submit" className = "next-question-button" onClick= {handleNextQuestionButton}>NEXT QUESTION</button>
                 </div>
                 <div id="details-container" style={{display: "none"}}>
                     {/*<p className="question-text" >Pseudocode and Details go in here if applicable.</p>*/}
@@ -232,3 +244,4 @@ function QuestionsH(){
 }
 
 export default QuestionsH;
+//Hello

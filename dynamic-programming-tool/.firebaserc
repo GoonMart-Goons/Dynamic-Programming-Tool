@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "dynamic-programming-94294"
-  }
+    "default": "goons-909c1",
+    "Goons": "goons-909c1"
+  },
+  "targets": {},
+  "etags": {}
 }
