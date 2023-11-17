@@ -6,7 +6,8 @@ import { GetLCSQuestion, getLCSAnswer, getLCSDecomposedAnswer, GetLCSDetails } f
 import { GetBestSumQuestion, getBestSumAnswer, getBestSumDecomposedAnswer, GetBestSumDetails } from "./bestSum.js";
 
 
-let random = new rng(Date.now())
+// let random = new rng(Date.now())
+let random = new rng(2)
 let question, answer, decomposedAnswer, details, chosenAlgo
 
 /*  I M P L E M E N T E D   A L G O S

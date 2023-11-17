@@ -94,7 +94,7 @@ function Introduction(){
                     The above approach is called the Top-Down approach because we started solving the problem from the top and reached the base case by dividing the problem into smaller subproblems.
                     </p>
 
-                    <h2>Question</h2>
+                    {/* <h2>Question</h2>
                     <p>
                         Illustrate the tree diagram to find Fibonacci number {randomN}.
                     </p>
@@ -103,7 +103,7 @@ function Introduction(){
                     <div className="graphingTool">
                         <GraphView/>
                     </div>
-                    <button type = "submit" className = "question-button">SUBMIT</button>
+                    <button type = "submit" className = "question-button">SUBMIT</button> */}
                 </div>
         </div>
     );

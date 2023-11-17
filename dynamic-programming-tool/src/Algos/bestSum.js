@@ -52,7 +52,7 @@ function GetBestSumQuestion(){
     nodes = []
     repeatedSub = []
 
-    const random = new rng(Date.now())
+    const random = new rng(2)
 
     targetSum = random.randomRangeInt(5, 20)
     const numbersLen = random.randomRangeInt(2, 4)
