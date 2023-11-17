@@ -1,0 +1,6 @@
+To run the code on your local machine, follow these instructions:
+    cd dynamic-programming-tool
+    npm install*
+    npm start
+
+*npm install only needs to be run once. Once you have all the relevant node modules, you can just run npm start
